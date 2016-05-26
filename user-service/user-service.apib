@@ -1,5 +1,244 @@
 TODO
-
+Make issues for all these things
 Download package for api blueprint
 read tutorial
 Develop the api blueprint
+Hit Ryan up after the blueprint to make sure it all makes sense
+
+Start setting up express server for the end points in the api.
+to reference issues in commit message say #1 worked on such and such
+
+
+set up database for end points
+set up postgreSQL look into Node - ORM2
+
+
+# Raise the bar
+
+Raise the bar is an api that allows athletes to connect with other athletes, or even enlist a personal trainer
+in order to achieve their fitness goals.
+
+## Retrieve the root [GET]
++ Response 200 (application/JSON)
+  {
+    rootUrl: /raise-the-bar
+  }
+
+## Athlete [/athletes/{athleteId}]
+## View an Athelete [GET]
++ Response 200 (application/JSON)
+  {
+    name: something,
+    liftingStyle: Body Builder,
+    preferedGyms: [
+     {
+      gymName: 24 hour fitness,
+      location: Oakland,
+      trainer: false,
+      hasTrainer: false,
+      gymId: 1
+     },
+     {
+     gymName: Crunch Fitness,
+     location: San Francisco,
+     trainer: false,
+     hasTrainer: false,
+     profilePic: url
+     gymId: 2
+     }
+    ]
+    preferedLiftingTimes: timezone/ times they want to lift
+    userId: userId
+  }
+## Delete athlete info [DELETE]
+  + Response 200 (application/JSON)
+    {
+      userId: 3
+      message: userID + 'has been successfully been deleted'
+    }
+## Post Athlete [/athletes/createAthlete]
+## Post Athletes info [POST]
++ Response 201 (application/JSON)
+  {
+    name: yourName
+    liftingStyle: yourStyle,
+    preferedGyms: [
+     {
+      gymName: 24 hour fitness,
+      location: Oakland,
+      trainer: false,
+      hasTrainer: false,
+      gymId: 1
+     },
+     {
+     gymName: Crunch Fitness,
+     location: San Francisco,
+     trainer: false,
+     hasTrainer: false,
+     gymId: 2
+     }
+    ]
+    preferedLiftingTimes: timezone/ times they want to lift
+    userId: userId
+  }
+## Post Trainer [/trainers/createTrainer]
+## Post Trainers info [POST]
++ Response 201 (application/JSON)
+  {
+    name: trainerName
+    timeAvailable: [
+      {
+        monday: timeAvailable
+      },
+      {
+        tues: timeAvailable
+      },
+      {
+        wed: timeAvailable
+      },
+      {
+        thur: timeAvailable
+      },
+      {
+        fri: timeAvailable
+      },
+      {
+        sat: timeAvailable
+      },
+      {
+        sun: timeAvailable
+      },
+    ],
+    locations: ['oakland', 'san francisco', 'hayward']
+    price: 65
+    offerNutritionPlan: True,
+    relocateForClient: false,
+    email: email
+    phoneNumber: phoneNumber,
+    takingNewClient: True
+    offerFitnessAssessment: False
+    trainerId: trainerId
+    profilePic: url
+  }
+## retrieve all trainers [/trainers/viewTrainers]
+## Get all trainers [GET]
++ Response 200 (application/JSON)
+  {
+    trainerId: trainerId,
+    locations: ['oakland', 'san francisco', 'hayward'],
+    timeAvailable: [
+      {
+        monday: timeAvailable
+      },
+      {
+        tues: timeAvailable
+      },
+      {
+        wed: timeAvailable
+      },
+      {
+        thur: timeAvailable
+      },
+      {
+        fri: timeAvailable
+      },
+      {
+        sat: timeAvailable
+      },
+      {
+        sun: timeAvailable
+      },
+    ],
+    price: 65
+    offerNutritionPlan: True,
+    relocateForClient: false,
+    email: email
+    phoneNumber: phoneNumber,
+    takingNewClient: True,
+    profilePic: url,
+    offerFitnessAssessment: False
+  }
+
+  ## Post Trainer [/trainers/createTrainer]
+  ## Post Trainers info [POST]
+  + Response 201 (application/JSON)
+    {
+      name: trainerName
+      timeAvailable: [
+        {
+          monday: timeAvailable
+        },
+        {
+          tues: timeAvailable
+        },
+        {
+          wed: timeAvailable
+        },
+        {
+          thur: timeAvailable
+        },
+        {
+          fri: timeAvailable
+        },
+        {
+          sat: timeAvailable
+        },
+        {
+          sun: timeAvailable
+        },
+      ],
+      locations: ['oakland', 'san francisco', 'hayward']
+      price: 65
+      offerNutritionPlan: True,
+      relocateForClient: false,
+      email: email
+      phoneNumber: phoneNumber,
+      takingNewClient: True
+      offerFitnessAssessment: False
+      trainerId: trainerId
+      profilePic: url
+    }
+## find specific trainer [/trainers/{trainerId}]
+## Get single trainer [GET]
++ Response 200 (application/JSON)
+  {
+    trainerId: trainerId,
+    locations: ['oakland', 'san francisco', 'hayward'],
+    timeAvailable: [
+      {
+        monday: timeAvailable
+      },
+      {
+        tues: timeAvailable
+      },
+      {
+        wed: timeAvailable
+      },
+      {
+        thur: timeAvailable
+      },
+      {
+        fri: timeAvailable
+      },
+      {
+        sat: timeAvailable
+      },
+      {
+        sun: timeAvailable
+      },
+    ],
+    price: 65
+    offerNutritionPlan: True,
+    relocateForClient: false,
+    email: email
+    phoneNumber: phoneNumber,
+    takingNewClient: True,
+    profilePic: url,
+    offerFitnessAssessment: False
+  }
+## Delete trainer info [DELETE]
++ Response 200 (application/JSON)
+  {
+    trainerId: trainerId,
+    message: trainerId + 'has been successfully deleted'
+  }
