@@ -4,6 +4,7 @@
   "description": "app that pairs athletes with other athletes, or with trainers",
   "main": "index.js",
   "dependencies": {
+    "orm": "^3.1.0",
     "react": "^15.1.0"
   },
   "devDependencies": {
