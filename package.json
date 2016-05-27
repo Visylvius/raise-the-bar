@@ -1,0 +1,30 @@
+{
+  "name": "raise-the-bar",
+  "version": "1.0.0",
+  "description": "app that pairs athletes with other athletes, or with trainers",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^15.1.0"
+  },
+  "devDependencies": {
+    "aglio": "^2.2.1",
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "path": "^0.12.7",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/visylvius/raise-the-bar.git"
+  },
+  "author": "Loren Barrick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/visylvius/raise-the-bar/issues"
+  },
+  "homepage": "https://github.com/visylvius/raise-the-bar#readme"
+}

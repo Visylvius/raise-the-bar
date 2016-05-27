@@ -1,16 +1,11 @@
 TODO
-Make issues for all these things
-Download package for api blueprint
-read tutorial
-Develop the api blueprint
-Hit Ryan up after the blueprint to make sure it all makes sense
+refactor into mson,
+create proxy server,
+refactor sql to ORM 2 
+make html page to take data for athletes, and trainers,
+use form html5 action post,
+setup auth0 for trainers creation, athletes creation,
 
-Start setting up express server for the end points in the api.
-to reference issues in commit message say #1 worked on such and such
-
-
-set up database for end points
-set up postgreSQL look into Node - ORM2
 
 
 # Raise the bar
@@ -19,14 +14,30 @@ Raise the bar is an api that allows athletes to connect with other athletes, or 
 in order to achieve their fitness goals.
 
 ## Retrieve the root [GET]
-+ Response 200 (application/JSON)
++ Response 200 (application/json)
   {
     rootUrl: /raise-the-bar
   }
 
-## Athlete [/athletes/{athleteId}]
+## Athlete [/athlete/{athleteId}]
 ## View an Athelete [GET]
-+ Response 200 (application/JSON)
++ Response 200 (application/json)
+  {
+    name: something,
+    liftingStyle: Body Builder,
+    preferedLocations: ['Oakland', 'San Francisco', 'Hayward'],
+    preferedLiftingTimes: timezone/ times they want to lift,
+    userId: userId
+  }
+## Delete athlete info [DELETE]
++ Response 200 (application/json)
+  {
+    userId: 3
+    message: userID + 'has been successfully been deleted'
+  }
+## Athlete [/friends/{athleteId}]
+## View an Athelete [GET]
++ Response 200 (application/json)
   {
     name: something,
     liftingStyle: Body Builder,
@@ -50,79 +61,84 @@ in order to achieve their fitness goals.
     preferedLiftingTimes: timezone/ times they want to lift
     userId: userId
   }
-## Delete athlete info [DELETE]
-  + Response 200 (application/JSON)
-    {
-      userId: 3
-      message: userID + 'has been successfully been deleted'
-    }
-## Post Athlete [/athletes/createAthlete]
+## Create Profile Athlete [/athlete/]
 ## Post Athletes info [POST]
-+ Response 201 (application/JSON)
-  {
-    name: yourName
-    liftingStyle: yourStyle,
-    preferedGyms: [
-     {
-      gymName: 24 hour fitness,
-      location: Oakland,
-      trainer: false,
-      hasTrainer: false,
-      gymId: 1
-     },
-     {
-     gymName: Crunch Fitness,
-     location: San Francisco,
-     trainer: false,
-     hasTrainer: false,
-     gymId: 2
-     }
-    ]
-    preferedLiftingTimes: timezone/ times they want to lift
-    userId: userId
-  }
-## Post Trainer [/trainers/createTrainer]
++ Request 200 (application/json)
+
+    - name: yourName
+    - displayName: displayName
+    - liftingStyle: cross fit,
+    - location: oakland,
+    - email: emailaccount@random.com,
+
++ Response 201 (application/json)
+
+    - userId: userId
+
+## Post Trainer [/trainer/]
 ## Post Trainers info [POST]
-+ Response 201 (application/JSON)
++ Request (application/json)
   {
     name: trainerName
-    timeAvailable: [
-      {
-        monday: timeAvailable
-      },
-      {
-        tues: timeAvailable
-      },
-      {
-        wed: timeAvailable
-      },
-      {
-        thur: timeAvailable
-      },
-      {
-        fri: timeAvailable
-      },
-      {
-        sat: timeAvailable
-      },
-      {
-        sun: timeAvailable
-      },
-    ],
     locations: ['oakland', 'san francisco', 'hayward']
     price: 65
     offerNutritionPlan: True,
     relocateForClient: false,
     email: email
     phoneNumber: phoneNumber,
-    takingNewClient: True
-    offerFitnessAssessment: False
-    trainerId: trainerId
+    takingNewClient: True,
+    offerFitnessAssessment: False,
+    trainerId: trainerId,
+    timezone: timezone,
     profilePic: url
   }
-## retrieve all trainers [/trainers/viewTrainers]
++ Response 201 (application/json)
+  {
+    trainerId: trainerId
+  }
+## update trainer
+## put trainers info [PUT]
++ request (application/json)
+ {
+   trainerId: trainerId,
+   locations: ['oakland', 'san francisco', 'hayward'],
+   timezone: timezone
+   timeAvailable: [
+     {
+       monday: miliseconds from midnight
+     },
+     {
+       tues: miliseconds from midnight
+     },
+     {
+       wed: miliseconds from midnight
+     },
+     {
+       thur: miliseconds from midnight
+     },
+     {
+       fri: miliseconds from midnight
+     },
+     {
+       sat: miliseconds from midnight
+     },
+     {
+       sun: miliseconds from midnight
+     },
+   ],
+   price: 65
+   offerNutritionPlan: True,
+   willingToTravel: false,
+   email: email
+   phoneNumber: phoneNumber,
+   takingNewClient: True,
+   profilePic: url,
+   offerFitnessAssessment: False
+ }
+
+## retrieve all trainers [/trainer/viewTrainers]
 ## Get all trainers [GET]
-+ Response 200 (application/JSON)
++ Response 200 (application/json)
   {
     trainerId: trainerId,
     locations: ['oakland', 'san francisco', 'hayward'],
@@ -151,7 +167,7 @@ in order to achieve their fitness goals.
     ],
     price: 65
     offerNutritionPlan: True,
-    relocateForClient: false,
+    willingToTravel: false,
     email: email
     phoneNumber: phoneNumber,
     takingNewClient: True,
@@ -161,7 +177,7 @@ in order to achieve their fitness goals.
 
   ## Post Trainer [/trainers/createTrainer]
   ## Post Trainers info [POST]
-  + Response 201 (application/JSON)
+  + Response 201 (application/json)
     {
       name: trainerName
       timeAvailable: [
@@ -200,7 +216,7 @@ in order to achieve their fitness goals.
     }
 ## find specific trainer [/trainers/{trainerId}]
 ## Get single trainer [GET]
-+ Response 200 (application/JSON)
++ Response 200 (application/json)
   {
     trainerId: trainerId,
     locations: ['oakland', 'san francisco', 'hayward'],
@@ -237,7 +253,7 @@ in order to achieve their fitness goals.
     offerFitnessAssessment: False
   }
 ## Delete trainer info [DELETE]
-+ Response 200 (application/JSON)
++ Response 200 (application/json)
   {
     trainerId: trainerId,
     message: trainerId + 'has been successfully deleted'
