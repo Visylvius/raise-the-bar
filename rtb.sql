@@ -1,4 +1,4 @@
-// refactor into ORM 2
+
 
 CREATE TABLE IF NOT EXISTS trainers (
   displayName TEXT UNIQUE,
