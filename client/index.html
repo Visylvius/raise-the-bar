@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form class="Athlete" action="/athlete" method="post">
+      Display name: <input type='text' name='firstName'/>
+      Name: <input type='text', name='userName' />
+      liftingStyle: <input type='text' name='liftingStyle'/>
+      location: <input type='text' name='location' />
+      trainer: <select>
+                <option value='false'>false</option>
+                <option value='true'>true</option>
+               </select>
+      password: <input type='text' name='password'/>
+      hasTrainer: <select>
+                   <option value='false'>false</option>
+                   <option value='true'>true</option>
+                  </select>
+      preferedGyms: <input type='text' name='preferedGyms'/>,
+      preferedLiftingTimes: <input type='text' name='preferedLiftingTimes'/>,
+      <input type='submit' value='sendUser'/>
+    </form>
+  </body>
+</html>

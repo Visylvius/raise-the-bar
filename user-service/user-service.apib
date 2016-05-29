@@ -1,7 +1,7 @@
 TODO
 refactor into mson,
 create proxy server,
-refactor sql to ORM 2 
+refactor sql to ORM 2
 make html page to take data for athletes, and trainers,
 use form html5 action post,
 setup auth0 for trainers creation, athletes creation,
@@ -38,28 +38,23 @@ in order to achieve their fitness goals.
 ## Athlete [/friends/{athleteId}]
 ## View an Athelete [GET]
 + Response 200 (application/json)
-  {
-    name: something,
-    liftingStyle: Body Builder,
-    preferedGyms: [
-     {
-      gymName: 24 hour fitness,
-      location: Oakland,
-      trainer: false,
-      hasTrainer: false,
-      gymId: 1
-     },
-     {
-     gymName: Crunch Fitness,
-     location: San Francisco,
-     trainer: false,
-     hasTrainer: false,
-     profilePic: url
-     gymId: 2
-     }
-    ]
-    preferedLiftingTimes: timezone/ times they want to lift
-    userId: userId
+
+    - name: something,
+    - liftingStyle: Body Builder,
+    - preferedGyms: [
+    - gymName: 24 hour fitness,
+    - location: Oakland,
+    - trainer: false,
+    - hasTrainer: false,
+    - gymId: 1
+    - gymName: Crunch Fitness,
+    - location: San Francisco,
+    - trainer: false,
+    - hasTrainer: false,
+    - profilePic: url
+    - gymId: 2
+    - preferedLiftingTimes: timezone/ times they want to lift
+    - userId: userId
   }
 ## Create Profile Athlete [/athlete/]
 ## Post Athletes info [POST]
@@ -78,32 +73,32 @@ in order to achieve their fitness goals.
 ## Post Trainer [/trainer/]
 ## Post Trainers info [POST]
 + Request (application/json)
-  {
-    name: trainerName
-    locations: ['oakland', 'san francisco', 'hayward']
-    price: 65
-    offerNutritionPlan: True,
-    relocateForClient: false,
-    email: email
-    phoneNumber: phoneNumber,
-    takingNewClient: True,
-    offerFitnessAssessment: False,
-    trainerId: trainerId,
-    timezone: timezone,
-    profilePic: url
-  }
+
+  -  name: trainerName
+  -  locations: ['oakland', 'san francisco', 'hayward']
+  -  price: 65
+  -  offerNutritionPlan: True,
+  -  relocateForClient: false,
+  -  email: email
+  -  phoneNumber: phoneNumber,
+  -  takingNewClient: True,
+  -  offerFitnessAssessment: False,
+  -  trainerId: trainerId,
+  -  timezone: timezone,
+  -  profilePic: url
+
 + Response 201 (application/json)
-  {
-    trainerId: trainerId
-  }
+
+  - trainerId: trainerId
+
 ## update trainer
 ## put trainers info [PUT]
 + request (application/json)
- {
-   trainerId: trainerId,
-   locations: ['oakland', 'san francisco', 'hayward'],
-   timezone: timezone
-   timeAvailable: [
+
+  - trainerId: trainerId,
+  - locations: ['oakland', 'san francisco', 'hayward'],
+  - timezone: timezone
+  - timeAvailable: [
      {
        monday: miliseconds from midnight
      },
@@ -126,23 +121,23 @@ in order to achieve their fitness goals.
        sun: miliseconds from midnight
      },
    ],
-   price: 65
-   offerNutritionPlan: True,
-   willingToTravel: false,
-   email: email
-   phoneNumber: phoneNumber,
-   takingNewClient: True,
-   profilePic: url,
-   offerFitnessAssessment: False
+  - price: 65
+  - offerNutritionPlan: True,
+  - willingToTravel: false,
+  - email: email
+  - phoneNumber: phoneNumber,
+  - takingNewClient: True,
+  - profilePic: url,
+  - offerFitnessAssessment: False
  }
 
 ## retrieve all trainers [/trainer/viewTrainers]
 ## Get all trainers [GET]
 + Response 200 (application/json)
-  {
-    trainerId: trainerId,
-    locations: ['oakland', 'san francisco', 'hayward'],
-    timeAvailable: [
+
+  -  trainerId: trainerId,
+  -  locations: ['oakland', 'san francisco', 'hayward'],
+  -  timeAvailable: [
       {
         monday: timeAvailable
       },
@@ -165,22 +160,22 @@ in order to achieve their fitness goals.
         sun: timeAvailable
       },
     ],
-    price: 65
-    offerNutritionPlan: True,
-    willingToTravel: false,
-    email: email
-    phoneNumber: phoneNumber,
-    takingNewClient: True,
-    profilePic: url,
-    offerFitnessAssessment: False
-  }
+  -  price: 65
+  -  offerNutritionPlan: True,
+  -  willingToTravel: false,
+  -  email: email
+  -  phoneNumber: phoneNumber,
+  -  takingNewClient: True,
+  -  profilePic: url,
+  -  offerFitnessAssessment: False
+
 
   ## Post Trainer [/trainers/createTrainer]
   ## Post Trainers info [POST]
   + Response 201 (application/json)
-    {
-      name: trainerName
-      timeAvailable: [
+
+    -  name: trainerName
+    -  timeAvailable: [
         {
           monday: timeAvailable
         },
@@ -203,24 +198,24 @@ in order to achieve their fitness goals.
           sun: timeAvailable
         },
       ],
-      locations: ['oakland', 'san francisco', 'hayward']
-      price: 65
-      offerNutritionPlan: True,
-      relocateForClient: false,
-      email: email
-      phoneNumber: phoneNumber,
-      takingNewClient: True
-      offerFitnessAssessment: False
-      trainerId: trainerId
-      profilePic: url
+    -  locations: ['oakland', 'san francisco', 'hayward']
+    -  price: 65
+    -  offerNutritionPlan: True,
+    -  relocateForClient: false,
+    -  email: email
+    -  phoneNumber: phoneNumber,
+    -  takingNewClient: True
+    -  offerFitnessAssessment: False
+    -  trainerId: trainerId
+    -  profilePic: url
     }
 ## find specific trainer [/trainers/{trainerId}]
 ## Get single trainer [GET]
 + Response 200 (application/json)
-  {
-    trainerId: trainerId,
-    locations: ['oakland', 'san francisco', 'hayward'],
-    timeAvailable: [
+
+  -  trainerId: trainerId,
+  -  locations: ['oakland', 'san francisco', 'hayward'],
+  -  timeAvailable: [
       {
         monday: timeAvailable
       },
@@ -243,18 +238,17 @@ in order to achieve their fitness goals.
         sun: timeAvailable
       },
     ],
-    price: 65
-    offerNutritionPlan: True,
-    relocateForClient: false,
-    email: email
-    phoneNumber: phoneNumber,
-    takingNewClient: True,
-    profilePic: url,
-    offerFitnessAssessment: False
+  -  price: 65
+  -  offerNutritionPlan: True,
+  -  relocateForClient: false,
+  -  email: email
+  -  phoneNumber: phoneNumber,
+  -  takingNewClient: True,
+  -  profilePic: url,
+  -  offerFitnessAssessment: False
   }
 ## Delete trainer info [DELETE]
 + Response 200 (application/json)
-  {
-    trainerId: trainerId,
-    message: trainerId + 'has been successfully deleted'
-  }
+
+  -  trainerId: trainerId,
+  -  message: trainerId + 'has been successfully deleted'

@@ -1,15 +1,14 @@
 var orm = require('orm');
 var Athlete = module.exports = {
   properties: {
-    displayName: Text,
-    name: Text,
-    liftingStyle: Text,
-    location: Text,
+    displayName: String,
+    name: String,
+    liftingStyle: String,
+    location: String,
     trainer: Boolean,
-    password: Text,
+    password: String,
     hasTrainer: Boolean,
-    preferedGyms: Text,
-    preferedLiftingTimes: Date,
-    id: Serial
+    preferedGyms: String,
+    id: {type: 'serial', key: true}
   }
 };

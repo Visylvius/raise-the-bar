@@ -2,12 +2,12 @@ var orm = require('orm');
 
 module.exports = {
   properties: {
-    name: Text,
-    location: Text,
-    id: Serial,
+    name: String,
+    location: String,
+    id: {type: 'serial', key: true},
     phoneNumber: Number,
-    url: Text,
-    dailyHours: Text,
+    url: String,
+    dailyHours: String,
     parkingLot: Boolean
   }
 };

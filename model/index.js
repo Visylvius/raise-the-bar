@@ -1,5 +1,5 @@
 var athleteSchema = require('./athlete');
-var trainerSchemea = require('./trainer');
+var trainerSchema = require('./trainer');
 var gymSchema = require('./gym');
 var config = {
   define: function(db, models, next) {

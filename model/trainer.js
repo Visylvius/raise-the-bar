@@ -1,18 +1,17 @@
 var orm = require('orm');
 module.exports = {
   properties: {
-    displayName: Text,
-    name: Text,
-    password: Text,
-    timeAvailable: Date,
-    location: Text,
-    email: Text,
+    displayName: String,
+    name: String,
+    password: String,
+    location: String,
+    email: String,
     driveForClient: Boolean,
     offerFitnessAssessment: Boolean,
     offerNutritionPlan: Boolean,
     price: Number,
     takingNewClients: Boolean,
     phoneNumber: Number,
-    id: Serial
+    id: {type: 'serial', key: true}
   }
 };

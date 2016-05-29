@@ -4,6 +4,7 @@ var orm = require('orm');
 var ormConfig = require('../../model');
 module.exports = function(app, express) {
   app.use(bodyParser.json());
-  app.use(express.static(path.join(__dirname + '../../client/dist')));
-  app.use(orm.express('postgres://Loren1@localhost/raise-thebar', ormConfig));
+  app.use(express.static(path.join(__dirname + '../../client')));
+  console.log(path.join(__dirname + '../../client'));
+  app.use(orm.express('postgres://Loren1@localhost/rtb', ormConfig));
 };
