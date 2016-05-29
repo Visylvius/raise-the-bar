@@ -4,9 +4,12 @@
   "description": "app that pairs athletes with other athletes, or with trainers",
   "main": "index.js",
   "dependencies": {
+    "dotenv": "^2.0.0",
     "orm": "^3.1.0",
     "pg": "^4.5.5",
-    "react": "^15.1.0"
+    "react": "^15.1.0",
+    "request": "^2.72.0",
+    "request-promise": "^3.0.0"
   },
   "devDependencies": {
     "aglio": "^2.2.1",

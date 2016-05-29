@@ -1,5 +1,11 @@
 exports.getTrainer = function(req, res) {
-  res.send('hello');
+  req.models.trainer.all(function(err, trainers) {
+    if (err) {
+      throw err;
+    } else {
+      res.json(trainers);
+    }
+  });
 };
 
 exports.postTrainer = function(req, res) {
@@ -37,10 +43,40 @@ exports.getIndividualTrainer = function(req, res) {
 
 exports.deleteTrainer = function(req, res) {
   req.models.trainer.get(req.params.id, function(err, trainer) {
+    trainer.remove(function(err) {
+      if (err) {
+        throw err;
+      } else {
+        res.sendStatus(204);
+      }
+    });
+  });
+};
+
+exports.updateTrainer = function(req, res) {
+  req.models.trainer.get(req.params.id, function(err, trainer) {
     if (err) {
       throw err;
     } else {
-      res.send('trainer ' + req.params.id + ' has been deleted');
+      trainer.displayName = req.body.displayName;
+      trainer.name = req.body.name;
+      trainer.password = req.body.password;
+      trainer.location = req.body.location;
+      trainer.email = req.body.email;
+      trainer.driveForClient = req.body.driveForClient;
+      trainer.offerFitnessAssessment = req.body.offerFitnessAssessment;
+      trainer.offerNutritionPlan = req.body.offerNutritionPlan;
+      trainer.price = req.body.price;
+      trainer.takingNewClients = req.body.takingNewClients;
+      trainer.phoneNumber = req.body.phoneNumber;
+
+      trainer.save(function(err) {
+        if (err) {
+          throw err;
+        } else {
+          res.json(trainer);
+        }
+      });
     }
   });
 };
