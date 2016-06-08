@@ -4,11 +4,37 @@ import { bindActionCreators } from 'redux';
 
 import { fetchGyms } from '../actions/gyms-actions';
 import GymSearchBar from './gym-search-bar';
+import GymList from './gym-list';
 
 class GymSearch extends Component {
+  renderGyms(gymData) {
+    if (gymData === null) {
+      return null;
+    } else {
+      return (
+        <tr key={gymData.name}>
+         <td>{gymData.name}</td>
+         <td>{gymData.address}</td>
+        </tr>
+      );
+    }
+  }
   render() {
     return (
-      <GymSearchBar fetchGyms={this.props.fetchGyms} />
+      <div>
+        <GymSearchBar fetchGyms={this.props.fetchGyms} />
+        <table className='table table-hover'>
+          <thead>
+            <tr>
+              <th>Gym Name</th>
+              <th>Gym Address</th>
+            </tr>
+          </thead>
+          <tbody>
+          {this.props.listOfGyms.map(this.renderGyms)}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
