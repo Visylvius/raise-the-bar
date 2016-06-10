@@ -3,15 +3,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchGyms } from '../actions/gyms-actions';
-import GymSearchBar from './gym-search-bar';
+import GymSearchBar from '../components/gym-search-bar';
+import GymList from '../components/gym-list';
 
 class GymSearch extends Component {
+  renderGyms(gymData) {
+    console.log('gymData in GymSearch', gymData);
+  }
   render() {
+    const { listOfGyms, fetchGyms } = this.props;
     return (
-      <GymSearchBar fetchGyms={this.props.fetchGyms} />
+      <div>
+        <GymSearchBar fetchGyms={fetchGyms} />
+        <GymList listOfGyms={listOfGyms}/>
+      </div>
     );
   }
 }
+
 
 const mapStateToProps = state => {
   const { listOfGyms, error, loading} = state.gyms;
