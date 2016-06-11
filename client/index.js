@@ -6,12 +6,13 @@ import ReduxPromise from 'redux-promise-middleware';
 
 import reducers from './reducers';
 import GymSearch from './containers/GymSearch';
+import routes from './routes';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise())(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <GymSearch />
+    {routes} 
   </Provider>,
   document.getElementById('container')
 );
