@@ -15,7 +15,7 @@ class GymSearch extends Component {
     return (
       <div>
         <GymSearchBar fetchGyms={fetchGyms} />
-        <GymList listOfGyms={listOfGyms}/>
+        <GymList listOfGyms={listOfGyms} />
       </div>
     );
   }

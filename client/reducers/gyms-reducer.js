@@ -13,4 +13,4 @@ export const gymsReducer = (state=initialState, action) => {
     default:
     return state;
   }
-}
+};
