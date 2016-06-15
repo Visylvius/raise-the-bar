@@ -3,8 +3,8 @@ import { reduxForm } from 'redux-form';
 import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
 
-import { createTrainer } from '../actions/trainer-actions';
-import { makeInput, createValidate } from './utils/form-utils';
+import { makeTrainer } from '../../actions/trainer-actions';
+import { makeInput, createValidate } from '../utils/form-utils';
 
 const CreateTrainer = ({fields: {
   displayName,
@@ -17,9 +17,9 @@ const CreateTrainer = ({fields: {
   price,
   takingNewClients,
   phoneNumber
-}, handleSubmit, createTrainer }, { router }) => {
+}, handleSubmit, makeTrainer }, { router }) => {
   const onSubmit = (attributes) => {
-    createTrainer(attributes);
+    makeTrainer(attributes);
   };
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)}>
@@ -55,7 +55,7 @@ const validate = (attributes) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createTrainer}, dispatch);
+  return bindActionCreators({makeTrainer}, dispatch);
 }
 
 export default reduxForm({

@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchAthletes } from '../actions/athlete-actions';
-import DisplayAthletes from '../components/display-athletes';
+import DisplayAthletes from '../components/athlete-components/display-athletes';
 
-const AthleteSearch = () => {
+const AthleteSearch = (props) => {
   return (
-    <DisplayAthletes athletes={athlete} / >
+    <DisplayAthletes athletes={props.athletes} fetchAthletes={props.fetchAthletes}/>
   );
 };
 
 const mapStateToProps = state => {
-  const { athlete, error, loading} = state.gyms
-  return { athlete, error, loading};
+  const { athletes, error, loading} = state.athletes;
+  return { athletes, error, loading };
 };
 
 const mapDispatchToProps = dispatch => {

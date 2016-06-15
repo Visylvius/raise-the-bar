@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchGyms } from '../actions/gyms-actions';
-import GymSearchBar from '../components/gym-search-bar';
-import GymList from '../components/gym-list';
+import GymSearchBar from '../components/gym-components/gym-search-bar';
+import GymList from '../components/gym-components/gym-list';
 
 class GymSearch extends Component {
   renderGyms(gymData) {

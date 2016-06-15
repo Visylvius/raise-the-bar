@@ -3,8 +3,8 @@ import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 
-import { createAthlete } from '../actions/athlete-actions';
-import { makeInput, createValidate } from './utils/form-utils';
+import { makeAthlete } from '../../actions/athlete-actions';
+import { makeInput, createValidate } from '../utils/form-utils';
 
 const CreateAthlete = ({fields: {
   displayName,
@@ -14,9 +14,9 @@ const CreateAthlete = ({fields: {
   trainer,
   hasTrainer,
   preferedGyms
-}, handleSubmit, createAthlete }, { router }) => {
+}, handleSubmit, makeAthlete }, { router }) => {
   const onSubmit = (attributes) => {
-    createAthlete(attributes);
+    makeAthlete(attributes);
   };
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='athleteForm'>
@@ -38,7 +38,7 @@ const CreateAthlete = ({fields: {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createAthlete}, dispatch);
+  return bindActionCreators({makeAthlete}, dispatch);
 }
 
 export default reduxForm({

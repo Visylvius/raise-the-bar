@@ -3,7 +3,7 @@ import axios from 'axios';
 export const CREATE_ATHLETE = 'CREATE_ATHLETE';
 export const FETCH_ATHLETES = 'FETCH_ATHLETES';
 
-export const createAthlete = (attributes) => {
+export const makeAthlete = (attributes) => {
   const request = axios.post('/api/athlete', attributes)
     .then(response => response.data);
   return {
@@ -14,7 +14,7 @@ export const createAthlete = (attributes) => {
 
 export const fetchAthletes = () => {
   const request = axios.get('/api/athlete')
-    .then(response => response.data);
+    .then((response) => response.data);
   return {
     type: FETCH_ATHLETES,
     payload: request
