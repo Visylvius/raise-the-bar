@@ -12,6 +12,8 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
         })}
       </select>
     );
+  } else if (inputType === 'file') {
+    control = <input className='form-control' type={inputType} {...field} value={null}></input>;
   } else {
     control = <input type={inputType} {...field} {...inputAttributes} className='form-control'></input>;
   }

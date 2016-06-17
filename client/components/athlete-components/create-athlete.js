@@ -13,7 +13,8 @@ const CreateAthlete = ({fields: {
   location,
   trainer,
   hasTrainer,
-  preferedGyms
+  preferedGyms,
+  avatar
 }, handleSubmit, makeAthlete }, { router }) => {
   const onSubmit = (attributes) => {
     makeAthlete(attributes);
@@ -32,6 +33,7 @@ const CreateAthlete = ({fields: {
         {label: 'Yes', value: true},
         {label: 'No', value: false}
       ])}
+      {makeInput(avatar, 'file', 'Please upload your profile picture here.')}
       <button type='submit' className='btn btn-primary'>Submit</button>
     </form>
   );
@@ -43,13 +45,13 @@ const mapDispatchToProps = (dispatch) => {
 
 export default reduxForm({
   form: 'CreateAthlete',
-  fields: ['displayName', 'name', 'liftingStyle', 'location', 'trainer', 'hasTrainer'],
+  fields: ['displayName', 'name', 'liftingStyle', 'location', 'trainer', 'hasTrainer', 'avatar'],
   validate: createValidate({
     displayName: 'Please enter a display name',
     name: 'Please enter a name',
     liftingStyle: 'Please enter your prefered lifting style',
-    location: 'Please enter your location',
-    trainer: 'Validate that you are a trainer',
-    hasTrainer: 'Please validate if you have a trainer'
+    location: 'Please enter your location'//,
+    // trainer: 'Validate that you are a trainer',
+    // hasTrainer: 'Please validate if you have a trainer'
   })
 }, null, mapDispatchToProps)(CreateAthlete);

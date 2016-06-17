@@ -1,3 +1,9 @@
+var fs = require('fs');
+//why can I use an import statement here?
+//i.e import fs from 'fs';
+
+
+
 exports.getAthlete = function(req, res) {
   req.models.athlete.all(function(err, athlete) {
     if (err) {
@@ -24,6 +30,24 @@ exports.postAthlete = function(req, res) {
     if (err) {
       throw err;
     } else {
+      const avatar = req.body.avatar;
+      console.log(avatar);
+      // console.log('current directory', __dirname);
+      // fs.readFile(avatar, (err, avatar) => {
+      //   fs.writeFile('../dist/images/binary_avatar.jpg', avatar, (err) => {});
+      //   var base64Image = avatar.toString('base64');
+      //   var decodedImage = Buffer.from(base64Image, 'base64');
+      //   fs.writeFile('../dist/images/proper_avatar.jpg', decodedImage, (err) => {});
+      //   if (err) {
+      //     res.sendStatus(404);
+      //   } else {
+
+      //   }
+      // });
+      //use fs to read dataUrl into an img file.
+      //save img into dist folder
+      //use athlete id as the img name
+      //don't send the athlete until the img has been properly saved
       res.json(athlete);
     }
   });

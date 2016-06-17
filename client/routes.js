@@ -17,7 +17,7 @@ const fetchBoundAthletes = function() {
 
 export default (
   <Router history={browserHistory}>
-    <Route path='/' component={HomePage}></Route>
+    <Route path='/' component={HomePage} onEnter={() => document.querySelector('body').className = 'homePage'} onLeave={() => document.querySelector('body.homePage').className = ''}></Route>
     <Route path='/createathlete' component={CreateAthlete} />
     <Route path='/createtrainer' component={CreateTrainer} />
     <Route path='/gymsearch' component={GymSearch} />
