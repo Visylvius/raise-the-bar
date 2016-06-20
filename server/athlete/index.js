@@ -1,6 +1,6 @@
 var fs = require('fs');
-//why can I use an import statement here?
-//i.e import fs from 'fs';
+var lwip = require('lwip');
+
 
 
 
@@ -28,27 +28,44 @@ exports.postAthlete = function(req, res) {
     preferedLiftingTimes: req.body.preferedLiftingTimes
   }, function(err, athlete) {
     if (err) {
-      throw err;
+      return res.status(500).json({err});
     } else {
-      const avatar = req.body.avatar;
-      console.log(avatar);
-      // console.log('current directory', __dirname);
-      // fs.readFile(avatar, (err, avatar) => {
-      //   fs.writeFile('../dist/images/binary_avatar.jpg', avatar, (err) => {});
-      //   var base64Image = avatar.toString('base64');
-      //   var decodedImage = Buffer.from(base64Image, 'base64');
-      //   fs.writeFile('../dist/images/proper_avatar.jpg', decodedImage, (err) => {});
-      //   if (err) {
-      //     res.sendStatus(404);
-      //   } else {
-
-      //   }
-      // });
-      //use fs to read dataUrl into an img file.
-      //save img into dist folder
-      //use athlete id as the img name
-      //don't send the athlete until the img has been properly saved
-      res.json(athlete);
+      const avatar = req.body.avatar.split(',');
+      const imgBuffer = Buffer.from(avatar[1], 'base64');
+      const type = avatar[0].match('/jpeg|png|jpg/');
+      if (!type) {
+        res.status(400).json({err: 'please provide a valid image type'});
+      } else {
+        lwip.open(imgBuffer, 'jpg', (err, img) => {
+          if (err) {
+            console.log(err);
+            res.status(400).json({err: 'error processing images'});
+          } else {
+            const processedImg = img.resize(300, (err, img) => {
+              if (err) {
+                console.log(err);
+                res.sendStatus(500).json({err: 'Server Error'});
+              } else {
+                img.toBuffer('jpg', {quality: 90}, (err, buffer) => {
+                  if (err) {
+                    console.log(err);
+                    res.sendStatus(500).json({err: 'Buffer error'});
+                  } else {
+                    fs.writeFile('../dist/images/saved_avatar.jpg', buffer, (err) => {
+                      if (err) {
+                        console.log(err);
+                        return res.status(500).json({err: 'Server Error'});
+                      } else {
+                        return res.json(athlete);
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      }
     }
   });
 };
