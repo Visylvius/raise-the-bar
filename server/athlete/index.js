@@ -1,6 +1,8 @@
-var fs = require('fs');
-var lwip = require('lwip');
-
+var promise = require('bluebird');
+var fs = promise.promisifyAll(require('fs'));
+var lwip = promise.promisifyAll(require('lwip'));
+promise.promisifyAll(require('lwip/lib/Image').prototype);
+promise.promisifyAll(require('lwip/lib/Batch').prototype);
 
 
 
@@ -36,39 +38,70 @@ exports.postAthlete = function(req, res) {
       if (!type) {
         res.status(400).json({err: 'please provide a valid image type'});
       } else {
-        lwip.open(imgBuffer, 'jpg', (err, img) => {
-          if (err) {
-            console.log(err);
-            res.status(400).json({err: 'error processing images'});
-          } else {
-            const processedImg = img.resize(300, (err, img) => {
-              if (err) {
-                console.log(err);
-                res.sendStatus(500).json({err: 'Server Error'});
-              } else {
-                img.toBuffer('jpg', {quality: 90}, (err, buffer) => {
-                  if (err) {
-                    console.log(err);
-                    res.sendStatus(500).json({err: 'Buffer error'});
-                  } else {
-                    fs.writeFile('../dist/images/saved_avatar.jpg', buffer, (err) => {
-                      if (err) {
-                        console.log(err);
-                        return res.status(500).json({err: 'Server Error'});
-                      } else {
-                        return res.json(athlete);
-                      }
-                    });
-                  }
+        lwip.openAsync(imgBuffer, 'jpg')
+        .then((img) => {
+          img.resizeAsync(300)
+          .then((img) => {
+            img.toBufferAsync('jpg', {quality: 90})
+            .then((buffer) => {
+              fs.writeFileAsync('../dist/images/saved_avatar.jpg', buffer)
+                .then((img) => {
+                  res.json(athlete);
+                }).catch((err) => {
+                  console.log(err);
+                  res.sendStatus(400).json({err: 'error writing the image to file'});
                 });
-              }
+            }).catch((err) => {
+              console.log(err);
+              res.sendStatus(400).json({err: 'error saving image'});
             });
-          }
+          }).catch((err) => {
+            console.log(err);
+            res.sendStatus(400).json({err: 'error buffering image'});
+          });
+        }).catch((err) => {
+          console.log(err);
+          res.sendStatus(400).json({err: 'error opening file'});
         });
+        }
       }
-    }
-  });
-};
+      // if (!type) {
+      //   res.status(400).json({err: 'please provide a valid image type'});
+      // } else {
+      //   lwip.open(imgBuffer, 'jpg', (err, img) => {
+      //     if (err) {
+      //       console.log(err);
+      //       res.status(400).json({err: 'error processing images'});
+      //     } else {
+      //       const processedImg = img.resize(300, (err, img) => {
+      //         if (err) {
+      //           console.log(err);
+      //           res.sendStatus(500).json({err: 'Server Error'});
+      //         } else {
+      //           img.toBuffer('jpg', {quality: 90}, (err, buffer) => {
+      //             if (err) {
+      //               console.log(err);
+      //               res.sendStatus(500).json({err: 'Buffer error'});
+      //             } else {
+      //               fs.writeFile('../dist/images/saved_avatar.jpg', buffer, (err) => {
+      //                 if (err) {
+      //                   console.log(err);
+      //                   return res.status(500).json({err: 'Server Error'});
+      //                 } else {
+      //                   return res.json(athlete);
+      //                 }
+      //               });
+      //             }
+      //           });
+      //         }
+      //       });
+      //     }
+      //   });
+      // }
+    });
+  };
+
+//use bluebird.promisify on any any function that takes a callback
 
 exports.getIndividualAthlete = function(req, res) {
   req.models.athlete.get(req.params.id, function(err, athlete) {
