@@ -39,32 +39,18 @@ exports.postAthlete = function(req, res) {
         res.status(400).json({err: 'please provide a valid image type'});
       } else {
         lwip.openAsync(imgBuffer, 'jpg')
-        .then((img) => {
-          img.resizeAsync(300)
-          .then((img) => {
-            img.toBufferAsync('jpg', {quality: 90})
-            .then((buffer) => {
-              fs.writeFileAsync('../dist/images/saved_avatar.jpg', buffer)
-                .then((img) => {
-                  res.json(athlete);
-                }).catch((err) => {
-                  console.log(err);
-                  res.sendStatus(400).json({err: 'error writing the image to file'});
-                });
-            }).catch((err) => {
-              console.log(err);
-              res.sendStatus(400).json({err: 'error saving image'});
-            });
-          }).catch((err) => {
+          .then((img) => img.resizeAsync(300))
+          .then((img) => img.toBufferAsync('jpg', {quality: 90}))
+          .then((buffer) => fs.writeFileAsync(`../dist/avatars/${athlete.id}.jpg`, buffer))
+          .then(() => res.json(athlete))
+          .catch((err) => {
             console.log(err);
-            res.sendStatus(400).json({err: 'error buffering image'});
+            res.sendStatus(500).json({err: 'Image Conversion Error'});
           });
-        }).catch((err) => {
-          console.log(err);
-          res.sendStatus(400).json({err: 'error opening file'});
-        });
         }
       }
+
+      //Callback Hell
       // if (!type) {
       //   res.status(400).json({err: 'please provide a valid image type'});
       // } else {

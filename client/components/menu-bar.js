@@ -1,23 +1,25 @@
 import React from 'react';
 import Radium from 'radium';
 
-const styles = {
-  navbarStyle: {
-    display: 'inline-block',
-    marginTop: '13px',
-    color: '#E1E5EA',
-    marginRight: '20px',
-    fontSize: '16px'
-  }
-};
+const styles = {};
 
 const MenuBar = () => {
   return (
-    <nav className="navbar navbar-inverse navbar-static-top">
-      <div className="container-fluid">
-        <div style={styles.navbarStyle}>Find Athletes</div>
-        <div style={styles.navbarStyle}>Find Trainers</div>
-      </div>
+    <nav class="navbar navbar-dark bg-inverse">
+      <ul class="nav navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Athletes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Trainers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Find Gyms Near You</a>
+        </li>
+      </ul>
     </nav>
   );
 };

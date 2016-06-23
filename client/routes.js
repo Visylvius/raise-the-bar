@@ -8,6 +8,7 @@ import HomePage from './components/home-page';
 import DisplayAthletes from './components/athlete-components/display-athletes';
 import DisplayTrainers from './components/trainer-components/display-trainer';
 import AthleteSearch from './containers/AthleteSearch';
+import MenuBar from './components/menu-bar';
 import { fetchAthletes } from './actions/athlete-actions';
 import store from './reducers';
 
@@ -21,7 +22,9 @@ export default (
     <Route path='/createathlete' component={CreateAthlete} />
     <Route path='/createtrainer' component={CreateTrainer} />
     <Route path='/gymsearch' component={GymSearch} />
-    <Route path='/findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
+    <Route path='/findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch}>
+      <Route component={MenuBar} />
+    </Route>
     <Route path='/findtrainers' component={DisplayTrainers} />
   </Router>
 );
