@@ -4,7 +4,9 @@ import Radium from 'radium';
 const styles = {
   cardContainer: {
     width: '100%',
-    maxWidth: '500px'
+    maxWidth: '300px',
+    display: 'inline-block',
+    marginRight: '50px'
   },
   cardBlock: {
     fontFamily: 'Roboto'
@@ -17,7 +19,7 @@ const styles = {
     padding: '10px'
   },
   btnAction: {
-    margin: '-23px, 20px',
+    margin: '-33px 20px',
     float: 'right',
     backgroundColor: '#4B515D',
     height: '47px',
@@ -42,7 +44,6 @@ const styles = {
     ':hover': {
       backgroundColor: '#a6c'
     }
-
   },
   btnFloatingi: {
     width: 'inherit',
@@ -60,6 +61,9 @@ const styles = {
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale'
   },
+  imgStyles: {
+    backgroundSize: 'cover'
+  },
   supplementalStyles: {
     fontSize: '18px',
     marginTop: '5px'
@@ -68,10 +72,10 @@ const styles = {
 
 const UserCard = (props) => {
   return (
-    <div classNameName='card-container' style={styles.cardContainer}>
+    <div className='card-container' style={styles.cardContainer}>
       <div className='card' style={styles.supplementalStyles}>
-        <img className='card-img-top img-fluid' src={`/avatars/${props.id}.jpg`} />
-        <a className="btn-floating btn-action" style={[styles.btnAction, styles.btnFloating, styles.supplementalStyles]}><i className="fa fa-chevron-right" style={[styles.btnFloatingi, styles.fa, styles.supplementalStyles]}></i></a>
+        <img className='card-img-top img-fluid' src={`/avatars/${props.id}.jpg`} style={styles.imgStyles} />
+        <a className="btn-floating btn-action" style={[styles.btnFloating, styles.supplementalStyles, styles.btnAction]}><i className="fa fa-chevron-right" style={[styles.btnFloatingi, styles.fa, styles.supplementalStyles]}></i></a>
         <div className='card-block' style={styles.cardBlock}>
           <h4 className='card-title top-card'>{props.displayName}</h4>
           <hr />

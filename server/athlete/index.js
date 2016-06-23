@@ -39,7 +39,7 @@ exports.postAthlete = function(req, res) {
         res.status(400).json({err: 'please provide a valid image type'});
       } else {
         lwip.openAsync(imgBuffer, 'jpg')
-          .then((img) => img.resizeAsync(300))
+          .then((img) => img.resizeAsync(300, 250))
           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
           .then((buffer) => fs.writeFileAsync(`../dist/avatars/${athlete.id}.jpg`, buffer))
           .then(() => res.json(athlete))

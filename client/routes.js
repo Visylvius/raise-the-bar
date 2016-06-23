@@ -9,6 +9,7 @@ import DisplayAthletes from './components/athlete-components/display-athletes';
 import DisplayTrainers from './components/trainer-components/display-trainer';
 import AthleteSearch from './containers/AthleteSearch';
 import MenuBar from './components/menu-bar';
+import MainLayout from './components/main-layout';
 import { fetchAthletes } from './actions/athlete-actions';
 import store from './reducers';
 
@@ -18,13 +19,15 @@ const fetchBoundAthletes = function() {
 
 export default (
   <Router history={browserHistory}>
-    <Route path='/' component={HomePage} onEnter={() => document.querySelector('body').className = 'homePage'} onLeave={() => document.querySelector('body.homePage').className = ''}></Route>
+    <Route path='/' component={MainLayout}>
+      <IndexRoute component={HomePage} onEnter={() => document.querySelector('body').className = 'homePage'} onLeave={() => document.querySelector('body.homePage').className = ''} />
+      <Route component={MenuBar}>
+        <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
+      </Route>
+    </Route>
     <Route path='/createathlete' component={CreateAthlete} />
     <Route path='/createtrainer' component={CreateTrainer} />
     <Route path='/gymsearch' component={GymSearch} />
-    <Route path='/findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch}>
-      <Route component={MenuBar} />
-    </Route>
     <Route path='/findtrainers' component={DisplayTrainers} />
   </Router>
 );
