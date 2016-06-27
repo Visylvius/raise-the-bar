@@ -6,22 +6,28 @@ const baseStyles = {
   mainInput: {
     zIndex: 0,
     textAlign: 'center',
-    color: '#FFF'
+    color: '#FFF',
+    paddingTop: '290px',
+    paddingRight: '120px'
   },
   buttons: {
     textAlign: 'center',
     marginLeft: '5px'
+  },
+  boxOpacity: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    height: '100%'
   }
 };
 const HomePage = () => {
   return (
-    <div>
-      <h3 type='text' style={baseStyles.mainInput}>Raise The Bar</h3>
-      <div style={baseStyles.buttons}>
-        <Link to='/findathletes'><button className='btn btn-primary'>Find Athletes</button></Link>
-        <button className='btn btn-primary'>Find Trainers</button>
+      <div style={[baseStyles.boxOpacity, baseStyles.mainInput]}>
+        <h3 type='text'>Raise The Bar</h3>
+          <div style={baseStyles.buttons}>
+            <Link to='/findathletes'><button className='btn btn-primary'>Find Athletes</button></Link>
+            <button className='btn btn-primary'>Find Trainers</button>
+          </div>
       </div>
-    </div>
   );
 };
 

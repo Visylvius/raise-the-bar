@@ -1,28 +1,42 @@
 import axios from 'axios';
 import ReduxThunk from 'redux-thunk';
+import { blur, change } from 'redux-form';
 
 export const CREATE_ATHLETE = 'CREATE_ATHLETE';
 export const FETCH_ATHLETES = 'FETCH_ATHLETES';
+export const AVATARCROP_CHANGE = 'AVATARCROP_CHANGE';
 
 export const makeAthlete = (attributes) => {
-  const fileReader = new FileReader();
-  return (dispatch) => {
-    const file = attributes.avatar[0]
-    fileReader.onload = (output) => {
-      const data = Object.assign({}, attributes, {
-        avatar: output.target.result
-      });
-      const request = axios.post('/api/athlete', data)
-        .then(response => response.data);
-        dispatch({
-          type: CREATE_ATHLETE,
-          payload: request
-        });
-    };
-    fileReader.readAsDataURL(file);
+  return (dispatch, getState) => {
+    const request = axios.post('/api/athlete', Object.assign({}, attributes, {crop: getState().crop}))
+      .then(response => response.data);
+      return {
+        type: CREATE_ATHLETE,
+        payload: request
+      };
   };
 };
 
+
+export const changeAvatar = (form, field, avatar) => {
+  const fileReader = new FileReader();
+  return (dispatch) => {
+    const avatarFile = avatar[0];
+    if (avatarFile) {
+      fileReader.onload = (output) => {
+        dispatch(blur(form, field, output.target.result));
+      };
+      fileReader.readAsDataURL(avatarFile);
+    }
+  };
+};
+
+export const cropImage = (form, field, crop) => {
+  return {
+    type: AVATARCROP_CHANGE,
+    payload: crop
+  };
+};
 //promise version
 
 // const makeAthletePromise = (attributes) => {

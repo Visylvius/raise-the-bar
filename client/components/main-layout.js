@@ -1,11 +1,16 @@
 import React from 'react';
 import Radium from 'Radium';
 
+const baseStyles = {
+  mainDiv: {
+    height: '100%'
+  }
+}
 
 const MainLayout = (props) => {
   return (
-    <div>
-      <main>
+    <div className='main-wrapper' style={baseStyles.mainDiv}>
+      <main style={baseStyles.mainDiv}>
         {props.children}
       </main>
     </div>

@@ -1,4 +1,5 @@
-import { FETCH_ATHLETES } from '../actions/athlete-actions';
+import { FETCH_ATHLETES, AVATARCROP_CHANGE } from '../actions/athlete-actions';
+
 
 const initialState = { athletes: null, error: null, loaded: false}
 

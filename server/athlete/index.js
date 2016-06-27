@@ -35,10 +35,12 @@ exports.postAthlete = function(req, res) {
       const avatar = req.body.avatar.split(',');
       const imgBuffer = Buffer.from(avatar[1], 'base64');
       const type = avatar[0].match('/jpeg|png|jpg/');
+      const { x, y, width, height } = req.body.crop;
       if (!type) {
         res.status(400).json({err: 'please provide a valid image type'});
       } else {
         lwip.openAsync(imgBuffer, 'jpg')
+          .then((img) => img.cropAsync(x, y, x + width, y + height))
           .then((img) => img.resizeAsync(300, 250))
           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
           .then((buffer) => fs.writeFileAsync(`../dist/avatars/${athlete.id}.jpg`, buffer))
