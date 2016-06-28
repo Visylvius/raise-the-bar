@@ -86,21 +86,21 @@ const baseStyles = {
 const AthleteProfile = (props) => {
   return (
   <div className='container-fluid'>
-   <div className='row profile-top' style={baseStyless.profileTop}>
+   <div className='row profile-top' style={baseStyles.profileTop}>
      <div className='col-md-4'>
-       <img style={baseStyless.imageContainer} src='http://placekitten.com/300/200' />
-       <div className='athlete-name' style={baseStyless.athleteName}>Athlete Name</div>
-       <div className='lifting-style' style={baseStyless.liftingStyle}>Location</div>
+       <img style={baseStyles.imageContainer} src='http://placekitten.com/300/200' />
+       <div className='athlete-name' style={baseStyles.athleteName}>Athlete Name</div>
+       <div className='lifting-style' style={baseStyles.liftingStyle}>Location</div>
      </div>
    </div>
    <div className='row'>
-     <div className='col-md-4 profile-navigation' style={baseStyless.profileNavigation}>
-       <hr className='line-break hr-space' style={baseStyless.hrSpace} />
-       <div className='icons' style={baseStyless.icons}><i className='fa fa-user'></i></div>
-       <div className='navigation-links' style={baseStyless.navigationLinks}>Profile</div>
-       <hr className='hr-space' style={baseStyless.hrSpace} />
-       <div className='icons' style={baseStyless.icons}><i className='fa fa-envelope'></i></div>
-       <div className='navigation-links' style={baseStyless.navigationLinks}>Message</div>
+     <div className='col-md-4 profile-navigation' style={baseStyles.profileNavigation}>
+       <hr className='line-break hr-space' style={baseStyles.hrSpace} />
+       <div className='icons' style={baseStyles.icons}><i className='fa fa-user'></i></div>
+       <div className='navigation-links' style={baseStyles.navigationLinks}>Profile</div>
+       <hr className='hr-space' style={baseStyles.hrSpace} />
+       <div className='icons' style={baseStyles.icons}><i className='fa fa-envelope'></i></div>
+       <div className='navigation-links' style={baseStyles.navigationLinks}>Message</div>
        <hr className='hr-space' style={baseStyles.hrSpace}/>
        <div className='icons' style={baseStyles.icons}><i className='fa fa-building'></i></div>
        <div className='navigation-links' style={baseStyles.navigationLinks}>Gyms</div>
@@ -110,21 +110,21 @@ const AthleteProfile = (props) => {
      </div>
      <div className='row'>
        <div className='col-md-4'>
-         <div className='main-bio' id='bio-about' style={baseStyles.bioAbout}>About</div>
+         <div className='main-bio' id='bio-about' style={[baseStyles.bioAbout, baseStyles.mainBio]}>About</div>
           <hr className='main-bio-hr' style={baseStyles.mainBioHr} />
          <div className='bio-text' style={baseStyles.bioText}>
            <div className='bio-data-main' style={baseStyles.bioDataMain}>
 IBREAKLINESHASNKDNKJNSGKJDFNGKJDFNGKJDFNGKJNDFJKGNDFJKGNKJDFNGJKDFNGKJLDFNGKJDFNGKJDFNGKJDFNGKJLDFNGKJDNFGKJNDFGKJNDFKJGNDFKJNGKJDFNGKJDFNGKJNDFJKNGJKDFNGKJNDFJKNBKJDFNGJKDNFKGJNDFJKGNDFJKNGJK
            </div>
          </div>
-         <div className='main-bio'>Experience</div>
+         <div className='main-bio' style={baseStyles.mainBio}>Experience</div>
          <hr className='main-bio-hr' style={baseStyles.mainBioHr} />
          <div className='bio-text' style={baseStyles.bioText}>
            <div className='bio-data-main' style={baseStyles.bioDataMain}>
 IBREAKLINESHASNKDNKJNSGKJDFNGKJDFNGKJDFNGKJNDFJKGNDFJKGNKJDFNGJKDFNGKJLDFNGKJDFNGKJDFNGKJDFNGKJLDFNGKJDNFGKJNDFGKJNDFKJGNDFKJNGKJDFNGKJDFNGKJNDFJKNGJKDFNGKJNDFJKNBKJDFNGJKDNFKGJNDFJKGNDFJKNGJK
            </div>
          </div>
-         <div className='main-bio'>Lifting Styles</div>
+         <div className='main-bio' style={baseStyles.mainBio}>Lifting Styles</div>
          <hr className='main-bio-hr' style={baseStyles.mainBioHr} />
          <div className='bio-text' style={baseStyles.bioText}>
            <div className='bio-data-main' style={baseStyles.bioDataMain}>
