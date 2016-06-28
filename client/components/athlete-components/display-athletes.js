@@ -1,6 +1,6 @@
 import React from 'react';
 import UserCard from '../user-card';
-const DisplayAthletes = ({athletes, fetchAthletes}) => {
+const DisplayAthletes = ({athletes}) => {
   if (athletes === null) {
     return null;
   }

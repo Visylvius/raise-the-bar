@@ -17,6 +17,7 @@ exports.getAthlete = function(req, res) {
 };
 
 
+
 exports.postAthlete = function(req, res) {
   req.models.athlete.create({
     displayName: req.body.displayName,
@@ -131,7 +132,26 @@ exports.updateAthlete = function(req, res) {
         if (err) {
           throw err;
         } else {
-          res.json(athlete);
+          athlete.getBio(function(err, bio) {
+            if (err) {
+              throw err;
+            } else {
+              if (bio === null) {
+                req.models.bio.create(req.body.bio);
+              } else {
+                bio.about = req.body.bio.about;
+                bio.liftingStyle = req.body.bio.liftingStyle;
+                bio.experience = req.body.bio.experience;
+                bio.save(function(err) {
+                  if (err) {
+                    res.sendStatus(500).json({err: 'error saving bio'});
+                  } else {
+                    res.json(athlete);
+                  }
+                });
+              }
+            }
+          });
         }
       });
     }

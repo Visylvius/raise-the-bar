@@ -4,6 +4,7 @@ import { blur, change } from 'redux-form';
 
 export const CREATE_ATHLETE = 'CREATE_ATHLETE';
 export const FETCH_ATHLETES = 'FETCH_ATHLETES';
+export const FETCH_ATHLETE = 'FETCH_ATHLETE';
 export const AVATARCROP_CHANGE = 'AVATARCROP_CHANGE';
 
 export const makeAthlete = (attributes) => {
@@ -37,6 +38,7 @@ export const cropImage = (form, field, crop) => {
     payload: crop
   };
 };
+
 //promise version
 
 // const makeAthletePromise = (attributes) => {
@@ -68,6 +70,15 @@ export const fetchAthletes = () => {
     .then((response) => response.data);
   return {
     type: FETCH_ATHLETES,
+    payload: request
+  };
+};
+
+export const fetchAthlete = (id) => {
+  const request = axios.get(`/api/athlete/${id}`)
+    .then((response) => response.data);
+  return {
+    type: FETCH_ATHLETE,
     payload: request
   };
 };
