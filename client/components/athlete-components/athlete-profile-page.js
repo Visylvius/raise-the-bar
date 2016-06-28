@@ -65,7 +65,7 @@ const baseStyles = {
     width: '500px',
     border: '1px solid blue',
     marginLeft: '150px',
-    marginTop: -'20px'
+    marginTop: '-20px'
   },
   mainBioData: {
     border: '1px solid black'
