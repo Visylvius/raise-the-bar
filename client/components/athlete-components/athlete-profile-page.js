@@ -4,7 +4,7 @@ import Radium from 'radium';
 const baseStyles = {
   upperContainer: {
     marginTop: '20px',
-    backgroundColor: '#blue';
+    backgroundColor: '#blue'
   },
   pageContainer: {
     height: '100vh',
@@ -17,9 +17,9 @@ const baseStyles = {
   },
   profileBottom: {
     height: '400px',
-    backgroundColor: 'FFF';
+    backgroundColor: 'FFF'
   },
-  something: {
+  imageContainer: {
     marginTop: '15px',
     marginLeft: '18px',
     height: '150px',
@@ -29,7 +29,7 @@ const baseStyles = {
   athleteName: {
     marginLeft: '270px',
     marginTop: -'140px',
-    fontSize: '22px';
+    fontSize: '22px',
     fontWeight: 'bold'
   },
   liftingStyle: {
@@ -81,53 +81,53 @@ const baseStyles = {
     marginRight: '330px',
     marginBottom: -'40px'
   }
-}
+};
 
 const AthleteProfile = (props) => {
   return (
-    <div className='container-fluid'>
-   <div className='row profile-top'>
+  <div className='container-fluid'>
+   <div className='row profile-top' style={baseStyless.profileTop}>
      <div className='col-md-4'>
-       <img className='something' src='http://placekitten.com/300/200' />
-       <div className='athlete-name'>Athlete Name</div>
-       <div className='lifting-style'>Location</div>
+       <img style={baseStyless.imageContainer} src='http://placekitten.com/300/200' />
+       <div className='athlete-name' style={baseStyless.athleteName}>Athlete Name</div>
+       <div className='lifting-style' style={baseStyless.liftingStyle}>Location</div>
      </div>
    </div>
    <div className='row'>
-     <div className='col-md-4 profile-navigation'>
-       <hr className='line-break hr-space' />
-       <div className='icons'><i className='fa fa-user'></i></div>
-       <div className='navigation-links'>Profile</div>
-       <hr className='hr-space' />
-       <div className='icons'><i className='fa fa-envelope'></i></div>
-       <div className='navigation-links'>Message</div>
-       <hr className='hr-space' />
-       <div className='icons'><i className='fa fa-building'></i></div>
-       <div className='navigation-links'>Gyms</div>
-       <hr className='hr-space' />
-       <div className='icons'><i className='fa fa-calendar'></i></div>
-       <div className='navigation-links'>Schedule</div>
+     <div className='col-md-4 profile-navigation' style={baseStyless.profileNavigation}>
+       <hr className='line-break hr-space' style={baseStyless.hrSpace} />
+       <div className='icons' style={baseStyless.icons}><i className='fa fa-user'></i></div>
+       <div className='navigation-links' style={baseStyless.navigationLinks}>Profile</div>
+       <hr className='hr-space' style={baseStyless.hrSpace} />
+       <div className='icons' style={baseStyless.icons}><i className='fa fa-envelope'></i></div>
+       <div className='navigation-links' style={baseStyless.navigationLinks}>Message</div>
+       <hr className='hr-space' style={baseStyles.hrSpace}/>
+       <div className='icons' style={baseStyles.icons}><i className='fa fa-building'></i></div>
+       <div className='navigation-links' style={baseStyles.navigationLinks}>Gyms</div>
+       <hr className='hr-space' style={baseStyles.hrSpace}/>
+       <div className='icons' style={baseStyles.icons}><i className='fa fa-calendar'></i></div>
+       <div className='navigation-links' style={baseStyles.navigationLinks}>Schedule</div>
      </div>
      <div className='row'>
        <div className='col-md-4'>
-         <div className='main-bio' id='bio-about'>About</div>
-          <hr className='main-bio-hr' />
-         <div className='bio-text'>
-           <div className='bio-data-main'>
+         <div className='main-bio' id='bio-about' style={baseStyles.bioAbout}>About</div>
+          <hr className='main-bio-hr' style={baseStyles.mainBioHr} />
+         <div className='bio-text' style={baseStyles.bioText}>
+           <div className='bio-data-main' style={baseStyles.bioDataMain}>
 IBREAKLINESHASNKDNKJNSGKJDFNGKJDFNGKJDFNGKJNDFJKGNDFJKGNKJDFNGJKDFNGKJLDFNGKJDFNGKJDFNGKJDFNGKJLDFNGKJDNFGKJNDFGKJNDFKJGNDFKJNGKJDFNGKJDFNGKJNDFJKNGJKDFNGKJNDFJKNBKJDFNGJKDNFKGJNDFJKGNDFJKNGJK
            </div>
          </div>
          <div className='main-bio'>Experience</div>
-         <hr className='main-bio-hr' />
-         <div className='bio-text'>
-           <div className='bio-data-main'>
+         <hr className='main-bio-hr' style={baseStyles.mainBioHr} />
+         <div className='bio-text' style={baseStyles.bioText}>
+           <div className='bio-data-main' style={baseStyles.bioDataMain}>
 IBREAKLINESHASNKDNKJNSGKJDFNGKJDFNGKJDFNGKJNDFJKGNDFJKGNKJDFNGJKDFNGKJLDFNGKJDFNGKJDFNGKJDFNGKJLDFNGKJDNFGKJNDFGKJNDFKJGNDFKJNGKJDFNGKJDFNGKJNDFJKNGJKDFNGKJNDFJKNBKJDFNGJKDNFKGJNDFJKGNDFJKNGJK
            </div>
          </div>
          <div className='main-bio'>Lifting Styles</div>
-         <hr className='main-bio-hr' />
-         <div className='bio-text'>
-           <div className='bio-data-main'>
+         <hr className='main-bio-hr' style={baseStyles.mainBioHr} />
+         <div className='bio-text' style={baseStyles.bioText}>
+           <div className='bio-data-main' style={baseStyles.bioDataMain}>
 IBREAKLINESHASNKDNKJNSGKJDFNGKJDFNGKJDFNGKJNDFJKGNDFJKGNKJDFNGJKDFNGKJLDFNGKJDFNGKJDFNGKJDFNGKJLDFNGKJDNFGKJNDFGKJNDFKJGNDFKJNGKJDFNGKJDFNGKJNDFJKNGJKDFNGKJNDFJKNBKJDFNGJKDNFKGJNDFJKGNDFJKNGJK
            </div>
          </div>
