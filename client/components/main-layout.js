@@ -5,7 +5,7 @@ const baseStyles = {
   mainDiv: {
     height: '100%'
   }
-}
+};
 
 const MainLayout = (props) => {
   return (

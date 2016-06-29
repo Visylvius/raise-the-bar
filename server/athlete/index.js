@@ -136,7 +136,7 @@ exports.updateAthlete = function(req, res) {
             if (err) {
               throw err;
             } else if (bio === null) {
-              req.models.bio.create(req.body.bio);
+              athlete.setBio(req.body.bio);
             } else {
               bio.about = req.body.bio.about;
               bio.liftingStyle = req.body.bio.liftingStyle;
