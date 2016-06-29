@@ -1,5 +1,5 @@
 import React from 'react';
-import Radium from 'Radium';
+import Radium from 'radium';
 
 const baseStyles = {
   mainDiv: {

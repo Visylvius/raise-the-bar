@@ -17,7 +17,8 @@ const CreateAthlete = ({fields: {
   trainer,
   hasTrainer,
   preferedGyms,
-  avatar
+  avatar,
+  bio
 }, handleSubmit, makeAthlete, changeAvatar, cropImage, crop}, { router }) => {
   const onSubmit = (attributes) => {
     makeAthlete(attributes);

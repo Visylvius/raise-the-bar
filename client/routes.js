@@ -16,7 +16,7 @@ import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
 import store from './reducers';
 
 const fetchBoundAthletes = function() {
-  store.dispatch(fetchAthletes.apply(null));
+  store.dispatch(fetchAthletes());
 };
 
 const fetchBoundAthlete = function() {
