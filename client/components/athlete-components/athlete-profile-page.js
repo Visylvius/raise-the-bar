@@ -28,7 +28,7 @@ const baseStyles = {
   },
   athleteName: {
     marginLeft: '270px',
-    marginTop: -'140px',
+    marginTop: '-140px',
     fontSize: '22px',
     fontWeight: 'bold'
   },
@@ -38,7 +38,7 @@ const baseStyles = {
     color: '#C9C9C8'
   },
   navigationLinks: {
-    marginTop: -'24px',
+    marginTop: '-24px',
     marginLeft: '40px'
   },
   lineBreak: {
@@ -79,7 +79,7 @@ const baseStyles = {
   },
   mainBioHr: {
     marginRight: '330px',
-    marginBottom: -'40px'
+    marginBottom: '-40px'
   }
 };
 
@@ -95,7 +95,7 @@ const AthleteProfile = (props) => {
    </div>
    <div className='row'>
      <div className='col-md-4 profile-navigation' style={baseStyles.profileNavigation}>
-       <hr className='line-break hr-space' style={baseStyles.hrSpace} />
+       <hr className='line-break hr-space' style={[baseStyles.hrSpace, baseStyles.lineBreak]} />
        <div className='icons' style={baseStyles.icons}><i className='fa fa-user'></i></div>
        <div className='navigation-links' style={baseStyles.navigationLinks}>Profile</div>
        <hr className='hr-space' style={baseStyles.hrSpace} />
