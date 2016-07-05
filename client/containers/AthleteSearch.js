@@ -7,7 +7,10 @@ import DisplayAthletes from '../components/athlete-components/display-athletes';
 
 const AthleteSearch = (props) => {
   return (
-    <DisplayAthletes athletes={props.athletes} />
+    <div>
+      <DisplayAthletes athletes={props.athletes} />
+    </div>
+
   );
 };
 

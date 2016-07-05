@@ -114,8 +114,10 @@ exports.deleteAthlete = function(req, res) {
   });
 };
 
+
 exports.updateAthlete = function(req, res) {
   req.models.athlete.get(req.params.id, function(err, athlete) {
+    //create bio and update bio into functions
     if (err) {
       throw err;
     } else {
@@ -132,11 +134,25 @@ exports.updateAthlete = function(req, res) {
         if (err) {
           throw err;
         } else {
-          athlete.getBio(function(err, bio) {
+          athlete.getAthlete_bio(function(err, bio) {
             if (err) {
-              throw err;
-            } else if (bio === null) {
-              req.models.bio.create(req.body.bio);
+              console.log(err);
+              res.sendStatus(500).json({err: err});
+            } else if (!bio) {
+              req.models.bio.create(req.body.bio, function(err, bio) {
+                if (err) {
+                  res.sendStatus(500).json({err: err});
+                } else {
+                  athlete.setAthlete_bio(bio, function(err) {
+                    if (err) {
+                      res.sendStatus(500).json({err: err});
+                    } else {
+                      res.json(athlete);
+                    }
+                  });
+                }
+              });
+              //change to promises
             } else {
               bio.about = req.body.bio.about;
               bio.liftingStyle = req.body.bio.liftingStyle;

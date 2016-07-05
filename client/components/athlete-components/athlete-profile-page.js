@@ -1,6 +1,11 @@
 import React from 'react';
 import Radium from 'radium';
 
+import { fetchAthlete } from '../../actions/athlete-actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+
 const baseStyles = {
   upperContainer: {
     marginTop: '20px',
@@ -83,14 +88,18 @@ const baseStyles = {
   }
 };
 
-const AthleteProfile = (props) => {
+const AthleteProfile = ({athlete}) => {
+  if (athlete === null) {
+    return null;
+  }
+  const { name, location } = athlete;
   return (
   <div className='container-fluid'>
    <div className='row profile-top' style={baseStyles.profileTop}>
      <div className='col-md-4'>
        <img style={baseStyles.imageContainer} src='http://placekitten.com/300/200' />
-       <div className='athlete-name' style={baseStyles.athleteName}>Athlete Name</div>
-       <div className='lifting-style' style={baseStyles.liftingStyle}>Location</div>
+       <div className='athlete-name' style={baseStyles.athleteName}>{name}</div>
+       <div className='lifting-style' style={baseStyles.liftingStyle}>{location}</div>
      </div>
    </div>
    <div className='row'>
@@ -138,4 +147,14 @@ IBREAKLINESHASNKDNKJNSGKJDFNGKJDFNGKJDFNGKJNDFJKGNDFJKGNKJDFNGJKDFNGKJLDFNGKJDFN
   );
 };
 
-export default Radium(AthleteProfile);
+const mapStateToProps = (state) => {
+  const athlete = state.profile.athlete;
+  return { athlete };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({fetchAthlete}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Radium(AthleteProfile));
+// export default Radium(AthleteProfile);

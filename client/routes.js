@@ -2,15 +2,17 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import GymSearch from './containers/GymSearch';
+import AthleteSearch from './containers/AthleteSearch';
+import IndividualAthlete from './containers/IndividualAthlete';
 import CreateAthlete from './components/athlete-components/create-athlete';
 import CreateTrainer from './components/trainer-components/create-trainer';
 import HomePage from './components/home-page';
 import DisplayAthletes from './components/athlete-components/display-athletes';
 import DisplayTrainers from './components/trainer-components/display-trainer';
-import AthleteSearch from './containers/AthleteSearch';
 import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
 import AthleteProfile from './components/athlete-components/athlete-profile-page';
+
 
 import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
 import store from './reducers';
