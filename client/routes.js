@@ -6,6 +6,7 @@ import AthleteSearch from './containers/AthleteSearch';
 import IndividualAthlete from './containers/IndividualAthlete';
 import CreateAthlete from './components/athlete-components/create-athlete';
 import CreateTrainer from './components/trainer-components/create-trainer';
+import UpdateAthlete from './components/athlete-components/update-athlete';
 import HomePage from './components/home-page';
 import DisplayAthletes from './components/athlete-components/display-athletes';
 import DisplayTrainers from './components/trainer-components/display-trainer';
@@ -37,7 +38,9 @@ export default (
       <Route component={MenuBar}>
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState) => fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
-      </Route>
+        <Route path='athlete/update/:id' onEnter={(nextState) => fetchBoundAthlete(nextState.params.id)}
+               component={UpdateAthlete} />
+        </Route>
     </Route>
     <Route path='/createathlete' component={CreateAthlete} />
     <Route path='/createtrainer' component={CreateTrainer} />

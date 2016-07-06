@@ -6,6 +6,7 @@ export const CREATE_ATHLETE = 'CREATE_ATHLETE';
 export const FETCH_ATHLETES = 'FETCH_ATHLETES';
 export const FETCH_ATHLETE = 'FETCH_ATHLETE';
 export const AVATARCROP_CHANGE = 'AVATARCROP_CHANGE';
+export const UPDATE_ATHLETE = 'UPDATE_ATHLETE';
 
 export const makeAthlete = (attributes) => {
   return (dispatch, getState) => {
@@ -79,6 +80,20 @@ export const fetchAthlete = (id) => {
     .then((response) => response.data);
   return {
     type: FETCH_ATHLETE,
+    payload: request
+  };
+};
+
+export const updateAthlete = (attributes, id) => {
+  attributes.bio = {
+    liftingStyles: attributes.liftingStyles,
+    experience: attributes.experience,
+    about: attributes.about
+  };
+  const request = axios.put(`/api/athlete/update/${id}`, attributes)
+    .then((response) => response.data);
+  return {
+    type: UPDATE_ATHLETE,
     payload: request
   };
 };

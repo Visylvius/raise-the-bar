@@ -97,7 +97,13 @@ exports.getIndividualAthlete = function(req, res) {
     if (err) {
       throw err;
     } else {
-      res.json(athlete);
+      athlete.getAthlete_bio(function(err, bio) {
+        if (err) {
+          res.sendStatus(500).json({error: err});
+        } else {
+          res.json(Object.assign(athlete, {bio: bio} ));
+        }
+      });
     }
   });
 };
@@ -155,7 +161,7 @@ exports.updateAthlete = function(req, res) {
               //change to promises
             } else {
               bio.about = req.body.bio.about;
-              bio.liftingStyle = req.body.bio.liftingStyle;
+              bio.liftingStyles = req.body.bio.liftingStyles;
               bio.experience = req.body.bio.experience;
               bio.save(function(err) {
                 if (err) {

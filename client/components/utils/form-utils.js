@@ -14,6 +14,9 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
     );
   } else if (inputType === 'file') {
     control = <input className='form-control' type={inputType} {...field} value={null}></input>;
+  } else if (inputType === 'textArea') {
+    //value={field.value} is required to make the resetForm function work.
+    control = <textarea {...field} value={field.value || ''} className='form-control' rows='3'/>;
   } else {
     control = <input type={inputType} {...field} {...inputAttributes} className='form-control'></input>;
   }

@@ -3,6 +3,7 @@ import Radium from 'radium';
 
 import { fetchAthlete } from '../../actions/athlete-actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 
@@ -85,6 +86,19 @@ const baseStyles = {
   mainBioHr: {
     marginRight: '330px',
     marginBottom: '-40px'
+  },
+  editIcon: {
+    marginRight: '5px'
+  },
+  editProfile: {
+    marginTop: '35px',
+    marginLeft: '200px',
+    width: '300px'
+  },
+  sendMessage: {
+    marginTop: '35px',
+    width: '300px',
+    marginLeft: '25px'
   }
 };
 
@@ -92,7 +106,7 @@ const AthleteProfile = ({athlete}) => {
   if (athlete === null) {
     return null;
   }
-  const { name, location } = athlete;
+  const { name, location, id} = athlete;
   return (
   <div className='container-fluid'>
    <div className='row profile-top' style={baseStyles.profileTop}>
@@ -101,6 +115,8 @@ const AthleteProfile = ({athlete}) => {
        <div className='athlete-name' style={baseStyles.athleteName}>{name}</div>
        <div className='lifting-style' style={baseStyles.liftingStyle}>{location}</div>
      </div>
+     <Link to={`athlete/update/${id}`}><button type="button" className="btn btn-primary btn-lg" style={baseStyles.editProfile}><i className="fa fa-pencil-square-o" style={baseStyles.editIcon} aria-hidden="true"></i>Edit Profile</button></Link>
+     <button type='button' className='btn btn-success btn-lg' style={baseStyles.sendMessage}><i className='fa fa-envelope' style={baseStyles.editIcon}></i>Send Message</button>
    </div>
    <div className='row'>
      <div className='col-md-4 profile-navigation' style={baseStyles.profileNavigation}>
