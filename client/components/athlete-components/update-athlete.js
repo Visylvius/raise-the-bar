@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes }from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -19,15 +19,19 @@ const UpdateAthlete = ({fields: {
   about,
   liftingStyles,
   experience
-}, handleSubmit, updateAthlete, changeAvatar, cropImage, crop, athlete}) => {
+}, handleSubmit, updateAthlete, changeAvatar, cropImage, crop, athlete, router}, context) => {
 
   if (athlete === null) {
     return null;
   }
   const { id } = athlete;
-  
+
   const onSubmit = (attributes) => {
-    updateAthlete(attributes, id);
+    updateAthlete(attributes, id)
+      .then(() => {
+        // console.log(context);
+        context.router.push(`/athlete/${id}`);
+      });
   };
   const onAvatarBlur = (event) => {
     changeAvatar('UpdateAthlete', 'avatar', event.target.files);
@@ -73,6 +77,10 @@ const mapStateToProps = (state) => {
   return { crop: state.crop, athlete };
 }
 
+UpdateAthlete.contextTypes = {
+  router: PropTypes.object
+};
+
 export default reduxForm({
   form: 'UpdateAthlete',
   fields: ['displayName', 'name', 'liftingStyle', 'location', 'trainer', 'hasTrainer', 'preferedGyms',
@@ -80,3 +88,5 @@ export default reduxForm({
 
 
 }, mapStateToProps, mapDispatchToProps)(UpdateAthlete);
+
+//Update fields on the athlete field, be able to do a new image,

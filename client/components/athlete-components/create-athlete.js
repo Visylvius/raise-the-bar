@@ -32,7 +32,9 @@ const CreateAthlete = ({fields: {
   //create function the receives crop
   let cropElement = null;
   if (avatar.value) {
-    cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={crop}/>;
+    //set aspect ratio so they can only select 300 X 250
+    // 1.2
+    cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={Object.assign({aspect: 1.2}, crop)}/>;
   }
 
   return (

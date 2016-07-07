@@ -41,7 +41,12 @@ exports.postAthlete = function(req, res) {
         res.status(400).json({err: 'please provide a valid image type'});
       } else {
         lwip.openAsync(imgBuffer, 'jpg')
-          .then((img) => img.cropAsync(x, y, x + width, y + height))
+          .then((img) => {
+            const widthRatio = img.width() /100;
+            const heightRatio = img.height() /100;
+            return img.cropAsync(x * widthRatio, y * heightRatio, (x + width) * widthRatio, (y + height) * heightRatio);
+          })
+
           .then((img) => img.resizeAsync(300, 250))
           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
           .then((buffer) => fs.writeFileAsync(`../dist/avatars/${athlete.id}.jpg`, buffer))
@@ -101,7 +106,7 @@ exports.getIndividualAthlete = function(req, res) {
         if (err) {
           res.sendStatus(500).json({error: err});
         } else {
-          res.json(Object.assign(athlete, {bio: bio} ));
+          res.json(athlete);
         }
       });
     }
