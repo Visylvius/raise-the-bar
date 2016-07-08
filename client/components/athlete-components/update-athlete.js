@@ -25,6 +25,7 @@ const UpdateAthlete = ({fields: {
     return null;
   }
   const { id } = athlete;
+  const { athlete_bio } = athlete;
 
   const onSubmit = (attributes) => {
     updateAthlete(attributes, id)
@@ -44,6 +45,7 @@ const UpdateAthlete = ({fields: {
   if (avatar.value) {
     cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={crop}/>;
   }
+  console.log(trainer);
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='updateAthleteForm'>
       {makeInput(displayName, 'text', 'Display Name')}
@@ -75,7 +77,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   const athlete = state.profile.athlete;
   return { crop: state.crop, athlete };
-}
+};
 
 UpdateAthlete.contextTypes = {
   router: PropTypes.object

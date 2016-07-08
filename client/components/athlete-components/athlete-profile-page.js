@@ -106,13 +106,23 @@ const AthleteProfile = ({athlete}) => {
   if (athlete === null) {
     return null;
   }
+  let about, experience, liftingStyles;
+  if (athlete.athlete_bio === undefined) {
+    about = experience = liftingStyles = '';
+  } else {
+    const { athlete_bio } = athlete;
+    about = athlete_bio.about;
+    experience = athlete_bio.experience;
+    liftingStyles = athlete_bio.liftingStyles
+  }
+
   const { name, location, id} = athlete;
-  const { about, experience, liftingStyles } = athlete.athlete_bio;
+
   return (
   <div className='container-fluid'>
    <div className='row profile-top' style={baseStyles.profileTop}>
      <div className='col-md-4'>
-       <img style={baseStyles.imageContainer} src='http://placekitten.com/300/200' />
+       <img style={baseStyles.imageContainer} src={`/avatars/${id}.jpg`} />
        <div className='athlete-name' style={baseStyles.athleteName}>{name}</div>
        <div className='lifting-style' style={baseStyles.liftingStyle}>{location}</div>
      </div>
@@ -163,6 +173,18 @@ const AthleteProfile = ({athlete}) => {
   </div>
   );
 };
+
+
+//TODO
+//refactor into reusable components for trainers and athletes
+//pass the style to through props, and then render the props, on the element in the component
+//can pass array if has multiple styles, you can create multiple style props
+/*<Avatar style={baseStyles.hrSpace} backgroundStyle={baseStyle.things} />*/
+//other component
+//return (
+  //<div style={backgroundStyle}>
+
+// )
 
 const mapStateToProps = (state) => {
   const athlete = state.profile.athlete;

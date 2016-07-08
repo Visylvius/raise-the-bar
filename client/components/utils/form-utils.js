@@ -4,7 +4,7 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
   let control;
   if (inputType === 'select') {
     control = (
-      <select className='form-control'>
+      <select className='form-control' {...field } >
         {options.map((option) => {
           return (
             <option key={`${label}_${option.label}`} value={option.value}>{option.label}</option>
@@ -16,7 +16,7 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
     control = <input className='form-control' type={inputType} {...field} value={null}></input>;
   } else if (inputType === 'textArea') {
     //value={field.value} is required to make the resetForm function work.
-    control = <textarea {...field} value={field.value || ''} className='form-control' rows='3'/>;
+    control = <textarea {...field} className='form-control' rows='3'/>;
   } else {
     control = <input type={inputType} {...field} {...inputAttributes} className='form-control'></input>;
   }

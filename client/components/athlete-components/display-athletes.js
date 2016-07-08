@@ -6,6 +6,7 @@ const DisplayAthletes = ({athletes}) => {
   }
 
   const athleteCard = athletes.map((athlete) => {
+    //const profileLink = `/athlete/${athlete.id}`
     return (
       <UserCard key={athlete.id} id={athlete.id} displayName={athlete.displayName} liftingStyle={athlete.liftingStyle}/>
     )
