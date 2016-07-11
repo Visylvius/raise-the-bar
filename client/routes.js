@@ -1,8 +1,10 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { initialize } from 'redux-form';
+import auth from './AuthService';
 
 import GymSearch from './containers/GymSearch';
+import Login from './components/login';
 import AthleteSearch from './containers/AthleteSearch';
 import IndividualAthlete from './containers/IndividualAthlete';
 import CreateAthlete from './components/athlete-components/create-athlete';
@@ -15,6 +17,15 @@ import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
 import AthleteProfile from './components/athlete-components/athlete-profile-page';
 
+
+
+const requireAuth = (nextState, replace) => {
+  if (!auth.loggedIn()) {
+    replace({ pathname: '/login' });
+    return false;
+  }
+  return true;
+};
 
 import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
 import store from './reducers';
@@ -36,11 +47,12 @@ export default (
         onEnter={() => document.querySelector('body').className = 'homePage'}
         onLeave={() => document.querySelector('body.homePage').className = ''}
       />
+      <Route path='login' component={Login} />
       <Route component={MenuBar}>
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
-        <Route path='athlete/:id' onEnter={(nextState) => fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
-        <Route path='athlete/update/:id' onEnter={(nextState) => {
-            fetchBoundAthlete(nextState.params.id)
+        <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
+        <Route path='athlete/update/:id' onEnter={(nextState, replace) => {
+            requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)
               .then((response) => {
                 //same thing as const athlete = response.value
                 const { value: athlete } = response;
@@ -52,9 +64,9 @@ export default (
               component={UpdateAthlete} />
         </Route>
     </Route>
-    <Route path='/createathlete' component={CreateAthlete} />
-    <Route path='/createtrainer' component={CreateTrainer} />
-    <Route path='/gymsearch' component={GymSearch} />
-    <Route path='/findtrainers' component={DisplayTrainers} />
+    <Route path='/createathlete' onEnter={requireAuth} component={CreateAthlete} />
+    <Route path='/createtrainer' onEnter={requireAuth} component={CreateTrainer} />
+    <Route path='/gymsearch' onEnter={requireAuth} component={GymSearch} />
+    <Route path='/findtrainers' onEnter={requireAuth} component={DisplayTrainers} />
   </Router>
 );
