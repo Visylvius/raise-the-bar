@@ -8,6 +8,12 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 
+const styleObject = {
+  upperContainer: {
+    marginTop: '20px'
+  }
+}
+
 const baseStyles = {
   upperContainer: {
     marginTop: '20px',
@@ -119,20 +125,14 @@ const baseStyles = {
 
     const { name, location, id } = athlete;
 
-    return (
+ return (
   <div className='container-fluid'>
    <ProfileHeader
-      imageContainer={baseStyles.imageContainer}
       userId={id}
       userType='athlete'
-      nameStyles={baseStyles.athleteName}
-      liftingStyles={baseStyles.liftingStyle}
-      editProfile={baseStyles.editProfile}
-      editIcon={baseStyles.editIcon}
-      
-       />
+   />
    <div className='row'>
-     <div className='col-md-4 profile-navigation' style={baseStyles.profileNavigation}>
+     <div className='col-md-12 profile-navigation' style={baseStyles.profileNavigation}>
        <hr className='line-break hr-space' style={[baseStyles.hrSpace, baseStyles.lineBreak]} />
        <div className='icons' style={baseStyles.icons}><i className='fa fa-user'></i></div>
        <div className='navigation-links' style={baseStyles.navigationLinks}>Profile</div>
@@ -173,7 +173,7 @@ const baseStyles = {
      </div>
    </div>
   </div>
-  );
+ );
 };
 
 
@@ -201,13 +201,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(Radium(AthleteProfil
 // export default Radium(AthleteProfile);
 
 
+{/*<ProfileHeader
+   imageContainer={baseStyles.imageContainer}
+   userId={id}
+   userType='athlete'
+   nameStyles={baseStyles.athleteName}
+   liftingStyles={baseStyles.liftingStyle}
+   editProfile={baseStyles.editProfile}
+   editIcon={baseStyles.editIcon}
+   sendMessage={baseStyles.sendMessage}
+/>*/}
+
 // className container-fluid to className row
-{/*<div className='row profile-top' style={baseStyles.profileTop}>
- <div className='col-md-4'>
-  <img style={baseStyles.imageContainer} src={`/avatars/${id}.jpg`} />
-  <div className='athlete-name' style={baseStyles.athleteName}>{name}</div>
-  <div className='lifting-style' style={baseStyles.liftingStyle}>{location}</div>
- </div>
- <Link to={`/athlete/update/${id}`}><button type="button" className="btn btn-primary btn-lg" style={baseStyles.editProfile}><i className="fa fa-pencil-square-o" style={baseStyles.editIcon} aria-hidden="true"></i>Edit Profile</button></Link>
- <button type='button' className='btn btn-success btn-lg' style={baseStyles.sendMessage}><i className='fa fa-envelope' style={baseStyles.editIcon}></i>Send Message</button>
-</div>*/}
