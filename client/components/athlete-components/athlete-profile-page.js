@@ -1,5 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
+import ProfileHeader from '../profile-header';
 
 import { fetchAthlete } from '../../actions/athlete-actions';
 import { connect } from 'react-redux';
@@ -102,33 +103,34 @@ const baseStyles = {
   }
 };
 
-const AthleteProfile = ({athlete}) => {
-  if (athlete === null) {
-    return null;
-  }
-  let about, experience, liftingStyles;
-  if (athlete.athlete_bio === undefined) {
-    about = experience = liftingStyles = '';
-  } else {
-    const { athlete_bio } = athlete;
-    about = athlete_bio.about;
-    experience = athlete_bio.experience;
-    liftingStyles = athlete_bio.liftingStyles
-  }
+  const AthleteProfile = ({athlete}) => {
+    if (athlete === null) {
+      return null;
+    }
+    let about, experience, liftingStyles;
+    if (athlete.athlete_bio === undefined) {
+      about = experience = liftingStyles = '';
+    } else {
+      const { athlete_bio } = athlete;
+      about = athlete_bio.about;
+      experience = athlete_bio.experience;
+      liftingStyles = athlete_bio.liftingStyles
+    }
 
-  const { name, location, id} = athlete;
+    const { name, location, id } = athlete;
 
-  return (
+    return (
   <div className='container-fluid'>
-   <div className='row profile-top' style={baseStyles.profileTop}>
-     <div className='col-md-4'>
-       <img style={baseStyles.imageContainer} src={`/avatars/${id}.jpg`} />
-       <div className='athlete-name' style={baseStyles.athleteName}>{name}</div>
-       <div className='lifting-style' style={baseStyles.liftingStyle}>{location}</div>
-     </div>
-     <Link to={`/athlete/update/${id}`}><button type="button" className="btn btn-primary btn-lg" style={baseStyles.editProfile}><i className="fa fa-pencil-square-o" style={baseStyles.editIcon} aria-hidden="true"></i>Edit Profile</button></Link>
-     <button type='button' className='btn btn-success btn-lg' style={baseStyles.sendMessage}><i className='fa fa-envelope' style={baseStyles.editIcon}></i>Send Message</button>
-   </div>
+   <ProfileHeader
+      imageContainer={baseStyles.imageContainer}
+      userId={id}
+      userType='athlete'
+      nameStyles={baseStyles.athleteName}
+      liftingStyles={baseStyles.liftingStyle}
+      editProfile={baseStyles.editProfile}
+      editIcon={baseStyles.editIcon}
+      
+       />
    <div className='row'>
      <div className='col-md-4 profile-navigation' style={baseStyles.profileNavigation}>
        <hr className='line-break hr-space' style={[baseStyles.hrSpace, baseStyles.lineBreak]} />
@@ -197,3 +199,15 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Radium(AthleteProfile));
 // export default Radium(AthleteProfile);
+
+
+// className container-fluid to className row
+{/*<div className='row profile-top' style={baseStyles.profileTop}>
+ <div className='col-md-4'>
+  <img style={baseStyles.imageContainer} src={`/avatars/${id}.jpg`} />
+  <div className='athlete-name' style={baseStyles.athleteName}>{name}</div>
+  <div className='lifting-style' style={baseStyles.liftingStyle}>{location}</div>
+ </div>
+ <Link to={`/athlete/update/${id}`}><button type="button" className="btn btn-primary btn-lg" style={baseStyles.editProfile}><i className="fa fa-pencil-square-o" style={baseStyles.editIcon} aria-hidden="true"></i>Edit Profile</button></Link>
+ <button type='button' className='btn btn-success btn-lg' style={baseStyles.sendMessage}><i className='fa fa-envelope' style={baseStyles.editIcon}></i>Send Message</button>
+</div>*/}

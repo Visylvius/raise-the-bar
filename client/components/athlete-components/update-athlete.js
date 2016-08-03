@@ -30,7 +30,6 @@ const UpdateAthlete = ({fields: {
   const onSubmit = (attributes) => {
     updateAthlete(attributes, id)
       .then(() => {
-        // console.log(context);
         context.router.push(`/athlete/${id}`);
       });
   };
@@ -40,7 +39,6 @@ const UpdateAthlete = ({fields: {
   const onAvatarComplete = (crop) => {
     cropImage('UpdateAthlete', 'crop', crop);
   };
-  //create function the receives crop
   let cropElement = null;
   if (avatar.value) {
     cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={crop}/>;

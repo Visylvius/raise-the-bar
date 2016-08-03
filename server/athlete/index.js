@@ -28,6 +28,7 @@ exports.postAthlete = function(req, res) {
     password: req.body.password,
     hasTrainer: req.body.hasTrainer,
     preferedGyms: req.body.preferedGyms,
+    cardDescription: req.body.cardDescription,
     preferedLiftingTimes: req.body.preferedLiftingTimes
   }, function(err, athlete) {
     if (err) {
@@ -140,6 +141,7 @@ exports.updateAthlete = function(req, res) {
       athlete.password = req.body.password;
       athlete.hasTrainer = req.body.hasTrainer;
       athlete.preferedGyms = req.body.preferedGyms;
+      athlete.cardDescription = req.body.cardDescription;
 
       athlete.save(function(err) {
         if (err) {

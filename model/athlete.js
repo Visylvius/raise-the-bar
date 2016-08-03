@@ -9,6 +9,7 @@ var Athlete = module.exports = {
     location: String,
     trainer: Boolean,
     bio: Object,
+    cardDescription: String,
     password: String,
     hasTrainer: Boolean,
     preferedGyms: String,

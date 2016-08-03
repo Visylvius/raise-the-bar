@@ -15,6 +15,7 @@ const CreateAthlete = ({fields: {
   liftingStyle,
   location,
   trainer,
+  cardDescription,
   hasTrainer,
   preferedGyms,
   avatar,
@@ -29,11 +30,8 @@ const CreateAthlete = ({fields: {
   const onAvatarComplete = (crop) => {
     cropImage('CreateAthlete', 'crop', crop);
   };
-  //create function the receives crop
   let cropElement = null;
   if (avatar.value) {
-    //set aspect ratio so they can only select 300 X 250
-    // 1.2
     cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={Object.assign({aspect: 1.2}, crop)}/>;
   }
 
@@ -43,6 +41,7 @@ const CreateAthlete = ({fields: {
       {makeInput(name, 'text', 'Name')}
       {makeInput(liftingStyle, 'text', 'Lifting Style')}
       {makeInput(location, 'text', 'Location')}
+      {makeInput(cardDescription, 'text', 'Tell us a little bit about yourself')}
       {makeInput(trainer, 'select', 'Are You a Trainer?', [
         {label: 'Yes', value: true},
         {label: 'No', value: false}
@@ -68,7 +67,7 @@ const mapStateToProps = (state) => {
 
 export default reduxForm({
   form: 'CreateAthlete',
-  fields: ['displayName', 'name', 'liftingStyle', 'location', 'trainer', 'hasTrainer', 'avatar'],
+  fields: ['displayName', 'name', 'liftingStyle', 'location', 'trainer', 'hasTrainer', 'cardDescription', 'avatar'],
   validate: createValidate({
     displayName: 'Please enter a display name',
     name: 'Please enter a name',

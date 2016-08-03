@@ -51,5 +51,5 @@ module.exports = {
 };
 
 //to set env variables, open terminal
-// example et AUTH0_CLIENT_ID
+// example to set AUTH0_CLIENT_ID
 //export AUTH0_CLIENT_ID=xxx

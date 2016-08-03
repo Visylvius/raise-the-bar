@@ -11,6 +11,6 @@ app.listen(port, function() {
 });
 
 app.get('*', function(req, res) {
-  res.send(fs.readFileSync('../dist/index.html', 'utf-8'));
+  res.send(fs.readFileSync(__dirname + '/../dist/index.html', 'utf-8'));
 });
 module.exports = app;

@@ -19,13 +19,13 @@ import AthleteProfile from './components/athlete-components/athlete-profile-page
 
 
 
-const requireAuth = (nextState, replace) => {
-  if (!auth.loggedIn()) {
-    replace({ pathname: '/login' });
-    return false;
-  }
-  return true;
-};
+// const requireAuth = (nextState, replace) => {
+//   if (!auth.loggedIn()) {
+//     replace({ pathname: '/login' });
+//     return false;
+//   }
+//   return true;
+// };
 
 import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
 import store from './reducers';
@@ -50,9 +50,9 @@ export default (
       <Route path='login' component={Login} />
       <Route component={MenuBar}>
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
-        <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
+        <Route path='athlete/:id' onEnter={(nextState) => fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
         <Route path='athlete/update/:id' onEnter={(nextState, replace) => {
-            requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)
+              fetchBoundAthlete(nextState.params.id)
               .then((response) => {
                 //same thing as const athlete = response.value
                 const { value: athlete } = response;
@@ -64,9 +64,18 @@ export default (
               component={UpdateAthlete} />
         </Route>
     </Route>
-    <Route path='/createathlete' onEnter={requireAuth} component={CreateAthlete} />
-    <Route path='/createtrainer' onEnter={requireAuth} component={CreateTrainer} />
-    <Route path='/gymsearch' onEnter={requireAuth} component={GymSearch} />
-    <Route path='/findtrainers' onEnter={requireAuth} component={DisplayTrainers} />
+    <Route path='/createathlete' component={CreateAthlete} />
+    <Route path='/createtrainer' component={CreateTrainer} />
+    <Route path='/gymsearch' component={GymSearch} />
+    <Route path='/findtrainers' component={DisplayTrainers} />
   </Router>
 );
+
+//Line 55
+//requireAuth(nextState, replace) &&
+
+//line 67-70
+// onEnter={requireAuth}
+// onEnter={requireAuth}
+// onEnter={requireAuth}
+//athlete/:id onEnter=(nextState, replace) => requireAuth(nextState, replace) &&

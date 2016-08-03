@@ -79,7 +79,7 @@ const UserCard = (props) => {
         <div className='card-block' style={styles.cardBlock}>
           <h4 className='card-title top-card'>{props.displayName}</h4>
           <hr />
-            <p className='card-text'>Some text to demonstrate where the text in the card will go. I'm writing a bunch to see how it looks when it wraps</p>
+            <p className='card-text'>{props.cardDescription}</p>
         </div>
         <div className='card-data' style={styles.cardData}>
           <h6 className="card-subtitle">{props.liftingStyle}</h6>
@@ -90,6 +90,6 @@ const UserCard = (props) => {
 };
 
 //Refactor Link
-// <Link to={props.profie./}> </Link>
+// <Link to={props.profile./}> </Link>
 
 export default Radium(UserCard);
