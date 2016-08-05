@@ -43,5 +43,16 @@ describe('API Test', function () {
       .expect('Content-Type', 'text/html; charset=utf-8')
       .expect(200, done);
     });
+    it('should return html on an individual trainer', function(done) {
+      request(app)
+      .get('/trainer/:id')
+      .expect('Content-Type', 'text/html; charset=utf-8')
+      .expect(function(res) {
+        res.body.id = 1;
+      })
+      .expect(200, {
+        id: 1
+      }, done);
+    });
   });
 });
