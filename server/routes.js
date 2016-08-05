@@ -6,11 +6,11 @@ var Router = require('express').Router;
 
 module.exports = new Router()
   .get('/athlete', athleteHandler.getAthlete)
-  .get('/trainer', trainerHandler.getTrainer)
   .post('/athlete', athleteHandler.postAthlete)
   .get('/athlete/:id', athleteHandler.getIndividualAthlete)
   .put('/athlete/update/:id', athleteHandler.updateAthlete)
   .delete('/athlete/:id', athleteHandler.deleteAthlete)
+  .get('/trainer', trainerHandler.getTrainer)
   .post('/trainer', trainerHandler.postTrainer)
   .get('/trainer/:id', trainerHandler.getIndividualTrainer)
   .put('/trainer/:id', trainerHandler.updateTrainer)

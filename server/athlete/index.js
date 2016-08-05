@@ -99,7 +99,6 @@ exports.postAthlete = function(req, res) {
 //use bluebird.promisify on any any function that takes a callback
 
 exports.getIndividualAthlete = function(req, res) {
-  console.log('this is the id params', req.params.id);
   req.models.athlete.get(req.params.id, function(err, athlete) {
     if (err) {
       throw err;
@@ -107,8 +106,6 @@ exports.getIndividualAthlete = function(req, res) {
       athlete.getAthlete_bio(function(err, bio) {
         if (err) {
           res.sendStatus(500).json({error: err});
-        } else if (!NaN(req.params.id)) {
-          res.sendStatus(500).json({error: 'please provide a proper id'});
         } else {
           res.json(athlete);
         }
