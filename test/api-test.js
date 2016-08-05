@@ -54,5 +54,39 @@ describe('API Test', function () {
         id: 1
       }, done);
     });
+    it('should return json after a successful post', function(done) {
+      request(app)
+      .post('/trainers')
+      .expect('Content-Type', 'text/html; charset=utf-8')
+      .expect(function(res) {
+        res.body.displayName = "grizz";
+        res.body.name = "Grizz";
+        res.body.password = null;
+        res.body.timeAvailable = null;
+        res.body.location = "Oakland";
+        res.body.email = "stuff";
+        res.body.driveForClient = false;
+        res.body.offerFitnessAssessment = false;
+        res.body.offerNutritionPlan = false;
+        res.body.price = 50;
+        res.body.takingNewClients = false;
+        res.body.phoneNumber = 6503408888;
+      })
+      .expect(200, {
+        "displayName": "grizz",
+        "name": "Grizz",
+        "password": null,
+        "timeAvailable": null,
+        "location": "Oakland",
+        "email": "stuff",
+        "driveForClient": false,
+        "offerFitnessAssessment": false,
+        "offerNutritionPlan": false,
+        "price": 50,
+        "takingNewClients": false,
+        "phoneNumber": 6503408888
+      }, done);
+      //TODO Whenever I expect JSON for either trainer/athlete it returns a 404. Look into supertest and see why this is happening
+    });
   });
 });
