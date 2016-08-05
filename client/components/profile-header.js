@@ -21,7 +21,7 @@ const ProfileHeader = (props) => {
 };
 
 
-var stylesObject = {
+const stylesObject = {
   imageContainer: {
     height: '200px',
     width: '250px',

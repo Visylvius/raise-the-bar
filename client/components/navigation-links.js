@@ -23,7 +23,7 @@ const NavigationLinks = (props) => {
 
 export default NavigationLinks;
 
-var baseStyles = {
+const baseStyles = {
   navigationLinks: {
     marginTop: '-24px',
     marginLeft: '40px'

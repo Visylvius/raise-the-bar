@@ -2,6 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import ProfileHeader from '../profile-header';
 import NavigationLinks from '../navigation-links';
+import ProfileInformation from '../profile-information';
 
 import { fetchAthlete } from '../../actions/athlete-actions';
 import { connect } from 'react-redux';
@@ -135,32 +136,11 @@ const baseStyles = {
       location={location}
    />
     <NavigationLinks />
-
-     <div className='row'>
-       <div className='col-md-4'>
-         <div className='main-bio' id='bio-about' style={[baseStyles.bioAbout, baseStyles.mainBio]}>About</div>
-          <hr className='main-bio-hr' style={baseStyles.mainBioHr} />
-         <div className='bio-text' style={baseStyles.bioText}>
-           <div className='bio-data-main' style={baseStyles.bioDataMain}>
-            {about}
-           </div>
-         </div>
-         <div className='main-bio' style={baseStyles.mainBio}>Experience</div>
-         <hr className='main-bio-hr' style={baseStyles.mainBioHr} />
-         <div className='bio-text' style={baseStyles.bioText}>
-           <div className='bio-data-main' style={baseStyles.bioDataMain}>
-            {experience}
-           </div>
-         </div>
-         <div className='main-bio' style={baseStyles.mainBio}>Lifting Styles</div>
-         <hr className='main-bio-hr' style={baseStyles.mainBioHr} />
-         <div className='bio-text' style={baseStyles.bioText}>
-           <div className='bio-data-main' style={baseStyles.bioDataMain}>
-            {liftingStyles}
-           </div>
-         </div>
-       </div>
-     </div>
+    <ProfileInformation
+      about={about}
+      experience={experience}
+      liftingStyles={liftingStyles}
+    />
    </div>
  );
 };
