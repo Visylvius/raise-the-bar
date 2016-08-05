@@ -10,8 +10,8 @@ const ProfileHeader = (props) => {
       <div className='row profile-top'>
         <div className='col-md-12'>
           <div style={imageStyles}></div>
-          <div className='athlete-name' style={stylesObject.athleteName}></div>
-          <div className='lifting-style' style={stylesObject.liftingStyles}></div>
+          <div className='athlete-name' style={stylesObject.athleteName}>{props.name}</div>
+          <div className='lifting-style' style={stylesObject.liftingStyles}>{props.location}</div>
           <Link to={`/${props.userType}/update/${props.userId}`}><button type='button' className='btn btn-primary btn-lg' style={stylesObject.editProfile}><i className="fa fa-pencil-square-o" style={stylesObject.editIcon} aria-hidden="true"></i>Edit Profile</button></Link>
           <button type='button' className='btn btn-success btn-lg' style={stylesObject.sendMessage}><i className='fa fa-envelope' style={stylesObject.editIcon}></i>Send Message</button>
         </div>

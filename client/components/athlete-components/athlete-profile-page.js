@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import ProfileHeader from '../profile-header';
+import NavigationLinks from '../navigation-links';
 
 import { fetchAthlete } from '../../actions/athlete-actions';
 import { connect } from 'react-redux';
@@ -130,22 +131,11 @@ const baseStyles = {
    <ProfileHeader
       userId={id}
       userType='athlete'
+      name={name}
+      location={location}
    />
-   <div className='row'>
-     <div className='col-md-12 profile-navigation' style={baseStyles.profileNavigation}>
-       <hr className='line-break hr-space' style={[baseStyles.hrSpace, baseStyles.lineBreak]} />
-       <div className='icons' style={baseStyles.icons}><i className='fa fa-user'></i></div>
-       <div className='navigation-links' style={baseStyles.navigationLinks}>Profile</div>
-       <hr className='hr-space' style={baseStyles.hrSpace} />
-       <div className='icons' style={baseStyles.icons}><i className='fa fa-envelope'></i></div>
-       <div className='navigation-links' style={baseStyles.navigationLinks}>Message</div>
-       <hr className='hr-space' style={baseStyles.hrSpace}/>
-       <div className='icons' style={baseStyles.icons}><i className='fa fa-building'></i></div>
-       <div className='navigation-links' style={baseStyles.navigationLinks}>Gyms</div>
-       <hr className='hr-space' style={baseStyles.hrSpace}/>
-       <div className='icons' style={baseStyles.icons}><i className='fa fa-calendar'></i></div>
-       <div className='navigation-links' style={baseStyles.navigationLinks}>Schedule</div>
-     </div>
+    <NavigationLinks />
+
      <div className='row'>
        <div className='col-md-4'>
          <div className='main-bio' id='bio-about' style={[baseStyles.bioAbout, baseStyles.mainBio]}>About</div>
@@ -172,7 +162,6 @@ const baseStyles = {
        </div>
      </div>
    </div>
-  </div>
  );
 };
 
@@ -200,16 +189,18 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Radium(AthleteProfile));
 // export default Radium(AthleteProfile);
 
-
-{/*<ProfileHeader
-   imageContainer={baseStyles.imageContainer}
-   userId={id}
-   userType='athlete'
-   nameStyles={baseStyles.athleteName}
-   liftingStyles={baseStyles.liftingStyle}
-   editProfile={baseStyles.editProfile}
-   editIcon={baseStyles.editIcon}
-   sendMessage={baseStyles.sendMessage}
-/>*/}
-
-// className container-fluid to className row
+{/*<div className='row'>
+  <div className='col-md-12 profile-navigation' style={baseStyles.profileNavigation}>
+    <hr className='line-break hr-space' style={[baseStyles.hrSpace, baseStyles.lineBreak]} />
+    <div className='icons' style={baseStyles.icons}><i className='fa fa-user'></i></div>
+    <div className='navigation-links' style={baseStyles.navigationLinks}>Profile</div>
+    <hr className='hr-space' style={baseStyles.hrSpace} />
+    <div className='icons' style={baseStyles.icons}><i className='fa fa-envelope'></i></div>
+    <div className='navigation-links' style={baseStyles.navigationLinks}>Message</div>
+    <hr className='hr-space' style={baseStyles.hrSpace}/>
+    <div className='icons' style={baseStyles.icons}><i className='fa fa-building'></i></div>
+    <div className='navigation-links' style={baseStyles.navigationLinks}>Gyms</div>
+    <hr className='hr-space' style={baseStyles.hrSpace}/>
+    <div className='icons' style={baseStyles.icons}><i className='fa fa-calendar'></i></div>
+    <div className='navigation-links' style={baseStyles.navigationLinks}>Schedule</div>
+  </div>*/}
