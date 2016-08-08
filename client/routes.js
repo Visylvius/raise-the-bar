@@ -49,6 +49,7 @@ export default (
       />
       <Route path='login' component={Login} />
       <Route component={MenuBar}>
+        <Route path='/createathlete' component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState) => fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
         <Route path='athlete/update/:id' onEnter={(nextState, replace) => {
@@ -64,10 +65,9 @@ export default (
               component={UpdateAthlete} />
         </Route>
     </Route>
-    <Route path='/createathlete' component={CreateAthlete} />
+    <Route path='/findtrainers' component={DisplayTrainers} />
     <Route path='/createtrainer' component={CreateTrainer} />
     <Route path='/gymsearch' component={GymSearch} />
-    <Route path='/findtrainers' component={DisplayTrainers} />
   </Router>
 );
 

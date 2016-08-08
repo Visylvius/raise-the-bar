@@ -1,11 +1,14 @@
 var mocha = require ('mocha');
 var chai = require('chai');
 var expect = chai.expect;
+var should = chai.should;
 var morgan = require('morgan');
 var request = require('supertest');
 var express = require('express');
 const url = 'http://localhost:4000/api';
 var app = require('../server');
+var trainerId;
+
 
 describe('API Test', function () {
   describe('Athlete API', function() {
@@ -41,6 +44,52 @@ describe('API Test', function () {
       request(app)
       .get('/findtrainers')
       .expect('Content-Type', 'text/html; charset=utf-8')
+      .expect(200, done);
+    });
+    it('should make a post data successfully', function(done) {
+      request(app)
+      .post('/api/trainer')
+      .send(
+       {
+        "displayName": "grizz",
+        "name": "Grizz",
+        "password": null,
+        "timeAvailable": null,
+        "location": "Oakland",
+        "email": "stuff",
+        "driveForClient": false,
+        "offerFitnessAssessment": false,
+        "offerNutritionPlan": false,
+        "price": 50,
+        "takingNewClients": false,
+        "phoneNumber": 6503408888
+       }
+      )
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect(function(res) {
+        trainerId = res.body.id;
+        console.log('trainerId', trainerId);
+      })
+      .expect(200, done);
+    });
+    it ('should retrieve the created trainer correctly', function(done) {
+      request(app)
+      .get('/api/trainer/' + trainerId)
+      .expect(function(res) {
+        console.log('trainerId in .get test', trainerId);
+        expect(res.body.timeAvailable).to.not.exist;
+        expect(res.body.displayName).to.equal('grizz');
+        expect(res.body.name).to.equal('Grizz');
+        expect(res.body.password).to.equal(null);
+        expect(res.body.location).to.equal('Oakland');
+        expect(res.body.email).to.equal('stuff');
+        expect(res.body.driveForClient).to.equal(false);
+        expect(res.body.offerFitnessAssessment).to.equal(false);
+        expect(res.body.offerNutritionPlan).to.equal(false);
+        expect(res.body.price).to.equal(50);
+        expect(res.body.takingNewClients).to.equal(false);
+        expect(res.body.phoneNumber).to.equal(6503408888);
+      })
       .expect(200, done);
     });
     it('should return html on an individual trainer', function(done) {

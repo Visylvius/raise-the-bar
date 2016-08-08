@@ -11,7 +11,7 @@ module.exports = {
     offerNutritionPlan: Boolean,
     price: Number,
     takingNewClients: Boolean,
-    phoneNumber: Number,
+    phoneNumber: {type: 'number', size: 8},
     id: {type: 'serial', key: true}
   }
 };
