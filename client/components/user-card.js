@@ -75,7 +75,7 @@ const UserCard = (props) => {
     <div className='card-container' style={styles.cardContainer}>
       <div className='card' style={styles.supplementalStyles}>
         <img className='card-img-top img-fluid' src={`/avatars/${props.id}.jpg`} style={styles.imgStyles} />
-        <Link to={`/athlete/${props.id}`}><button className="btn-floating btn-action" style={[styles.btnAction, styles.btnFloating]}><i className="fa fa-chevron-right" style={[styles.btnFloatingi, styles.fa, styles.supplementalStyles]}></i></button></Link>
+        <Link to={`/${props.userType}/${props.id}`}><button className="btn-floating btn-action" style={[styles.btnAction, styles.btnFloating]}><i className="fa fa-chevron-right" style={[styles.btnFloatingi, styles.fa, styles.supplementalStyles]}></i></button></Link>
         <div className='card-block' style={styles.cardBlock}>
           <h4 className='card-title top-card'>{props.displayName}</h4>
           <hr />

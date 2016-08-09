@@ -12,7 +12,7 @@ import CreateTrainer from './components/trainer-components/create-trainer';
 import UpdateAthlete from './components/athlete-components/update-athlete';
 import HomePage from './components/home-page';
 import DisplayAthletes from './components/athlete-components/display-athletes';
-import DisplayTrainers from './components/trainer-components/display-trainer';
+import DisplayTrainers from './components/trainer-components/display-trainers';
 import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
 import AthleteProfile from './components/athlete-components/athlete-profile-page';
@@ -28,6 +28,7 @@ import AthleteProfile from './components/athlete-components/athlete-profile-page
 // };
 
 import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
+import { fetchTrainers } from './actions/trainer-actions';
 import store from './reducers';
 
 const fetchBoundAthletes = function() {
@@ -38,6 +39,9 @@ const fetchBoundAthlete = function() {
   return store.dispatch(fetchAthlete.apply(null, arguments));
 }
 
+const fetchBoundTrainers = function() {
+  store.dispatch(fetchTrainers());
+};
 
 export default (
   <Router history={browserHistory}>
@@ -65,7 +69,7 @@ export default (
               component={UpdateAthlete} />
         </Route>
     </Route>
-    <Route path='/findtrainers' component={DisplayTrainers} />
+    <Route path='/findtrainers' onEnter={fetchBoundTrainers} component={DisplayTrainers} />
     <Route path='/createtrainer' component={CreateTrainer} />
     <Route path='/gymsearch' component={GymSearch} />
   </Router>
