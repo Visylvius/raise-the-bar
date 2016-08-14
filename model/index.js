@@ -10,6 +10,7 @@ var config = {
     models.gym = db.define('gym', gymSchema.properties);
     models.bio = db.define('bio', bioSchema.properties);
     models.athlete.hasOne('athlete_bio', models.bio);
+    models.trainer.hasOne('trainer_bio', models.bio);
     db.sync(function(err) {
       if (err) {
         throw err;

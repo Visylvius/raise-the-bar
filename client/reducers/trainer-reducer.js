@@ -1,15 +1,15 @@
-import { FETCH_TRAINERS } from '../actions/trainer-actions';
+import { FETCH_TRAINER } from '../actions/trainer-actions';
 
-const initialState = { trainers: null, error: null, loading: null};
+const initialState = { trainer: null, error: null, loading: null};
 
 export const trainerReducer = (state=initialState, action) => {
   switch(action.type) {
-    case `${FETCH_TRAINERS}_PENDING`:
+    case `${FETCH_TRAINER}_PENDING`:
       return initialState;
-    case `${FETCH_TRAINERS}_FULFILLED`:
-      return { trainers: action.payload, error: null, loading: true};
-    case `${FETCH_TRAINERS}_REJECTED`:
-      return { trainers: null, error: action.payload, loading: false};
+    case `${FETCH_TRAINER}_FULFILLED`:
+      return { trainer: action.payload, error: null, loading: true};
+    case `${FETCH_TRAINER}_REJECTED`:
+      return { trainer: null, error: action.payload, loading: false};
     default:
       return state;
   }

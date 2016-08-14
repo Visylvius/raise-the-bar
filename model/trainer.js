@@ -6,6 +6,7 @@ module.exports = {
     password: String,
     location: String,
     email: String,
+    bio: Object,
     driveForClient: Boolean,
     offerFitnessAssessment: Boolean,
     offerNutritionPlan: Boolean,

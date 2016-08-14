@@ -13,6 +13,6 @@ module.exports = new Router()
   .get('/trainer', trainerHandler.getTrainer)
   .post('/trainer', trainerHandler.postTrainer)
   .get('/trainer/:id', trainerHandler.getIndividualTrainer)
-  .put('/trainer/:id', trainerHandler.updateTrainer)
+  .put('/trainer/update/:id', trainerHandler.updateTrainer)
   .delete('/trainer/:id', trainerHandler.deleteTrainer)
   .post('/gym', gymHandler.getGyms);

@@ -34,12 +34,21 @@ exports.postTrainer = function(req, res) {
 exports.getIndividualTrainer = function(req, res) {
   req.models.trainer.get(req.params.id, function(err, trainer) {
     if (err) {
-      throw err;
+      return res.sendStatus(500).json({err: err});
     } else {
-      res.json(trainer);
+      trainer.getTrainer_bio(function(err, bio) {
+        if (err) {
+          return res.sendStatus(500).json({err: err});
+        } else {
+          res.json(trainer);
+        }
+      });
     }
   });
 };
+//TODO use the middleware forward req, res, next
+//next is going to send everything you want forward
+//
 
 exports.deleteTrainer = function(req, res) {
   req.models.trainer.get(req.params.id, function(err, trainer) {
@@ -74,7 +83,40 @@ exports.updateTrainer = function(req, res) {
         if (err) {
           throw err;
         } else {
-          res.json(trainer);
+          trainer.getTrainer_bio(function(err, bio) {
+            if (err) {
+              console.log(err);
+              return res.sendStatus(500).json({err: err});
+            } else if (!bio) {
+              req.models.bio.create(req.body.bio, function(err, bio) {
+                if (err) {
+                  console.log(err);
+                  return res.sendStatus(500).json({err: err});
+                } else {
+                  trainer.setAthlete_bio(bio, function(err) {
+                    if (err) {
+                      console.log(err);
+                      return res.sendStatus(500).json({err: err});
+                    } else {
+                      res.json(trainer);
+                    }
+                  });
+                }
+              });
+            } else {
+              bio.about = req.body.about;
+              bio.liftingStyles = req.body.liftingStyles;
+              bio.experience = req.body.experience;
+              bio.save(function(err) {
+                if (err) {
+                  console.log(err);
+                  res.sendStatus(500).json({err: err});
+                } else {
+                  res.json(trainer);
+                }
+              });
+            }
+          });
         }
       });
     }

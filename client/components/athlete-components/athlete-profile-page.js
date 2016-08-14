@@ -6,7 +6,6 @@ import ProfileInformation from '../profile-information';
 
 import { fetchAthlete } from '../../actions/athlete-actions';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 

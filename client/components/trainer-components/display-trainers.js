@@ -6,11 +6,14 @@ import { fetchTrainers } from '../../actions/trainer-actions';
 import UserCard from '../user-card';
 
 const DisplayTrainers = (props) => {
-  if (props.trainers === null) {
+
+  const { trainers } = props;
+  if (trainers === null) {
     return null;
   }
 
-const TrainerCard = props.trainers.map((trainer) => {
+const TrainerCard = trainers.map((trainer) => {
+  console.log(trainer);
   return (
     <UserCard
       key={trainer.id}
@@ -20,9 +23,7 @@ const TrainerCard = props.trainers.map((trainer) => {
     />
   );
 });
-  // const {displayName} = props.trainers;
-  // console.log(displayName);
-  console.log(props.trainers);
+
   return (
     <div>
       {TrainerCard}
