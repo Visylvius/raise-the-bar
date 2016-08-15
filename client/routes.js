@@ -40,6 +40,7 @@ const fetchBoundAthletes = function() {
 };
 
 const fetchBoundAthlete = function() {
+  console.log(store.dispatch(fetchAthlete.apply(null, arguments)));
   return store.dispatch(fetchAthlete.apply(null, arguments));
 };
 
@@ -48,6 +49,7 @@ const fetchBoundTrainers = function() {
 };
 
 const fetchBoundTrainer = function() {
+  console.log(store.dispatch(fetchTrainer.apply(null, arguments)));
   return store.dispatch(fetchTrainer.apply(null, arguments));
 };
 
@@ -77,8 +79,8 @@ export default (
               component={UpdateAthlete} />
         </Route>
     </Route>
-    <Route path='/findtrainers' onEnter={fetchBoundTrainers} component={DisplayTrainers} />
-    <Route path='/trainer/:id' onEnter={(nextState) => fetchBoundTrainer(nextState.params.id)} component={DisplayTrainer} />
+    <Route path='findtrainers' onEnter={fetchBoundTrainers} component={DisplayTrainers} />
+    <Route path='trainer/:id' onEnter={(nextState) => fetchBoundTrainer(nextState.params.id)} component={DisplayTrainer} />
     <Route path='trainer/update/:id' onEnter={(nextState, replace) => {
           fetchBoundTrainer(nextState.params.id)
             .then((response) => {

@@ -12,14 +12,16 @@ const DisplayTrainer = ({trainer}) => {
   if (trainer === null) {
     return null;
   }
-  
+
+  const { id } = trainer;
+  console.log(trainer);
   return (
     <div>
       <ProfileHeader
         name={trainer.displayName}
         location={trainer.location}
         userType='trainer'
-        id={trainer.id}
+        userId={id}
       />
       <NavigationLinks />
       <ProfileInformation
@@ -34,8 +36,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  const { trainer, error, loading } = state.trainer
-  return { trainer, error, loading };
+  console.log(state);
+  const trainer = state.trainer.trainer;
+  console.log(trainer);
+  return { trainer };
 }
 
 

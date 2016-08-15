@@ -157,7 +157,9 @@ const baseStyles = {
 // )
 
 const mapStateToProps = (state) => {
+  console.log(state);
   const athlete = state.profile.athlete;
+  console.log(athlete);
   return { athlete };
 };
 

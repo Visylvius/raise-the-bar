@@ -32,20 +32,16 @@ exports.postTrainer = function(req, res) {
 };
 
 exports.getIndividualTrainer = function(req, res) {
-  req.models.trainer.get(req.params.id, function(err, trainer) {
-    if (err) {
-      return res.sendStatus(500).json({err: err});
-    } else {
-      trainer.getTrainer_bio(function(err, bio) {
-        if (err) {
-          return res.sendStatus(500).json({err: err});
-        } else {
-          res.json(trainer);
-        }
-      });
-    }
-  });
-};
+    req.models.trainer.get(req.params.id, function(err, trainer) {
+      if (err)  return res.status(500).json({err: err});
+
+       trainer.getTrainer_bio(function(err, bio) {
+         if (err)   return res.status(500).json({err: err});
+        
+         return res.json(trainer);
+       });
+    });
+  };
 //TODO use the middleware forward req, res, next
 //next is going to send everything you want forward
 //

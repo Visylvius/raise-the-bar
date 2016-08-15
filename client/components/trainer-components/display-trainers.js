@@ -13,7 +13,6 @@ const DisplayTrainers = (props) => {
   }
 
 const TrainerCard = trainers.map((trainer) => {
-  console.log(trainer);
   return (
     <UserCard
       key={trainer.id}

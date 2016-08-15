@@ -25,15 +25,16 @@ export const fetchTrainers = () => {
   };
 };
 
-export const fetchTrainer = (attributes, id) => {
+export const fetchTrainer = (id) => {
   const request = axios.get(`/api/trainer/${id}`)
-    .then(response => response.data);
+    .then((response) => response.data);
 
   return {
     type: FETCH_TRAINER,
     payload: request
   };
 };
+
 
 export const updateTrainer = (attributes, id) => {
   attributes.bio = {
