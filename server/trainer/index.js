@@ -60,6 +60,7 @@ exports.deleteTrainer = function(req, res) {
 
 exports.updateTrainer = function(req, res) {
   req.models.trainer.get(req.params.id, function(err, trainer) {
+    //create bio and update bio into functions
     if (err) {
       throw err;
     } else {
@@ -82,31 +83,29 @@ exports.updateTrainer = function(req, res) {
           trainer.getTrainer_bio(function(err, bio) {
             if (err) {
               console.log(err);
-              return res.sendStatus(500).json({err: err});
+              res.sendStatus(500).json({err: err});
             } else if (!bio) {
               req.models.bio.create(req.body.bio, function(err, bio) {
                 if (err) {
-                  console.log(err);
-                  return res.sendStatus(500).json({err: err});
+                  res.sendStatus(500).json({err: err});
                 } else {
-                  trainer.setAthlete_bio(bio, function(err) {
+                  trainer.setTrainer_bio(bio, function(err) {
                     if (err) {
-                      console.log(err);
-                      return res.sendStatus(500).json({err: err});
+                      res.sendStatus(500).json({err: err});
                     } else {
                       res.json(trainer);
                     }
                   });
                 }
               });
+              //change to promises
             } else {
-              bio.about = req.body.about;
-              bio.liftingStyles = req.body.liftingStyles;
-              bio.experience = req.body.experience;
+              bio.about = req.body.bio.about;
+              bio.liftingStyles = req.body.bio.liftingStyles;
+              bio.experience = req.body.bio.experience;
               bio.save(function(err) {
                 if (err) {
-                  console.log(err);
-                  res.sendStatus(500).json({err: err});
+                  res.sendStatus(500).json({err: 'error saving bio'});
                 } else {
                   res.json(trainer);
                 }

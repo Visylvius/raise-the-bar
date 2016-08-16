@@ -43,8 +43,8 @@ export const updateTrainer = (attributes, id) => {
     about: attributes.about
   };
 
-  const request = axios.put(`/api/trainer/update/${id}`)
-    .then(response => response.data);
+  const request = axios.put(`/api/trainer/update/${id}`, attributes)
+    .then((response) => response.data);
 
   return {
     type: UPDATE_TRAINER,

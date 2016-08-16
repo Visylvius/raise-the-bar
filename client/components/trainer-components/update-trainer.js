@@ -16,14 +16,25 @@ const UpdateTrainer = ({fields: {
   offerNutritionPlan,
   price,
   takingNewClients,
-  phoneNumber
+  phoneNumber,
+  about,
+  liftingStyles,
+  experience
 }, handleSubmit, updateTrainer, trainer, router}, context) => {
+
+  if (trainer === null) {
+    return null;
+  }
+  const { id } = trainer;
+  const { trainer_bio } = trainer;
+
   const onSubmit = (attributes) => {
     updateTrainer(attributes, id)
       .then(() => {
         context.router.push(`/trainer/${id}`);
       });
   };
+
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='updateTrainerForm'>
       {makeInput(displayName, 'text', 'Display Name')}
@@ -49,7 +60,7 @@ const UpdateTrainer = ({fields: {
       ])}
       {makeInput(phoneNumber, 'text', 'Phone Number')}
       {makeInput(about, 'textArea', 'update your about here')}
-      {makeInput(bio, 'textArea', 'update your bio here')}
+      {makeInput(experience, 'textArea', 'update your bio here')}
       {makeInput(liftingStyles, 'textArea', 'update your liftingStyles here')}
       <button type='submit' className='btn btn-primary'>Submit</button>
     </form>
@@ -59,12 +70,13 @@ const UpdateTrainer = ({fields: {
 
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({updateTrainer, dispatch})
+  return bindActionCreators({updateTrainer}, dispatch)
 };
 
 const mapStateToProps = (state) => {
-  const trainer = state.trainers.trainer;
-  return trainer;
+  console.log(state);
+  const trainer = state.trainer.trainer;
+  return { trainer };
 };
 
 UpdateTrainer.contextTypes = {
@@ -74,6 +86,6 @@ UpdateTrainer.contextTypes = {
 export default reduxForm({
   form: 'UpdateTrainer',
   fields: ['displayName', 'name', 'location', 'email', 'driveForClient', 'offerFitnessAssessment', 'offerNutritionPlan',
-   'price', 'takingNewClients', 'phoneNumber'],
+   'price', 'takingNewClients', 'phoneNumber', 'about', 'experience', 'liftingStyles'],
 
 }, mapStateToProps, mapDispatchToProps)(UpdateTrainer)

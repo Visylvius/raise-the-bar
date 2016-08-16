@@ -40,7 +40,6 @@ const fetchBoundAthletes = function() {
 };
 
 const fetchBoundAthlete = function() {
-  console.log(store.dispatch(fetchAthlete.apply(null, arguments)));
   return store.dispatch(fetchAthlete.apply(null, arguments));
 };
 
@@ -49,7 +48,6 @@ const fetchBoundTrainers = function() {
 };
 
 const fetchBoundTrainer = function() {
-  console.log(store.dispatch(fetchTrainer.apply(null, arguments)));
   return store.dispatch(fetchTrainer.apply(null, arguments));
 };
 
@@ -87,7 +85,7 @@ export default (
               const { value: trainer } = response;
               store.dispatch(initialize('UpdateTrainer', Object.assign({}, trainer, trainer.trainer_bio),
               ['displayName', 'name', 'location', 'email', 'driveForClient', 'offerFitnessAssessment', 'offerNutritionPlan',
-              'price', 'takingNewClients', 'phoneNumber']));
+              'price', 'takingNewClients', 'phoneNumber', 'about', 'liftingStyles', 'experience']));
             });
         }}
           component={UpdateTrainer} />

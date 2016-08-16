@@ -13,6 +13,17 @@ const DisplayTrainer = ({trainer}) => {
     return null;
   }
 
+  let about, experience, liftingStyles;
+
+  if (trainer.trainer_bio === undefined) {
+    about = experience = liftingStyles = '';
+  } else {
+    const { trainer_bio } = trainer;
+    about = trainer_bio.about;
+    experience = trainer_bio.experience;
+    liftingStyles = trainer_bio.liftingStyles;
+  }
+
   const { id } = trainer;
   console.log(trainer);
   return (
@@ -25,6 +36,9 @@ const DisplayTrainer = ({trainer}) => {
       />
       <NavigationLinks />
       <ProfileInformation
+        about={about}
+        experience={experience}
+        liftingStyles={liftingStyles}
       />
     </div>
   );
@@ -36,9 +50,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   const trainer = state.trainer.trainer;
-  console.log(trainer);
   return { trainer };
 }
 
