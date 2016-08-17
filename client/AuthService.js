@@ -1,27 +1,44 @@
-import Auth0Lock from 'auth0-lock'
+import Auth0Lock from 'auth0-lock';
 
 class AuthService {
   constructor(clientId, domain) {
     // Configure Auth0
     //
+
+    // console.log('calling loggedIn', this.loggedIn());
     this.lock = new Auth0Lock(clientId, domain, {});
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this));
     // binds login functions to keep this context
     this.login = this.login.bind(this);
+    
+    const windowHash = this.lock.parseHash(window.location.hash);
+    console.log('window hash', windowHash);
+
+    if (windowHash !== null) {
+      this.setToken(windowHash.id_token);
+    }
+
+    console.log('get token', this.getToken());
+    // if (!this.getToken()) {
+    //   this.setToken(this.lock.parseHash(window.location.hash));
+    // }
   }
 
   _doAuthentication(authResult){
     // Saves the user token
+    console.log('running do auth');
     this.setToken(authResult.idToken);
   }
 
   login() {
     // Call the show method to display the widget.
-    this.lock.show({callbackURL: 'http://localhost:4000/findathletes' });
+    this.lock.show({});
+    //callbackURL: 'http://localhost:4000/'
   }
   loggedIn(){
     // Checks if there is a saved token and it's still valid
+    console.log('in logged in');
     return !!this.getToken();
   }
 

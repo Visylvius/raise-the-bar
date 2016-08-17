@@ -19,16 +19,14 @@ import HomePage from './components/home-page';
 import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
 
-
-
-
-// const requireAuth = (nextState, replace) => {
-//   if (!auth.loggedIn()) {
-//     replace({ pathname: '/login' });
-//     return false;
-//   }
-//   return true;
-// };
+const requireAuth = (nextState, replace) => {
+  console.log('logged in', auth.loggedIn());
+  if (!auth.loggedIn()) {
+    replace({ pathname: '/login' });
+    return false;
+  }
+  return true;
+};
 
 import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
 import { fetchTrainers } from './actions/trainer-actions';
@@ -53,7 +51,7 @@ const fetchBoundTrainer = function() {
 
 export default (
   <Router history={browserHistory}>
-    <Route path='/' component={MainLayout}>
+    <Route path='/' component={MainLayout} auth={auth}>
       <IndexRoute
         component={HomePage}
         onEnter={() => document.querySelector('body').className = 'homePage'}
@@ -63,9 +61,9 @@ export default (
       <Route component={MenuBar}>
         <Route path='/createathlete' component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
-        <Route path='athlete/:id' onEnter={(nextState) => fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
+        <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
         <Route path='athlete/update/:id' onEnter={(nextState, replace) => {
-              fetchBoundAthlete(nextState.params.id)
+              requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)
               .then((response) => {
                 //same thing as const athlete = response.value
                 const { value: athlete } = response;
@@ -78,9 +76,9 @@ export default (
         </Route>
     </Route>
     <Route path='findtrainers' onEnter={fetchBoundTrainers} component={DisplayTrainers} />
-    <Route path='trainer/:id' onEnter={(nextState) => fetchBoundTrainer(nextState.params.id)} component={DisplayTrainer} />
+    <Route path='trainer/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundTrainer(nextState.params.id)} component={DisplayTrainer} />
     <Route path='trainer/update/:id' onEnter={(nextState, replace) => {
-          fetchBoundTrainer(nextState.params.id)
+          requireAuth(nextState, replace) && fetchBoundTrainer(nextState.params.id)
             .then((response) => {
               const { value: trainer } = response;
               store.dispatch(initialize('UpdateTrainer', Object.assign({}, trainer, trainer.trainer_bio),
