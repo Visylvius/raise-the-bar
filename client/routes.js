@@ -58,7 +58,7 @@ export default (
         onLeave={() => document.querySelector('body.homePage').className = ''}
       />
       <Route path='login' component={Login} />
-      <Route component={MenuBar}>
+      <Route component={MenuBar} auth={auth}>
         <Route path='/createathlete' component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
@@ -73,22 +73,22 @@ export default (
               });
           }}
               component={UpdateAthlete} />
-        </Route>
+        <Route path='findtrainers' onEnter={fetchBoundTrainers} component={DisplayTrainers} />
+        <Route path='trainer/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundTrainer(nextState.params.id)} component={DisplayTrainer} />
+        <Route path='trainer/update/:id' onEnter={(nextState, replace) => {
+              requireAuth(nextState, replace) && fetchBoundTrainer(nextState.params.id)
+                .then((response) => {
+                  const { value: trainer } = response;
+                  store.dispatch(initialize('UpdateTrainer', Object.assign({}, trainer, trainer.trainer_bio),
+                  ['displayName', 'name', 'location', 'email', 'driveForClient', 'offerFitnessAssessment', 'offerNutritionPlan',
+                  'price', 'takingNewClients', 'phoneNumber', 'about', 'liftingStyles', 'experience']));
+                });
+            }}
+              component={UpdateTrainer} />
+        <Route path='/createtrainer' component={CreateTrainer} />
+        <Route path='/gymsearch' component={GymSearch} />
+      </Route>
     </Route>
-    <Route path='findtrainers' onEnter={fetchBoundTrainers} component={DisplayTrainers} />
-    <Route path='trainer/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundTrainer(nextState.params.id)} component={DisplayTrainer} />
-    <Route path='trainer/update/:id' onEnter={(nextState, replace) => {
-          requireAuth(nextState, replace) && fetchBoundTrainer(nextState.params.id)
-            .then((response) => {
-              const { value: trainer } = response;
-              store.dispatch(initialize('UpdateTrainer', Object.assign({}, trainer, trainer.trainer_bio),
-              ['displayName', 'name', 'location', 'email', 'driveForClient', 'offerFitnessAssessment', 'offerNutritionPlan',
-              'price', 'takingNewClients', 'phoneNumber', 'about', 'liftingStyles', 'experience']));
-            });
-        }}
-          component={UpdateTrainer} />
-    <Route path='/createtrainer' component={CreateTrainer} />
-    <Route path='/gymsearch' component={GymSearch} />
   </Router>
 );
 

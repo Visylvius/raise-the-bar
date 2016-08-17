@@ -1,4 +1,6 @@
 import Auth0Lock from 'auth0-lock';
+import { isTokenExpired } from './jwtHelper'
+
 
 class AuthService {
   constructor(clientId, domain) {
@@ -11,7 +13,8 @@ class AuthService {
     this.lock.on('authenticated', this._doAuthentication.bind(this));
     // binds login functions to keep this context
     this.login = this.login.bind(this);
-    
+    this.logout = this.logout.bind(this);
+
     const windowHash = this.lock.parseHash(window.location.hash);
     console.log('window hash', windowHash);
 
@@ -39,7 +42,8 @@ class AuthService {
   loggedIn(){
     // Checks if there is a saved token and it's still valid
     console.log('in logged in');
-    return !!this.getToken();
+    const token = this.getToken();
+    return !!token && !isTokenExpired(token);
   }
 
   setToken(idToken){

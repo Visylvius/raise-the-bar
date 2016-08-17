@@ -25,7 +25,7 @@ const HomePage = () => {
         <h3 type='text'>Raise The Bar</h3>
           <div style={baseStyles.buttons}>
             <Link to='/findathletes'><button className='btn btn-primary'>Find Athletes</button></Link>
-            <button className='btn btn-primary'>Find Trainers</button>
+            <Link to='/findtrainers'><button className='btn btn-primary'>Find Trainers</button></Link> 
           </div>
       </div>
   );
