@@ -50,15 +50,15 @@ const fetchBoundTrainer = function() {
 };
 
 export default (
-  <Router history={browserHistory}>
-    <Route path='/' component={MainLayout} auth={auth}>
+  <Router history={browserHistory} createElement={function(Component, props) { props.auth = auth; return <Component {...props} /> }}>
+    <Route path='/' component={MainLayout}>
       <IndexRoute
         component={HomePage}
         onEnter={() => document.querySelector('body').className = 'homePage'}
         onLeave={() => document.querySelector('body.homePage').className = ''}
       />
       <Route path='login' component={Login} />
-      <Route component={MenuBar} auth={auth}>
+      <Route component={MenuBar}>
         <Route path='/createathlete' component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />

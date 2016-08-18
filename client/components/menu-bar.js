@@ -34,21 +34,18 @@
 
 
 import React, { PropTypes } from 'react';
-import auth from '../AuthService';
+// import auth from '../AuthService';
 
 class MenuBar extends React.Component {
-  // logout(){
-  //   // destroys the session data
-  //   console.log('in logout');
-  //   this.props.auth.logout();
-  //   // redirects to login page
-  //   this.context.router.push('/login');
-  // }
-  logSomething() {
-    console.log(this, 'this');
-    console.log(auth, 'props.auth');
-  }
 
+  logout(){
+    // destroys the session data
+    console.log('in logout');
+    this.props.auth.logout();
+    // redirects to login page
+    this.context.router.push('/');
+  }
+  
   render(){
     return (
       <div>
@@ -67,7 +64,7 @@ class MenuBar extends React.Component {
               <a className="nav-link" href="#">Find Gyms Near You</a>
             </li>
             <li>
-              <button className='btn btn-default' onClick={auth.logout.bind(this)}>Logout</button>
+              <button className='btn btn-default' onClick={this.logout.bind(this)}>Logout</button>
               <button onClick={this.logSomething}>Log ME!</button>
             </li>
           </ul>
@@ -85,7 +82,7 @@ MenuBar.contextTypes = {
 };
 
 MenuBar.PropTypes = {
-  auth: PropTypes.instanceOf(auth)
+  // auth: PropTypes.instanceOf(auth)
 };
 
 export default MenuBar;

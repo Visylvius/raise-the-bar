@@ -44,4 +44,4 @@ exports.getGyms = function(req, res) {
     .catch(function(err) {
       res.send(500, err.message);
     });
-}
+};

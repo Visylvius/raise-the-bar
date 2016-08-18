@@ -13,7 +13,7 @@ class AuthService {
     this.lock.on('authenticated', this._doAuthentication.bind(this));
     // binds login functions to keep this context
     this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
+    // this.logout = this.logout.bind(this);
 
     const windowHash = this.lock.parseHash(window.location.hash);
     console.log('window hash', windowHash);
