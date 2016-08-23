@@ -1,9 +1,11 @@
+import { EventEmitter } from 'events'
 import Auth0Lock from 'auth0-lock';
 import { isTokenExpired } from './jwtHelper'
 
 
-class AuthService {
+class AuthService extends EventEmitter {
   constructor(clientId, domain) {
+    super();
     // Configure Auth0
     //
 
@@ -14,14 +16,16 @@ class AuthService {
     // binds login functions to keep this context
     this.login = this.login.bind(this);
     // this.logout = this.logout.bind(this);
-
-    const windowHash = this.lock.parseHash(window.location.hash);
-    console.log('window hash', windowHash);
-
-    if (windowHash !== null) {
-      this.setToken(windowHash.id_token);
-    }
-
+    this.lock.on('authorization_error', this._authorizationError.bind(this));
+    // // binds login functions to keep this context
+    // this.login = this.login.bind(this);
+    // const windowHash = this.lock.parseHash(window.location.hash);
+    // console.log('window hash', windowHash);
+    //
+    // if (windowHash !== null) {
+    //   this.setToken(windowHash.id_token);
+    // }
+    //
     console.log('get token', this.getToken());
     // if (!this.getToken()) {
     //   this.setToken(this.lock.parseHash(window.location.hash));
@@ -29,10 +33,35 @@ class AuthService {
   }
 
   _doAuthentication(authResult){
-    // Saves the user token
-    console.log('running do auth');
-    this.setToken(authResult.idToken);
-  }
+   // Saves the user token
+   this.setToken(authResult.idToken);
+   // Async loads the user profile data
+   this.lock.getProfile(authResult.idToken, (error, profile) => {
+     if (error) {
+       console.log('Error loading the Profile', error);
+     } else {
+       this.setProfile(profile);
+     }
+   });
+ }
+
+ _authorizationError(error){
+   // Unexpected authentication error
+   console.log('Authentication Error', error);
+ }
+
+ setProfile(profile){
+   // Saves profile data to localStorage
+   localStorage.setItem('profile', JSON.stringify(profile));
+   // Triggers profile_updated event to update the UI
+   this.emit('profile_updated', profile);
+ }
+
+ getProfile(){
+   // Retrieves the profile data from localStorage
+   const profile = localStorage.getItem('profile');
+   return profile ? JSON.parse(localStorage.profile) : {};
+ }
 
   login() {
     // Call the show method to display the widget.
@@ -59,6 +88,7 @@ class AuthService {
   logout(){
     // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token');
+    localStorage.removeItem('profile');
   }
 }
 

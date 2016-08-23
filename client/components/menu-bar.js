@@ -34,18 +34,18 @@
 
 
 import React, { PropTypes } from 'react';
-// import auth from '../AuthService';
+import auth from '../AuthService';
 
 class MenuBar extends React.Component {
 
-  logout(){
-    // destroys the session data
-    console.log('in logout');
-    this.props.auth.logout();
-    // redirects to login page
-    this.context.router.push('/');
-  }
-  
+   logout(){
+     // destroys the session data
+     console.log('in logout');
+     this.props.auth.logout()
+     // redirects to login page
+     this.context.router.push('/');
+   }
+
   render(){
     return (
       <div>

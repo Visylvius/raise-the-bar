@@ -1,6 +1,7 @@
 var athleteHandler = require('./athlete');
 var trainerHandler = require('./trainer');
 var gymHandler = require('./gyms');
+var inboxHandler = require('./inbox');
 var path = require('path');
 var Router = require('express').Router;
 
@@ -15,4 +16,10 @@ module.exports = new Router()
   .get('/trainer/:id', trainerHandler.getIndividualTrainer)
   .put('/trainer/update/:id', trainerHandler.updateTrainer)
   .delete('/trainer/:id', trainerHandler.deleteTrainer)
-  .post('/gym', gymHandler.getGyms);
+  .post('/gym', gymHandler.getGyms)
+  .get('/inbox/:to', inboxHandler.getMessage)
+  .post('/inbox', inboxHandler.sendMessage);
+
+
+
+//remove update from the url.

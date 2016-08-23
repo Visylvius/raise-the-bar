@@ -101,7 +101,7 @@ exports.postAthlete = function(req, res) {
 exports.getIndividualAthlete = function(req, res) {
   req.models.athlete.get(req.params.id, function(err, athlete) {
     if (err) {
-      throw err;
+      return res.sendStatus(500).json({error: err});
     } else {
       athlete.getAthlete_bio(function(err, bio) {
         if (err) {
