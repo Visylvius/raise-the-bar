@@ -1,14 +1,18 @@
 exports.getMessage = function(req, res) {
-  var to = req.body.to;
-  var id = req.params.id;
-  var from = req.body.from;
-  var body = req.body.body;
+  var to = '/api/' + req.params.to;
+  var id = '/' + req.params.id;
+  var finalQuery = to + id;
 
-  req.models.inbox.get(to, function(err, message) {
+  console.log('to', to);
+  console.log('id', id);
+  console.log(finalQuery, 'finalQuery');
+
+  req.models.inbox.find({to: finalQuery}, function(err, messages) {
     if (err) {
-      return res.sendStatus(500).json({err: err});
+      res.sendStatus(500).json({err: err});
+    } else {
+      res.json(messages);
     }
-    res.json(message);
   });
 };
 
