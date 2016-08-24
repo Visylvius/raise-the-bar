@@ -1,10 +1,5 @@
-exports.getMessage = function(req, res) {
-  var to = '/api/' + req.params.to;
-  var id = '/' + req.params.id;
-  var finalQuery = to + id;
-
-  console.log('to', to);
-  console.log('id', id);
+exports.getMessages = function(req, res) {
+  var finalQuery = '/api/' + req.params.to + '/' + req.params.id;
   console.log(finalQuery, 'finalQuery');
 
   req.models.inbox.find({to: finalQuery}, function(err, messages) {

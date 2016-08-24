@@ -16,3 +16,7 @@ module.exports = {
     id: {type: 'serial', key: true}
   }
 };
+
+
+//TODO create a relationship table User
+//fields are only email (primary key, unique), athleteId, trainerId

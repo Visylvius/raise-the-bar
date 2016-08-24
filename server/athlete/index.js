@@ -29,7 +29,8 @@ exports.postAthlete = function(req, res) {
     hasTrainer: req.body.hasTrainer,
     preferedGyms: req.body.preferedGyms,
     cardDescription: req.body.cardDescription,
-    preferedLiftingTimes: req.body.preferedLiftingTimes
+    preferedLiftingTimes: req.body.preferedLiftingTimes,
+    email: req.body.email
   }, function(err, athlete) {
     if (err) {
       return res.status(500).json({err});
@@ -142,7 +143,7 @@ exports.updateAthlete = function(req, res) {
       athlete.hasTrainer = req.body.hasTrainer;
       athlete.preferedGyms = req.body.preferedGyms;
       athlete.cardDescription = req.body.cardDescription;
-
+      
       athlete.save(function(err) {
         if (err) {
           throw err;

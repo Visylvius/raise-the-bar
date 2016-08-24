@@ -5,6 +5,7 @@ var Athlete = module.exports = {
   properties: {
     displayName: String,
     name: String,
+    email: String,
     liftingStyle: String,
     location: String,
     trainer: Boolean,

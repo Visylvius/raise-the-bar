@@ -11,6 +11,7 @@ class AuthService extends EventEmitter {
 
     // console.log('calling loggedIn', this.loggedIn());
     this.lock = new Auth0Lock(clientId, domain, {});
+    console.log(this.lock, 'lock');
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this));
     // binds login functions to keep this context
@@ -34,6 +35,7 @@ class AuthService extends EventEmitter {
 
   _doAuthentication(authResult){
    // Saves the user token
+   console.log('in doAuth');
    this.setToken(authResult.idToken);
    // Async loads the user profile data
    this.lock.getProfile(authResult.idToken, (error, profile) => {
@@ -78,6 +80,7 @@ class AuthService extends EventEmitter {
   setToken(idToken){
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken);
+    //messagingToken
   }
 
   getToken(){

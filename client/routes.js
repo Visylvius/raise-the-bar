@@ -21,6 +21,7 @@ import MainLayout from './components/main-layout';
 
 const requireAuth = (nextState, replace) => {
   console.log('logged in', auth.loggedIn());
+  console.log(nextState, 'nextState', replace, 'replace');
   if (!auth.loggedIn()) {
     replace({ pathname: '/login' });
     return false;
@@ -49,6 +50,7 @@ const fetchBoundTrainer = function() {
   return store.dispatch(fetchTrainer.apply(null, arguments));
 };
 
+
 export default (
   <Router history={browserHistory} createElement={function(Component, props) { props.auth = auth; return <Component {...props} /> }}>
     <Route path='/' component={MainLayout}>
@@ -59,7 +61,7 @@ export default (
       />
       <Route path='login' component={Login} />
       <Route component={MenuBar}>
-        <Route path='/createathlete' component={CreateAthlete} />
+        <Route path='createathlete' onEnter={requireAuth} component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
         <Route path='athlete/update/:id' onEnter={(nextState, replace) => {

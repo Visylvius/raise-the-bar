@@ -1,6 +1,8 @@
 import axios from 'axios';
 import ReduxThunk from 'redux-thunk';
 import { blur, change } from 'redux-form';
+import { getProfile } from '../AuthService';
+
 
 export const CREATE_ATHLETE = 'CREATE_ATHLETE';
 export const FETCH_ATHLETES = 'FETCH_ATHLETES';
@@ -10,7 +12,8 @@ export const UPDATE_ATHLETE = 'UPDATE_ATHLETE';
 
 export const makeAthlete = (attributes) => {
   return (dispatch, getState) => {
-    const request = axios.post('/api/athlete', Object.assign({}, attributes, {crop: getState().crop}))
+    const { email } = getProfile();
+    const request = axios.post('/api/athlete', Object.assign({email}, attributes, {crop: getState().crop}))
       .then(response => response.data);
       return {
         type: CREATE_ATHLETE,
