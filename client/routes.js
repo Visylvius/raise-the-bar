@@ -18,11 +18,20 @@ import UpdateTrainer from './components/trainer-components/update-trainer';
 import HomePage from './components/home-page';
 import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
+import RedirectComponent from './redirect-component';
 
 const requireAuth = (nextState, replace) => {
   console.log('logged in', auth.loggedIn());
-  console.log(nextState, 'nextState', replace, 'replace');
+  if (nextState.location.hash) {
+    const hashString = nextState.location.hash;
+    const idString = '&id_token';
+    const firstIndex = hashString.indexOf(idString) + idString.length + 1;
+    const lastIndex = hashString.indexOf('&token_type=');
+    console.log(hashString.substring(firstIndex, lastIndex));
+    localStorage.setItem('id_token', hashString.substring(firstIndex, lastIndex));
+  }
   if (!auth.loggedIn()) {
+    console.log(nextState, 'nextState', replace, 'replace');
     replace({ pathname: '/login' });
     return false;
   }
@@ -50,6 +59,12 @@ const fetchBoundTrainer = function() {
   return store.dispatch(fetchTrainer.apply(null, arguments));
 };
 
+const redirectFn = function(nextState, replace, req) {
+  console.log(nextState, 'nextState');
+  setTimeout(function() {
+    console.log('this is working.');
+  }, 3000);
+};
 
 export default (
   <Router history={browserHistory} createElement={function(Component, props) { props.auth = auth; return <Component {...props} /> }}>
@@ -61,7 +76,8 @@ export default (
       />
       <Route path='login' component={Login} />
       <Route component={MenuBar}>
-        <Route path='createathlete' onEnter={requireAuth} component={CreateAthlete} />
+        <Route path='redirect/:path' onEnter={redirectFn} component={RedirectComponent}></Route>
+        <Route path='createathlete' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
         <Route path='athlete/update/:id' onEnter={(nextState, replace) => {

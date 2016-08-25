@@ -18,11 +18,14 @@ class AuthService extends EventEmitter {
     this.login = this.login.bind(this);
     // this.logout = this.logout.bind(this);
     this.lock.on('authorization_error', this._authorizationError.bind(this));
+
+
+
     // // binds login functions to keep this context
     // this.login = this.login.bind(this);
     // const windowHash = this.lock.parseHash(window.location.hash);
     // console.log('window hash', windowHash);
-    //
+    // //
     // if (windowHash !== null) {
     //   this.setToken(windowHash.id_token);
     // }
@@ -35,8 +38,9 @@ class AuthService extends EventEmitter {
 
   _doAuthentication(authResult){
    // Saves the user token
-   console.log('in doAuth');
+   console.log('in doAuth', authResult);
    this.setToken(authResult.idToken);
+   this.emit('authenticated', authResult);
    // Async loads the user profile data
    this.lock.getProfile(authResult.idToken, (error, profile) => {
      if (error) {

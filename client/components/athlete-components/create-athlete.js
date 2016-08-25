@@ -62,8 +62,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  return { crop: state.crop }
-}
+  return { crop: state.crop };
+};
 
 export default reduxForm({
   form: 'CreateAthlete',
