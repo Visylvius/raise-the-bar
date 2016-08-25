@@ -18,7 +18,6 @@ import UpdateTrainer from './components/trainer-components/update-trainer';
 import HomePage from './components/home-page';
 import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
-import RedirectComponent from './redirect-component';
 
 const requireAuth = (nextState, replace) => {
   console.log('logged in', auth.loggedIn());

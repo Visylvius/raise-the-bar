@@ -38,6 +38,15 @@ import auth from '../AuthService';
 
 class MenuBar extends React.Component {
 
+
+   userButton() {
+     if (localStorage.getItem('id_token')) {
+       return <button className='btn btn-default' onClick={this.logout.bind(this)}>Logout</button>;
+     } else {
+       return <button onClick={auth.login.bind(this)}>Login</button>;
+     }
+   }
+
    logout(){
      // destroys the session data
      console.log('in logout');
@@ -45,6 +54,8 @@ class MenuBar extends React.Component {
      // redirects to login page
      this.context.router.push('/');
    }
+
+
 
   render(){
     return (
@@ -64,8 +75,7 @@ class MenuBar extends React.Component {
               <a className="nav-link" href="#">Find Gyms Near You</a>
             </li>
             <li>
-              <button className='btn btn-default' onClick={this.logout.bind(this)}>Logout</button>
-              <button onClick={this.logSomething}>Log ME!</button>
+              {this.userButton()}
             </li>
           </ul>
         </nav>
