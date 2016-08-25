@@ -59,13 +59,6 @@ const fetchBoundTrainer = function() {
   return store.dispatch(fetchTrainer.apply(null, arguments));
 };
 
-const redirectFn = function(nextState, replace, req) {
-  console.log(nextState, 'nextState');
-  setTimeout(function() {
-    console.log('this is working.');
-  }, 3000);
-};
-
 export default (
   <Router history={browserHistory} createElement={function(Component, props) { props.auth = auth; return <Component {...props} /> }}>
     <Route path='/' component={MainLayout}>
@@ -76,7 +69,6 @@ export default (
       />
       <Route path='login' component={Login} />
       <Route component={MenuBar}>
-        <Route path='redirect/:path' onEnter={redirectFn} component={RedirectComponent}></Route>
         <Route path='createathlete' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
