@@ -18,6 +18,7 @@ import UpdateTrainer from './components/trainer-components/update-trainer';
 import HomePage from './components/home-page';
 import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
+import Inbox from './components/inbox';
 
 const requireAuth = (nextState, replace) => {
   console.log('logged in', auth.loggedIn());
@@ -40,6 +41,8 @@ const requireAuth = (nextState, replace) => {
 import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
 import { fetchTrainers } from './actions/trainer-actions';
 import { fetchTrainer } from './actions/trainer-actions';
+import { getMessages } from './actions/inbox-actions';
+
 import store from './reducers';
 
 const fetchBoundAthletes = function() {
@@ -56,6 +59,10 @@ const fetchBoundTrainers = function() {
 
 const fetchBoundTrainer = function() {
   return store.dispatch(fetchTrainer.apply(null, arguments));
+};
+
+const fetchBoundMessages = function() {
+  store.dispatch(getMessages.apply(null, arguments));
 };
 
 export default (
@@ -95,6 +102,7 @@ export default (
             }}
               component={UpdateTrainer} />
         <Route path='/createtrainer' component={CreateTrainer} />
+        <Route path='inbox' onEnter={fetchBoundMessages(localStorage.getItem('profile').email)} component={Inbox}></Route>
         <Route path='/gymsearch' component={GymSearch} />
       </Route>
     </Route>

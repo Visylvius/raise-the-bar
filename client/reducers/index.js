@@ -11,6 +11,7 @@ import { cropReducer } from './crop-reducer';
 import { profileReducer } from './profile-reducer';
 import { trainersReducer } from './trainers-reducer';
 import { trainerReducer } from './trainer-reducer';
+import { inboxReducer } from './inbox-reducer';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise(), ReduxThunk, createLogger())(createStore);
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   gyms: gymsReducer,
   form: formReducer,
   athletes: athleteReducer,
+  inbox: inboxReducer,
   profile: profileReducer,
   trainers: trainersReducer,
   trainer: trainerReducer,
