@@ -102,7 +102,9 @@ export default (
             }}
               component={UpdateTrainer} />
         <Route path='/createtrainer' component={CreateTrainer} />
-        <Route path='inbox' onEnter={fetchBoundMessages(localStorage.getItem('profile').email)} component={Inbox}></Route>
+        <Route path='inbox' onEnter={(nextState, replace) => {
+            requireAuth(nextState, replace) && fetchBoundMessages(localStorage.getItem('profile'))
+        }} component={Inbox}></Route>
         <Route path='/gymsearch' component={GymSearch} />
       </Route>
     </Route>

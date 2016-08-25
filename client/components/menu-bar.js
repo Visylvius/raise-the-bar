@@ -41,9 +41,9 @@ class MenuBar extends React.Component {
 
    userButton() {
      if (localStorage.getItem('id_token')) {
-       return <button className='btn btn-default' onClick={this.logout.bind(this)}>Logout</button>;
+       return <a className='nav-link' onClick={this.logout.bind(this)}>Logout</a>;
      } else {
-       return <button onClick={auth.login.bind(this)}>Login</button>;
+       return <a className='nav-link' onClick={auth.login.bind(this)}>Login</a>;
      }
    }
 
@@ -74,7 +74,7 @@ class MenuBar extends React.Component {
             <li className="nav-item">
               <a className="nav-link" href="#">Find Gyms Near You</a>
             </li>
-            <li>
+            <li className='nav-item'>
               {this.userButton()}
             </li>
           </ul>
