@@ -12,6 +12,7 @@ import { profileReducer } from './profile-reducer';
 import { trainersReducer } from './trainers-reducer';
 import { trainerReducer } from './trainer-reducer';
 import { inboxReducer } from './inbox-reducer';
+import { messageReducer } from './message-reducer';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise(), ReduxThunk, createLogger())(createStore);
 
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   trainers: trainersReducer,
   trainer: trainerReducer,
+  message: messageReducer,
   crop: cropReducer
 });
 

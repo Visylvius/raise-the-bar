@@ -17,7 +17,7 @@ module.exports = new Router()
   .put('/trainer/update/:id', trainerHandler.updateTrainer)
   .delete('/trainer/:id', trainerHandler.deleteTrainer)
   .post('/gym', gymHandler.getGyms)
-  .post('/inbox', inboxHandler.sendMessage)
+  .post('/inbox/:type/:id', inboxHandler.sendMessage)
   .get('/inbox/:email', inboxHandler.getMessages);
 
 

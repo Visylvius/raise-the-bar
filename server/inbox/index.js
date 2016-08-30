@@ -32,7 +32,7 @@ exports.sendMessage = function(req, res) {
 
 exports.getMessages = function(req, res) {
   const userEmail = req.body.email;
-
+  console.log('user email is', userEmail);
   req.models.athlete.find({email: userEmail}, function(err, athlete) {
     console.log(athlete);
     const { id } = athlete[0];

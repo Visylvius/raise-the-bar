@@ -13,7 +13,7 @@ const ProfileHeader = (props) => {
           <div className='athlete-name' style={stylesObject.athleteName}>{props.name}</div>
           <div className='lifting-style' style={stylesObject.liftingStyles}>{props.location}</div>
           <Link to={`/${props.userType}/update/${props.userId}`}><button type='button' className='btn btn-primary btn-lg' style={stylesObject.editProfile}><i className="fa fa-pencil-square-o" style={stylesObject.editIcon} aria-hidden="true"></i>Edit Profile</button></Link>
-          <button type='button' className='btn btn-success btn-lg' style={stylesObject.sendMessage}><i className='fa fa-envelope' style={stylesObject.editIcon}></i>Send Message</button>
+          <Link to={`/inbox/${props.userType}/${props.userId}`}><button type='button' className='btn btn-success btn-lg' style={stylesObject.sendMessage}><i className='fa fa-envelope' style={stylesObject.editIcon}></i>Send Message</button></Link>
         </div>
       </div>
     </div>

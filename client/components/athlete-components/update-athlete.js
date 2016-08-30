@@ -1,4 +1,4 @@
-import React, { PropTypes }from 'react';
+import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';

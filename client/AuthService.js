@@ -43,6 +43,7 @@ class AuthService extends EventEmitter {
    this.emit('authenticated', authResult);
    // Async loads the user profile data
    this.lock.getProfile(authResult.idToken, (error, profile) => {
+     console.log('in get profile');
      if (error) {
        console.log('Error loading the Profile', error);
      } else {

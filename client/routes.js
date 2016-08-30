@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { initialize } from 'redux-form';
 import auth from './AuthService';
+import promise from 'bluebird';
 
 import GymSearch from './containers/GymSearch';
 import Login from './components/login';
@@ -19,6 +20,7 @@ import HomePage from './components/home-page';
 import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
 import Inbox from './components/inbox';
+import SendMessage from './components/send-message';
 
 const requireAuth = (nextState, replace) => {
   console.log('logged in', auth.loggedIn());
@@ -27,8 +29,16 @@ const requireAuth = (nextState, replace) => {
     const idString = '&id_token';
     const firstIndex = hashString.indexOf(idString) + idString.length + 1;
     const lastIndex = hashString.indexOf('&token_type=');
-    console.log(hashString.substring(firstIndex, lastIndex));
     localStorage.setItem('id_token', hashString.substring(firstIndex, lastIndex));
+    const loginPromise = new Promise((resolve, reject) => {
+      resolve(localStorage.getItem('profile'));
+    });
+    if (!loginPromise) {
+      console.log('waiting for the resolution');
+    }
+    // auth._doAuthentication(hashString.substring(firstIndex, lastIndex));
+    //return promise here
+
   }
   if (!auth.loggedIn()) {
     console.log(nextState, 'nextState', replace, 'replace');
@@ -38,10 +48,13 @@ const requireAuth = (nextState, replace) => {
   return true;
 };
 
+
+
 import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
 import { fetchTrainers } from './actions/trainer-actions';
 import { fetchTrainer } from './actions/trainer-actions';
 import { getMessages } from './actions/inbox-actions';
+import { sendMessages } from './actions/inbox-actions';
 
 import store from './reducers';
 
@@ -64,6 +77,10 @@ const fetchBoundTrainer = function() {
 const fetchBoundMessages = function() {
   store.dispatch(getMessages.apply(null, arguments));
 };
+
+const sendBoundMessage = function() {
+  store.dispatch(sendMessages.apply(null, arguments));
+}
 
 export default (
   <Router history={browserHistory} createElement={function(Component, props) { props.auth = auth; return <Component {...props} /> }}>
@@ -103,8 +120,12 @@ export default (
               component={UpdateTrainer} />
         <Route path='/createtrainer' component={CreateTrainer} />
         <Route path='inbox' onEnter={(nextState, replace) => {
-            requireAuth(nextState, replace) && fetchBoundMessages(localStorage.getItem('profile'))
+            requireAuth(nextState, replace) && fetchBoundMessages(JSON.parse(localStorage.getItem('profile')))
         }} component={Inbox}></Route>
+        <Route path='inbox/:type/:id' onEnter={(nextState, replace) => {
+          requireAuth(nextState, replace)
+          console.log('nextState', nextState);
+        }} component={SendMessage} ></Route>
         <Route path='/gymsearch' component={GymSearch} />
       </Route>
     </Route>
@@ -112,8 +133,12 @@ export default (
 );
 
 
+<Route path='inbox/:type/:id' component={Inbox}></Route>
 
 
+
+
+// && sendBoundMessage(nextState.type, nextState.id, request.body.from, request.body.body)
 //Line 55
 //requireAuth(nextState, replace) &&
 

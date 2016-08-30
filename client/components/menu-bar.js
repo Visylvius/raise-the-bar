@@ -41,9 +41,9 @@ class MenuBar extends React.Component {
 
    userButton() {
      if (localStorage.getItem('id_token')) {
-       return <a className='nav-link' onClick={this.logout.bind(this)}>Logout</a>;
+       return <a className='nav-link' href='#' onClick={this.logout.bind(this)}>Logout</a>;
      } else {
-       return <a className='nav-link' onClick={auth.login.bind(this)}>Login</a>;
+       return <a className='nav-link' href='#' onClick={auth.login.bind(this)}>Login</a>;
      }
    }
 
