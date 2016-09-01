@@ -124,7 +124,7 @@ const baseStyles = {
       liftingStyles = athlete_bio.liftingStyles
     }
 
-    const { name, location, id } = athlete;
+    const { name, location, id, email } = athlete;
 
  return (
   <div className='container-fluid'>
@@ -132,6 +132,7 @@ const baseStyles = {
       userId={id}
       userType='athlete'
       name={name}
+      email={email}
       location={location}
    />
     <NavigationLinks />
