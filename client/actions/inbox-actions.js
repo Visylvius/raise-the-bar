@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const GET_MESSAGES = 'GET_MESSAGES';
-export const SEND_MESSAGES = 'SEND_MESSAGES';
+export const SEND_MESSAGE = 'SEND_MESSAGES';
 
 export const getMessages = (email) => {
   const request = axios.get(`/api/inbox/${email}`)
@@ -12,11 +12,11 @@ export const getMessages = (email) => {
   };
 };
 
-export const sendMessages = (type, id, from, body) => {
-  const request = axios.post(`/api/inbox/${type}/${id}`)
+export const sendMessage = (type, id, to, from, attributes) => {
+  const request = axios.post(`/api/inbox/${type}/${id}`, Object.assign({}, {to: to, from: from}, attributes))
     .then(response => response.data)
   return {
-    type: SEND_MESSAGES,
+    type: SEND_MESSAGE,
     payload: request
   };
 };

@@ -12,12 +12,15 @@
 // };
 
 exports.sendMessage = function(req, res) {
-  var type = req.params.type;
-  var id = req.params.id;
+  console.log(req);
+  // var type = req.body.type;
+  // var id = req.body.id;
   var to = req.body.to;
   var from = req.body.from;
   var body = req.body.body;
 
+  console.log(to, 'to');
+  console.log(body, 'body');
   req.models.inbox.create({
     to: req.body.to,
     from: req.body.from,
@@ -32,6 +35,9 @@ exports.sendMessage = function(req, res) {
 
 exports.getMessages = function(req, res) {
   const userEmail = req.body.email;
+  const userType = req.params.type;
+  const userId = req.params.id;
+
   console.log('user email is', userEmail);
   req.models.athlete.find({email: userEmail}, function(err, athlete) {
     console.log(athlete);
@@ -46,3 +52,6 @@ exports.getMessages = function(req, res) {
     });
   });
 };
+
+//TODO make a join table between athlete / trainer called user that takes the trainerId, athleteId, single column is athlete has a 1
+//is a trainer has a 0

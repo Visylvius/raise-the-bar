@@ -54,7 +54,7 @@ import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
 import { fetchTrainers } from './actions/trainer-actions';
 import { fetchTrainer } from './actions/trainer-actions';
 import { getMessages } from './actions/inbox-actions';
-import { sendMessages } from './actions/inbox-actions';
+import { sendMessage } from './actions/inbox-actions';
 
 import store from './reducers';
 
@@ -79,7 +79,7 @@ const fetchBoundMessages = function() {
 };
 
 const sendBoundMessage = function() {
-  store.dispatch(sendMessages.apply(null, arguments));
+  store.dispatch(sendMessage.apply(null, arguments));
 }
 
 export default (
@@ -122,10 +122,7 @@ export default (
         <Route path='inbox' onEnter={(nextState, replace) => {
             requireAuth(nextState, replace) && fetchBoundMessages(JSON.parse(localStorage.getItem('profile')))
         }} component={Inbox}></Route>
-        <Route path='inbox/:type/:id' onEnter={(nextState, replace) => {
-          requireAuth(nextState, replace)
-          console.log('nextState', nextState);
-        }} component={SendMessage} ></Route>
+        <Route path='inbox/:type/:id' onEnter={(nextState, replace) => { requireAuth(nextState, replace)}} component={SendMessage}></Route>
         <Route path='/gymsearch' component={GymSearch} />
       </Route>
     </Route>
@@ -133,12 +130,13 @@ export default (
 );
 
 
-<Route path='inbox/:type/:id' component={Inbox}></Route>
+{/* <Route path='inbox/:type/:id' component={Inbox}></Route> */}
 
 
 
+// && sendBoundMessage(nextState.type, nextState.id)
+// console.log('nextState', nextState);
 
-// && sendBoundMessage(nextState.type, nextState.id, request.body.from, request.body.body)
 //Line 55
 //requireAuth(nextState, replace) &&
 
