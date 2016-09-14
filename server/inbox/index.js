@@ -34,7 +34,8 @@ exports.sendMessage = function(req, res) {
 };
 
 exports.getMessages = function(req, res) {
-  const userEmail = req.body.email;
+  console.log('req.body', req.params);
+  const userEmail = req.params.email;
   const userType = req.params.type;
   const userId = req.params.id;
 

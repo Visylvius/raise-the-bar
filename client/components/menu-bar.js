@@ -21,7 +21,7 @@ class MenuBar extends React.Component {
    }
 
    userProfile() {
-
+     
    }
 
   render(){

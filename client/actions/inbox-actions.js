@@ -3,7 +3,9 @@ import axios from 'axios';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const SEND_MESSAGE = 'SEND_MESSAGES';
 
-export const getMessages = (email) => {
+export const getMessages = (profile) => {
+  const { email } = profile
+  console.log(email);
   const request = axios.get(`/api/inbox/${email}`)
     .then(response => response.data)
   return {

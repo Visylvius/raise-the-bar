@@ -12,14 +12,14 @@ exports.getGyms = function(req, res) {
       if (newAddress.status === 'OK' && newAddress.results.length) {
         var location = newAddress.results[0].geometry.location;
         // console.log(location);
-        return rp('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + location.lat + ',' + location.lng + '&radius=' + distance +'&keyword=gym&key=' + process.env.API_KEY);
+        return rp('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + location.lat + ',' + location.lng + '&radius=' + distance + '&keyword=gym&key=' + process.env.API_KEY);
       } else {
         throw new Error('Address not found');
       }
     })
     .then(function(gyms) {
       var gymList = JSON.parse(gyms);
-      console.log(gymList);
+      console.log(gymList.results);
       if (gymList.status === 'OK' && gymList.results.length) {
           return new Promise(function(resolve, reject) {
             req.models.gym.create(gymList.results.map(function(gym){
@@ -45,5 +45,17 @@ exports.getGyms = function(req, res) {
     })
     .catch(function(err) {
       res.send(500, err.message);
+    });
+};
+
+exports.getSpecificGym = function(req, res) {
+  var placeId = req.params.placeId;
+  if (!process.env.API_KEY) {
+    var env = require('../../env.js');
+  }
+  rp('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + placeId + '&key=' + process.env.API_KEY)
+    .then(function(gym) {
+      console.log(gym);
+      res.send(200, gym);
     });
 };

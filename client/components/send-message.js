@@ -15,7 +15,7 @@ const SendMessage = ({fields: {
       const { email } = messageAuthor;
       console.log(email, 'email');
       sendMessage(routeParams.type, routeParams.id, messageRecipient, email, attributes);
-      socket.emit('message', {body: attributes.body, to: messageRecipient, from: email});
+      // socket.emit('message', {body: attributes.body, to: messageRecipient, from: email});
     };
 
     // sendMessage(nextState.type, nextState.id, attributes);
