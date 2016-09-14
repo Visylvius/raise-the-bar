@@ -5,6 +5,7 @@ import auth from './AuthService';
 import promise from 'bluebird';
 
 import GymSearch from './containers/GymSearch';
+import DisplayGym from './components/gym-components/display-gym';
 import Login from './components/login';
 import AthleteSearch from './containers/AthleteSearch';
 import IndividualAthlete from './containers/IndividualAthlete';
@@ -55,6 +56,7 @@ import { fetchTrainers } from './actions/trainer-actions';
 import { fetchTrainer } from './actions/trainer-actions';
 import { getMessages } from './actions/inbox-actions';
 import { sendMessage } from './actions/inbox-actions';
+import { fetchGym } from './actions/gyms-actions';
 
 import store from './reducers';
 
@@ -80,7 +82,11 @@ const fetchBoundMessages = function() {
 
 const sendBoundMessage = function() {
   store.dispatch(sendMessage.apply(null, arguments));
-}
+};
+
+const fetchBoundGym = function() {
+  store.dispatch(fetchGym.apply(null, arguments));
+};
 
 export default (
   <Router history={browserHistory} createElement={function(Component, props) { props.auth = auth; return <Component {...props} /> }}>
@@ -124,6 +130,9 @@ export default (
         }} component={Inbox}></Route>
         <Route path='inbox/:type/:id' onEnter={(nextState, replace) => { requireAuth(nextState, replace)}} component={SendMessage}></Route>
         <Route path='/gymsearch' component={GymSearch} />
+        <Route path='/gym/:placeId' component={DisplayGym} onEnter={(nextState, replace) => {
+          requireAuth(nextState, replace) && fetchBoundGym(nextState.params.placeId)
+        }}/>
       </Route>
     </Route>
   </Router>

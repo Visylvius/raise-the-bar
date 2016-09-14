@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router';
+
 const GymCard = (props) => {
   return (
     <div className="card">
@@ -7,7 +9,7 @@ const GymCard = (props) => {
       <div className="card-block">
         <h4 className="card-title">{props.name}</h4>
         <p className="card-text">{props.address}</p>
-        <button className="btn btn-primary">More Information</button>
+        <Link to={`/gym/${props.placeId}`}><button className="btn btn-primary">More Information</button></Link>
       </div>
     </div>
   );

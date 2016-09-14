@@ -12,9 +12,14 @@ export const fetchGyms = (address, distance) => {
   };
 };
 
-export const fetchGym = () => {
-  const request = axios.get('/api/gym/')
-}
+export const fetchGym = (placeId) => {
+  const request = axios.get(`/api/gym/${placeId}`)
+    .then((response) => response.data);
+  return {
+    type: FETCH_GYM,
+    payload: request
+  };
+};
 
 
 //change to post to get, url encode the parameters
