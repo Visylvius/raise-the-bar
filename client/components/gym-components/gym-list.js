@@ -1,5 +1,7 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+
+import GymCard from './gym-card.js';
+
 const GymList = ( { listOfGyms } ) => {
   if (listOfGyms === null) {
     return null;
@@ -7,25 +9,28 @@ const GymList = ( { listOfGyms } ) => {
   const renderGyms = gymData => {
     console.log(gymData);
     return (
-      <tr>
-       <td>{gymData.name}</td>
-       <td>{gymData.address}</td>
-      </tr>
+      <GymCard
+        id={gymData.id}
+        placeId={gymData.placeId}
+        name={gymData.name}
+        address={gymData.address}
+      />
     );
   };
   return (
-    <table className='table table-hover'>
-      <thead>
-        <tr>
-          <th>Gym Name</th>
-          <th>Gym Address</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div>
       {listOfGyms.map(renderGyms)}
-      </tbody>
-    </table>
+    </div>
+
+
   );
 };
+
+// {/* <div>
+//   <span>Name</span>
+//   <div>{gymData.name}</div>
+//   <span>address</span>
+//   <div>{gymData.address}</div>
+// </div> */}
 
 export default GymList;
