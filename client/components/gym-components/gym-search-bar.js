@@ -10,7 +10,7 @@ const GymSearchBar = ({fetchGyms}) => {
   return (
     <form onSubmit={onSubmit}>
       <input name='address' type='text' placeholder='enter address'/>
-      <input name='distance' type='number' />
+      <input name='distance' type='number' placeholder='enter distance' />
       <button type='submit'>Get Gyms</button>
     </form>
   );

@@ -9,11 +9,13 @@ const SendMessage = ({fields: {
   body
 }, handleSubmit, sendMessage, router, routeParams}, context) => {
   const onSubmit = (attributes) => {
+      console.log('attributes', attributes);
       const messageRecipient = `/api/${routeParams.type}/${routeParams.id}`
       const messageAuthor = JSON.parse(localStorage.getItem('profile'));
       const { email } = messageAuthor;
       console.log(email, 'email');
       sendMessage(routeParams.type, routeParams.id, messageRecipient, email, attributes);
+      socket.emit('message', {body: attributes.body, to: messageRecipient, from: email});
     };
 
     // sendMessage(nextState.type, nextState.id, attributes);

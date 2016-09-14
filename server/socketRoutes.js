@@ -9,6 +9,16 @@ module.exports = function(io) {
 };
 
 const api = (socket) => {
+
+  socket.on('message', (data) => {
+    // models.inbox.create(data, (err, message) => {
+    //   if (err) {
+    //     console.error('Error creating message in socket', message);
+    //   }
+    // });
+    console.log('this is data', data);
+  });
+
   socket.on('ferret', (data, reply) => {
     console.log('data', data);
     console.log('reply', reply);
@@ -24,11 +34,11 @@ const api = (socket) => {
     socket.broadcast.emit('ferret', data);
   });
 
-  socket.on('/athlete/create', (req, res) => {
-    console.log(req, 'req');
-    console.log(res, 'res');
-    console.log('it works?');
-  });
+  // socket.on('/athlete/create', (req, res) => {
+  //   console.log(req, 'req');
+  //   console.log(res, 'res');
+  //   console.log('it works?');
+  // });
 };
 
 // module.exports = new Router()

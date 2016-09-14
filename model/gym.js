@@ -9,7 +9,8 @@ module.exports = {
     id: {type: 'serial', key: true},
     phoneNumber: Number,
     url: String,
-    dailyHours: String,
+    dailyHours: Object,
+    photos: Object,
     parkingLot: Boolean
   }
 };

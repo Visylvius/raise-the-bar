@@ -7,12 +7,9 @@ import store from './reducers';
 import GymSearch from './containers/GymSearch';
 import routes from './routes';
 
-var socket = io(); // TIP: io() with no args does auto-discovery
-  socket.on('ferret', function(data, reply) {
-    console.log(data, 'data');
-    if (reply) {
-      reply('yo dawg im da client');
-    }
+window.socket = io(); // TIP: io() with no args does auto-discovery
+  socket.on('ferret', function(data) {
+
   });
 
   socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
@@ -21,7 +18,7 @@ var socket = io(); // TIP: io() with no args does auto-discovery
     });
   });
 
- socket.emit('bimbo', 'thing');
+ socket.emit('message', {});
 
 
 
