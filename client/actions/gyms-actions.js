@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const FETCH_GYMS = 'FETCH_GYMS';
 export const FETCH_GYM = 'FETCH_GYM';
+export const SAVE_GYM = 'SAVE_GYM';
 
 export const fetchGyms = (address, distance) => {
   const axiosPromise = axios.post('/api/gym', {address, distance})
@@ -17,6 +18,15 @@ export const fetchGym = (placeId) => {
     .then((response) => response.data);
   return {
     type: FETCH_GYM,
+    payload: request
+  };
+};
+
+export const saveGym = (placeId) => {
+  const request = axios.post(`/api/gym/${placeId}`)
+    .then((response) => response.data)
+  return {
+    type: SAVE_GYM,
     payload: request
   };
 };

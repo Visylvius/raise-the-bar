@@ -15,13 +15,14 @@ import { trainerReducer } from './trainer-reducer';
 import { inboxReducer } from './inbox-reducer';
 import { messageReducer } from './message-reducer';
 import { userReducer } from './user-reducer';
-
+import { saveGymReducer } from './save-gym-reducer';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise(), ReduxThunk, createLogger())(createStore);
 
 const rootReducer = combineReducers({
   gyms: gymsReducer,
   gym: gymReducer,
+  savedGym: saveGymReducer,
   form: formReducer,
   athletes: athleteReducer,
   inbox: inboxReducer,

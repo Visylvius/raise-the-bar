@@ -55,6 +55,10 @@ exports.getSpecificGym = function(req, res) {
   }
   rp('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + placeId + '&key=' + process.env.API_KEY)
     .then(function(gym) {
+      if (gym.status === 'OK') {
+        var photoId = gym.result.photos[0].photo_reference;
+
+      }
       console.log(gym);
       res.send(200, gym);
     });
