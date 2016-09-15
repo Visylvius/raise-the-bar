@@ -22,8 +22,8 @@ export const fetchGym = (placeId) => {
   };
 };
 
-export const saveGym = (placeId) => {
-  const request = axios.post(`/api/gym/${placeId}`)
+export const saveGym = (placeId, email) => {
+  const request = axios.post(`/api/gym/${placeId}`, email)
     .then((response) => response.data)
   return {
     type: SAVE_GYM,

@@ -10,8 +10,11 @@ const DisplayGym = (props) => {
     return null;
   }
   const saveGym = () => {
-
-  }
+    const userProfile = JSON.parse(localStorage.getItem('profile'));
+    const { email } = userProfile;
+    //placeId,
+    props.saveGym(props.gym.result.place_id, email);
+  };
   return (
     <div>
       <div>{props.gym.result.formatted_address}</div>

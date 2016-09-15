@@ -63,3 +63,7 @@ exports.getSpecificGym = function(req, res) {
       res.send(200, gym);
     });
 };
+
+exports.saveSpecificGym = function(req, res) {
+  res.send(200, req.body.email);
+};

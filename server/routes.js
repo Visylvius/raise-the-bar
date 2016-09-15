@@ -19,7 +19,8 @@ module.exports = new Router()
   .get('/inbox/:email', inboxHandler.getMessages)
   .post('/inbox/:type/:id', inboxHandler.sendMessage)
   .post('/gym', gymHandler.getGyms)
-  .get('/gym/:placeId', gymHandler.getSpecificGym);
+  .get('/gym/:placeId', gymHandler.getSpecificGym)
+  .post('/gym/:placeId', gymHandler.saveSpecificGym);
 
 
 // .get('/inbox/:to/:id', inboxHandler.getMessages)

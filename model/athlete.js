@@ -17,7 +17,3 @@ var Athlete = module.exports = {
     id: {type: 'serial', key: true}
   }
 };
-
-
-
-//TODO include a bio in this and the athlete index.js under server
