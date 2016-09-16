@@ -6,13 +6,13 @@ exports.getGyms = function(req, res) {
   if (!process.env.API_KEY) {
     var env = require('../../env.js');
   }
-  rp('https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address) + '&key=' + process.env.API_KEY)
+  rp('https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address) + '&key=' + encodeURIComponent(process.env.API_KEY))
     .then(function(newAddress) {
       newAddress = JSON.parse(newAddress);
       if (newAddress.status === 'OK' && newAddress.results.length) {
         var location = newAddress.results[0].geometry.location;
         // console.log(location);
-        return rp('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + location.lat + ',' + location.lng + '&radius=' + distance + '&keyword=gym&key=' + process.env.API_KEY);
+        return rp('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + encodeURIComponent(location.lat) + ',' + encodeURIComponent(location.lng) + '&radius=' + encodeURIComponent(distance) + '&keyword=gym&key=' + encodeURIComponent(process.env.API_KEY));
       } else {
         throw new Error('Address not found');
       }
@@ -65,5 +65,30 @@ exports.getSpecificGym = function(req, res) {
 };
 
 exports.saveSpecificGym = function(req, res) {
-  res.send(200, req.body.email);
+  const userEmail = req.body.email;
+  const placeId = req.params.placeId;
+  console.log(userEmail);
+  req.models.athlete.one({email: userEmail}, function(err, athlete) {
+    if (err) {
+      return res.sendStatus(500).json({err: err});
+    }
+    //if !athlete then return res.sendStatus(400) <== client problem
+    console.log('athlete', athlete);
+    console.log('a', Object.keys(athlete));
+    console.log('a', Object.keys(athlete.__proto__));
+    req.models.gym.one({placeId}, function(err, gym) {
+      if (err) {
+        res.sendStatus(500).json({err: err});
+      } else {
+        //if !gym return sendStaus(400) <== incorrect place id
+        athlete.addGyms(gym, function(err) {
+          if (err) {
+            res.sendStatus(500).json({err: err});
+          } else {
+            res.send(200, athlete);
+          }
+        });
+      }
+    });
+  });
 };

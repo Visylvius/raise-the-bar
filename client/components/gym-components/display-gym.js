@@ -20,7 +20,7 @@ const DisplayGym = (props) => {
       <div>{props.gym.result.formatted_address}</div>
       <div>{props.gym.result.name}</div>
       <div>{props.gym.result.formatted_phone_number}</div>
-      <button className='btn btn-default'>Save Gym</button>
+      <button className='btn btn-default' onClick={saveGym}>Save Gym</button>
     </div>
   );
 };
