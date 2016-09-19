@@ -32,4 +32,5 @@ export const saveGym = (placeId, email) => {
 };
 
 
+
 //change to post to get, url encode the parameters

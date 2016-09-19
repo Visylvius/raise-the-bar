@@ -143,7 +143,7 @@ exports.updateAthlete = function(req, res) {
       athlete.hasTrainer = req.body.hasTrainer;
       athlete.preferedGyms = req.body.preferedGyms;
       athlete.cardDescription = req.body.cardDescription;
-      
+
       athlete.save(function(err) {
         if (err) {
           throw err;
@@ -180,6 +180,26 @@ exports.updateAthlete = function(req, res) {
               });
             }
           });
+        }
+      });
+    }
+  });
+};
+
+
+exports.showAthleteGyms = function(req, res) {
+  const userEmail = req.params.email;
+  req.models.athlete.one({email: userEmail}, function(err, athlete) {
+    if (err) {
+      return res.sendStatus(500).json({err: err});
+    } else {
+      console.log('athlete', athlete);
+      athlete.getGyms(function(err, gyms) {
+        console.log('gyms inside of get gyms', gyms);
+        if (err) {
+          return res.sendStatus(500).json({err: err});
+        } else {
+          res.send(200, gyms);
         }
       });
     }

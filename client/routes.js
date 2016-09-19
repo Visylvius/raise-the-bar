@@ -6,6 +6,7 @@ import promise from 'bluebird';
 
 import GymSearch from './containers/GymSearch';
 import DisplayGym from './components/gym-components/display-gym';
+import DisplayUserGyms from './components/gym-components/display-user-gyms';
 import Login from './components/login';
 import AthleteSearch from './containers/AthleteSearch';
 import IndividualAthlete from './containers/IndividualAthlete';
@@ -51,12 +52,11 @@ const requireAuth = (nextState, replace) => {
 
 
 
-import { fetchAthletes, fetchAthlete } from './actions/athlete-actions';
-import { fetchTrainers } from './actions/trainer-actions';
-import { fetchTrainer } from './actions/trainer-actions';
-import { getMessages } from './actions/inbox-actions';
-import { sendMessage } from './actions/inbox-actions';
+import { fetchAthletes, fetchAthlete, displayAthleteGyms } from './actions/athlete-actions';
+import { fetchTrainers, fetchTrainer } from './actions/trainer-actions';
+import { getMessages, sendMessage } from './actions/inbox-actions';
 import { fetchGym } from './actions/gyms-actions';
+
 
 import store from './reducers';
 
@@ -88,6 +88,11 @@ const fetchBoundGym = function() {
   store.dispatch(fetchGym.apply(null, arguments));
 };
 
+const fetchBoundAthleteGyms = function() {
+  store.dispatch(displayAthleteGyms.apply(null, arguments));
+}
+
+
 export default (
   <Router history={browserHistory} createElement={function(Component, props) { props.auth = auth; return <Component {...props} /> }}>
     <Route path='/' component={MainLayout}>
@@ -101,6 +106,7 @@ export default (
         <Route path='createathlete' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
+        <Route path='athlete/gyms/:email' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthleteGyms(JSON.parse(localStorage.getItem('profile')))} component={DisplayUserGyms} />
         <Route path='athlete/update/:id' onEnter={(nextState, replace) => {
               requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)
               .then((response) => {

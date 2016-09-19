@@ -8,5 +8,5 @@ export const getUser = (email) => {
   return {
     type: FETCH_USER,
     payload: request
-  }
-}
+  };
+};

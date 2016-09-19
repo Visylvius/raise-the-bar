@@ -27,8 +27,7 @@ exports.getGyms = function(req, res) {
                 name: gym.name,
                 placeId: gym.place_id,
                 address: gym.vicinity,
-                dailyHours: gym.opening_hours,
-                photos: gym.photos
+                dailyHours: gym.opening_hours
               };
             }), function(err, gyms) {
               if (err) {

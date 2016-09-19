@@ -8,7 +8,6 @@ module.exports = {
     id: {type: 'serial', key: true},
     phoneNumber: Number,
     url: String,
-    dailyHours: Object,
-    photos: Object,
+    dailyHours: Object
   }
 };
