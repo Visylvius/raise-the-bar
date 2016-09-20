@@ -21,26 +21,27 @@ exports.getGyms = function(req, res) {
       var gymList = JSON.parse(gyms);
       console.log(gymList.results);
       if (gymList.status === 'OK' && gymList.results.length) {
-          return new Promise(function(resolve, reject) {
-            req.models.gym.create(gymList.results.map(function(gym){
-              return {
-                name: gym.name,
-                placeId: gym.place_id,
-                address: gym.vicinity,
-                dailyHours: gym.opening_hours
-              };
-            }), function(err, gyms) {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(gyms);
-              }
-            });
-          });
+          // return new Promise(function(resolve, reject) {
+          //   req.models.gym.create(gymList.results.map(function(gym){
+          //     return {
+          //       name: gym.name,
+          //       placeId: gym.place_id,
+          //       address: gym.vicinity,
+          //       dailyHours: gym.opening_hours
+          //     };
+          //   }), function(err, gyms) {
+          //     if (err) {
+          //       reject(err);
+          //     } else {
+          //       resolve(gyms);
+          //     }
+          //   });
+          // });
+          res.send(200, gyms);
       }
     })
     .then(function(gyms) {
-      res.send(200, gyms);
+
     })
     .catch(function(err) {
       res.send(500, err.message);
@@ -66,16 +67,26 @@ exports.getSpecificGym = function(req, res) {
 exports.saveSpecificGym = function(req, res) {
   const userEmail = req.body.email;
   const placeId = req.params.placeId;
-  console.log(userEmail);
+  const userGym = req.body.gym;
+  console.log('userGym', userGym);
   req.models.athlete.one({email: userEmail}, function(err, athlete) {
     if (err) {
       return res.sendStatus(500).json({err: err});
     }
     //if !athlete then return res.sendStatus(400) <== client problem
-    console.log('athlete', athlete);
-    console.log('a', Object.keys(athlete));
-    console.log('a', Object.keys(athlete.__proto__));
-    req.models.gym.one({placeId}, function(err, gym) {
+    // console.log('athlete', athlete);
+    // console.log('a', Object.keys(athlete));
+    // console.log('a', Object.keys(athlete.__proto__));
+    console.log('userGym in req.models.athlete', userGym.opening_hours);
+    req.models.gym.create({
+      name: userGym.name,
+      placeId: userGym.place_id,
+      address: userGym.formatted_address,
+      phoneNumber: userGym.formatted_phone_number,
+      url: userGym.url,
+      dailyHours: userGym.opening_hours
+    }, function(err, gym) {
+      console.log('gym in models.create', gym);
       if (err) {
         res.sendStatus(500).json({err: err});
       } else {

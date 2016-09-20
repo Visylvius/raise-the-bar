@@ -3,6 +3,9 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const GymCard = (props) => {
+  console.log('props in gym card', props);
+  // const linkUrl = ;
+  // console.log('linkUrl', linkUrl);
   return (
     <div className="card">
       <img className="card-img-top" src="..." alt="Card image cap" />

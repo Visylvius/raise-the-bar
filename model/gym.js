@@ -6,7 +6,7 @@ module.exports = {
     placeId: String,
     address: String,
     id: {type: 'serial', key: true},
-    phoneNumber: Number,
+    phoneNumber: String,
     url: String,
     dailyHours: Object
   }

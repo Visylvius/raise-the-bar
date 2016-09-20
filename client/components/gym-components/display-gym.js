@@ -5,15 +5,15 @@ import { bindActionCreators } from 'redux';
 import { saveGym } from '../../actions/gyms-actions';
 
 const DisplayGym = (props) => {
-  console.log(props.gym);
   if (props.gym === null) {
     return null;
   }
+  console.log('props.gym', props);
   const saveGym = () => {
     const userProfile = JSON.parse(localStorage.getItem('profile'));
     const { email } = userProfile;
-    //placeId,
-    props.saveGym(props.gym.result.place_id, email);
+    console.log('props.gym', props.gym.result);
+    props.saveGym(props.gym.result.place_id, email, props.gym.result);
   };
   return (
     <div>

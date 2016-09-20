@@ -6,12 +6,14 @@ const GymList = ( { listOfGyms } ) => {
   if (listOfGyms === null) {
     return null;
   }
+  console.log('list of gyms', listOfGyms);
   const renderGyms = gymData => {
-    console.log(gymData);
+    console.log('gym data', gymData);
     return (
       <GymCard
         id={gymData.id}
-        placeId={gymData.placeId}
+        key={gymData.id}
+        placeId={gymData.place_id}
         name={gymData.name}
         address={gymData.address}
       />
@@ -19,7 +21,7 @@ const GymList = ( { listOfGyms } ) => {
   };
   return (
     <div>
-      {listOfGyms.map(renderGyms)}
+      {listOfGyms.results.map(renderGyms)}
     </div>
 
 
