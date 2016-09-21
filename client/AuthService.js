@@ -19,7 +19,7 @@ class AuthService extends EventEmitter {
     // this.logout = this.logout.bind(this);
     this.lock.on('authorization_error', this._authorizationError.bind(this));
 
-    this.on('profile_updated', this._checkUserProfile.bind(this));
+    // this.on('profile_updated', this._checkUserProfile.bind(this));
 
 
     // // binds login functions to keep this context
@@ -49,6 +49,7 @@ class AuthService extends EventEmitter {
        console.log('Error loading the Profile', error);
      } else {
        this.setProfile(profile);
+       this._checkUserProfile(profile);
      }
    });
  }
@@ -70,10 +71,15 @@ class AuthService extends EventEmitter {
    axios.get(`/api/user/${email}`)
     .then((result) => {
       console.log('user exists', result);
+      return 'found';
     })
     .catch((err) => {
       if (err.status === 404) {
-        //research a pop up component 
+        const type = {profile: 'not found'}
+        console.log('not found');
+        console.log(type);
+        return type;
+        //research a pop up component
         //throw pop up
       }
     });

@@ -11,13 +11,15 @@ export class Login extends React.Component {
         <h2>Login</h2>
           <div>
             <button onClick={auth.login.bind(this)}>Login</button>
-            { false ? <div> You need to create a user profile </div> : null }
           </div>
       </div>
     );
   }
 }
 
+
+//line 14
+// { false ? <div> You need to create a user profile </div> : null }
 
 //could creator a constructor that takes auth and listens for an event and then acts accordingly
 
