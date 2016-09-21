@@ -2,6 +2,7 @@ var athleteHandler = require('./athlete');
 var trainerHandler = require('./trainer');
 var gymHandler = require('./gyms');
 var inboxHandler = require('./inbox');
+var userHandler = require('./user');
 var path = require('path');
 var Router = require('express').Router;
 
@@ -21,7 +22,8 @@ module.exports = new Router()
   .post('/inbox/:type/:id', inboxHandler.sendMessage)
   .post('/gym', gymHandler.getGyms)
   .get('/gym/:placeId', gymHandler.getSpecificGym)
-  .post('/gym/:placeId', gymHandler.saveSpecificGym);
+  .post('/gym/:placeId', gymHandler.saveSpecificGym)
+  .get('/user/:email', userHandler.getUser);
 
 
 // .get('/inbox/:to/:id', inboxHandler.getMessages)

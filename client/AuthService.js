@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events'
 import Auth0Lock from 'auth0-lock';
 import { isTokenExpired } from './jwtHelper'
-
+import axios from 'axios';
 
 class AuthService extends EventEmitter {
   constructor(clientId, domain) {
@@ -19,6 +19,7 @@ class AuthService extends EventEmitter {
     // this.logout = this.logout.bind(this);
     this.lock.on('authorization_error', this._authorizationError.bind(this));
 
+    this.on('profile_updated', this._checkUserProfile.bind(this));
 
 
     // // binds login functions to keep this context
@@ -62,6 +63,20 @@ class AuthService extends EventEmitter {
    localStorage.setItem('profile', JSON.stringify(profile));
    // Triggers profile_updated event to update the UI
    this.emit('profile_updated', profile);
+ }
+
+ _checkUserProfile(profile) {
+   const { email } = profile;
+   axios.get(`/api/user/${email}`)
+    .then((result) => {
+      console.log('user exists', result);
+    })
+    .catch((err) => {
+      if (err.status === 404) {
+        //research a pop up component 
+        //throw pop up
+      }
+    });
  }
 
  getProfile(){
