@@ -18,9 +18,7 @@ class MenuBar extends React.Component {
     this.state = { isShowingModal: false };
 
     auth.on('server-profile-non-existent', (serverProfile) => {
-      console.log('serverProfile', serverProfile);
       this.createUserProfile(serverProfile);
-      //call createUserProfile in here
     });
   }
 
@@ -41,15 +39,20 @@ class MenuBar extends React.Component {
    }
 
    createUserProfile(serverProfile) {
-     console.log('serverProfile in Menu-Bar', serverProfile);
-     console.log(this.state);
      if (serverProfile === null) {
        this.setState({isShowingModal: true});
      }
-     //only use auth.on to listen to the events from AuthService
-
    }
 
+   createAthlete() {
+     this.setState({isShowingModal: false});
+     this.context.router.push(`/createathlete`);
+   }
+
+   createTrainer() {
+     this.setState({isShowingModal: false});
+     this.context.router.push(`/createtrainer`)
+   }
    logout(){
      // destroys the session data
      console.log('in logout');
@@ -107,8 +110,8 @@ class MenuBar extends React.Component {
             <ModalDialog onClose={this.handleClose.bind(this)}>
               <p>Whoops! <br />It looks like you haven't create a profile with us yet</p>
               <p>Are you an Athlete, or a Trainer?</p>
-              <button>Create Athlete</button>
-              <button>Create Trainer</button>
+              <button onClick={() => { this.createAthlete() }}>Create Athlete</button>
+              <button onClick={() => { this.createTrainer() }}>Create Trainer</button>
             </ModalDialog>
           </ModalContainer>
         }
