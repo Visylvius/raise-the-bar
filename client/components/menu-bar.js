@@ -1,26 +1,58 @@
 import React, { PropTypes } from 'react';
 import auth from '../AuthService';
+import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 
+import { EventEmitter } from 'events';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { getUser } from '../actions/user-actions';
 
+import Modal from './modal';
 
 class MenuBar extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { isShowingModal: false };
+
+    auth.on('server-profile-non-existent', (serverProfile) => {
+      console.log('serverProfile', serverProfile);
+      this.createUserProfile(serverProfile);
+      //call createUserProfile in here
+    });
+  }
+
+  handleClick() {
+    this.setState({isShowingModal: true});
+  }
+
+  handleClose() {
+    this.setState({isShowingModal: false});
+  }
+
    userButton() {
      if (localStorage.getItem('id_token')) {
        return <a className='nav-link' href='#' onClick={this.logout.bind(this)}>Logout</a>;
      } else {
-       return <a className='nav-link' href='#' onClick={auth.login.bind(this)}>Login</a>;
+       return <a className='nav-link' href='#' onClick={auth.login.bind(auth)}>Login</a>;
      }
+   }
+
+   createUserProfile(serverProfile) {
+     console.log('serverProfile in Menu-Bar', serverProfile);
+     console.log(this.state);
+     if (serverProfile === null) {
+       this.setState({isShowingModal: true});
+     }
+     //only use auth.on to listen to the events from AuthService
+
    }
 
    logout(){
      // destroys the session data
      console.log('in logout');
-     console.log('props', this.props);
      this.props.auth.logout()
      // redirects to login page
      this.context.router.push('/');
@@ -61,11 +93,25 @@ class MenuBar extends React.Component {
               <a className='nav-link' href="#" onClick={this.userProfile.bind(this)}>Profile</a>
             </li>
             <li className='nav-item'>
+              <a className='nav-link' href="#" onClick={this.createUserProfile.bind(this)}>Test</a>
+            </li>
+            <li className='nav-item'>
               {this.userButton()}
             </li>
           </ul>
         </nav>
         <div>
+        {
+          this.state.isShowingModal &&
+          <ModalContainer onClose={this.handleClose.bind(this)}>
+            <ModalDialog onClose={this.handleClose.bind(this)}>
+              <p>Whoops! <br />It looks like you haven't create a profile with us yet</p>
+              <p>Are you an Athlete, or a Trainer?</p>
+              <button>Create Athlete</button>
+              <button>Create Trainer</button>
+            </ModalDialog>
+          </ModalContainer>
+        }
           {this.props.children}
         </div>
       </div>

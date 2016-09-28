@@ -21,6 +21,7 @@
     "radium": "^0.17.1",
     "react": "^15.3.1",
     "react-image-crop": "^1.0.0-rc3",
+    "react-modal-dialog": "^3.0.2",
     "react-router": "^2.6.1",
     "redux": "^3.5.2",
     "redux-form": "^5.2.5",

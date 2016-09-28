@@ -12,6 +12,7 @@ class AuthService extends EventEmitter {
     // console.log('calling loggedIn', this.loggedIn());
     this.lock = new Auth0Lock(clientId, domain, {});
     console.log(this.lock, 'lock');
+    console.log('this in authservice', this);
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this));
     // binds login functions to keep this context
@@ -19,7 +20,7 @@ class AuthService extends EventEmitter {
     // this.logout = this.logout.bind(this);
     this.lock.on('authorization_error', this._authorizationError.bind(this));
 
-    // this.on('profile_updated', this._checkUserProfile.bind(this));
+    // this.on('user-logged-in', this._checkUserProfile.bind(this));
 
 
     // // binds login functions to keep this context
@@ -41,7 +42,7 @@ class AuthService extends EventEmitter {
    // Saves the user token
    console.log('in doAuth', authResult);
    this.setToken(authResult.idToken);
-   this.emit('authenticated', authResult);
+   console.log('this in doAuth', this);
    // Async loads the user profile data
    this.lock.getProfile(authResult.idToken, (error, profile) => {
      console.log('in get profile');
@@ -49,7 +50,16 @@ class AuthService extends EventEmitter {
        console.log('Error loading the Profile', error);
      } else {
        this.setProfile(profile);
-       this._checkUserProfile(profile);
+       this._retrieveUserProfile(profile)
+        .then((serverProfile) => {
+          if (serverProfile) {
+            console.log('user profile exists');
+          } else {
+            //use this.emit to communicate to outside of the auth service
+            console.log('emitting event', serverProfile);
+            this.emit('server-profile-non-existent', serverProfile);
+          }
+        });
      }
    });
  }
@@ -66,23 +76,19 @@ class AuthService extends EventEmitter {
    this.emit('profile_updated', profile);
  }
 
- _checkUserProfile(profile) {
+ _retrieveUserProfile(profile) {
    const { email } = profile;
-   axios.get(`/api/user/${email}`)
-    .then((result) => {
-      console.log('user exists', result);
-      return 'found';
-    })
-    .catch((err) => {
-      if (err.status === 404) {
-        const type = {profile: 'not found'}
-        console.log('not found');
-        console.log(type);
-        return type;
-        //research a pop up component
-        //throw pop up
-      }
-    });
+   return new Promise((resolve, reject) => {
+     axios.get(`/api/user/${email}`)
+      .then((result) => {
+        if (result.data.type === 'not found') {
+          console.log('not found');
+          resolve(null);
+        }
+        console.log('user exists', result);
+        resolve(result);
+      });
+   });
  }
 
  getProfile(){
@@ -92,8 +98,13 @@ class AuthService extends EventEmitter {
  }
 
   login() {
+    //emit the event here, and then do related functions
+
     // Call the show method to display the widget.
-    this.lock.show({});
+    return new Promise((resolve, reject) => {
+      this.lock.show({});
+
+    });
     //callbackURL: 'http://localhost:4000/'
   }
   loggedIn(){

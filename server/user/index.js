@@ -7,7 +7,7 @@ exports.getUser = function(req, res) {
     if (athlete) {
       res.status(200).send({type: 'athlete', athlete});
     } else {
-      res.status(404).send();
+      res.status(200).send({type: 'not found'});
     }
   });
 };

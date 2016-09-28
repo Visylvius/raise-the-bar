@@ -50,7 +50,6 @@ module.exports = {
   }
 };
 
-
 // AUTH0_CLIENT_ID=6w... AUTH0_DOMAIN=lorenbarrick.auth0.com webpack --watch
 //to set env variables, open terminal
 // example to set AUTH0_CLIENT_ID
