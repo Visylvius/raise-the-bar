@@ -130,7 +130,7 @@ export default (
                 });
             }}
               component={UpdateTrainer} />
-        <Route path='/createtrainer' component={CreateTrainer} />
+        <Route path='/createtrainer' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateTrainer} />
         <Route path='inbox' onEnter={(nextState, replace) => {
             requireAuth(nextState, replace) && fetchBoundMessages(JSON.parse(localStorage.getItem('profile')))
         }} component={Inbox}></Route>

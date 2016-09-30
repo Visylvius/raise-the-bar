@@ -96,9 +96,6 @@ class MenuBar extends React.Component {
               <a className='nav-link' href="#" onClick={this.userProfile.bind(this)}>Profile</a>
             </li>
             <li className='nav-item'>
-              <a className='nav-link' href="#" onClick={this.createUserProfile.bind(this)}>Test</a>
-            </li>
-            <li className='nav-item'>
               {this.userButton()}
             </li>
           </ul>

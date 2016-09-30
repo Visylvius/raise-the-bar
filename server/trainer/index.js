@@ -1,3 +1,9 @@
+var promise = require('bluebird');
+var fs = promise.promisifyAll(require('fs'));
+var lwip = promise.promisifyAll(require('lwip'));
+promise.promisifyAll(require('lwip/lib/Image').prototype);
+promise.promisifyAll(require('lwip/lib/Batch').prototype);
+
 exports.getTrainer = function(req, res) {
   req.models.trainer.all(function(err, trainers) {
     if (err) {
@@ -7,6 +13,51 @@ exports.getTrainer = function(req, res) {
     }
   });
 };
+
+// exports.postTrainer = function(req, res) {
+//   req.models.trainer.create({
+//     displayName: req.body.displayName,
+//     name: req.body.name,
+//     password: req.body.password,
+//     timeAvailable: req.body.timeAvailable,
+//     location: req.body.location,
+//     email: req.body.email,
+//     driveForClient: req.body.driveForClient,
+//     offerFitnessAssessment: req.body.offerFitnessAssessment,
+//     offerNutritionPlan: req.body.offerNutritionPlan,
+//     price: req.body.price,
+//     takingNewClients: req.body.takingNewClients,
+//     phoneNumber: req.body.phoneNumber,
+//   }, function(err, trainer) {
+//     if (err) {
+//       return res.status(500).json({err});
+//     } else {
+//       const avatar = req.body.avatar.split(',');
+//       const imgBuffer = Buffer.from(avatar[1], 'base64');
+//       const type = avatar[0].match('/jpeg|png|jpg/');
+//       const { x, y, width, height } = req.body.crop;
+//       if (!type) {
+//         res.status(400).json({err: 'please provide a valid image type'});
+//       } else {
+//         lwip.openAsync(imgBuffer, 'jpg')
+//           .then((img) => {
+//             const widthRatio = img.width() /100;
+//             const heightRatio = img.height() /100;
+//             return img.cropAsync(x * widthRatio, y * heightRatio, (x + width) * widthRatio, (y + height) * heightRatio);
+//           })
+//           .then((img) => img.resizeAsync(300, 250))
+//           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
+//           .then((buffer) => fs.writeFileAsync(`../dist/avatars/${athlete.id}.jpg`, buffer))
+//           .then(() => res.json(athlete))
+//           .catch((err) => {
+//             console.log(err);
+//             res.sendStatus(500).json({err: 'Image Conversion Error'});
+//           });
+//         }
+//       }
+//     }
+//   });
+// };
 
 exports.postTrainer = function(req, res) {
   req.models.trainer.create({
@@ -21,15 +72,38 @@ exports.postTrainer = function(req, res) {
     offerNutritionPlan: req.body.offerNutritionPlan,
     price: req.body.price,
     takingNewClients: req.body.takingNewClients,
-    phoneNumber: req.body.phoneNumber,
+    phoneNumber: req.body.phoneNumber
   }, function(err, trainer) {
     if (err) {
-      throw err;
+      return res.status(500).json({err});
     } else {
-      res.json(trainer);
-    }
-  });
-};
+      const avatar = req.body.avatar.split(',');
+      const imgBuffer = Buffer.from(avatar[1], 'base64');
+      const type = avatar[0].match('/jpeg|png|jpg/');
+      const { x, y, width, height } = req.body.crop;
+      if (!type) {
+        res.status(400).json({err: 'please provide a valid image type'});
+      } else {
+        lwip.openAsync(imgBuffer, 'jpg')
+          .then((img) => {
+            const widthRatio = img.width() /100;
+            const heightRatio = img.height() /100;
+            return img.cropAsync(x * widthRatio, y * heightRatio, (x + width) * widthRatio, (y + height) * heightRatio);
+          })
+
+          .then((img) => img.resizeAsync(300, 250))
+          .then((img) => img.toBufferAsync('jpg', {quality: 90}))
+          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainers/${trainer.id}.jpg`, buffer))
+          .then(() => res.json(trainer))
+          .catch((err) => {
+            console.log(err);
+            res.sendStatus(500).json({err: 'Image Conversion Error'});
+          });
+        }
+      }
+    });
+  };
+
 
 exports.getIndividualTrainer = function(req, res) {
     req.models.trainer.get(req.params.id, function(err, trainer) {

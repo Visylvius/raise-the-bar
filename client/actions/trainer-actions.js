@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { blur, change } from 'redux-form';
+import AuthService  from '../AuthService';
 
 export const CREATE_TRAINER = 'CREATE_TRAINER';
 export const FETCH_TRAINERS = 'FETCH_TRAINERS';
@@ -6,12 +8,15 @@ export const FETCH_TRAINER = 'FETCH_TRAINER';
 export const UPDATE_TRAINER = 'UPDATE_TRAINER';
 
 export const makeTrainer = (attributes) => {
-  const request = axios.post('/api/trainer', attributes)
-    .then(response => response.data);
+  return (dispatch, getState) => {
+    const { email } = AuthService.getProfile();
+    const request = axios.post('/api/trainer', Object.assign({email}, attributes, {crop: getState().crop}))
+      .then(response => response.data);
 
-  return {
-    type: CREATE_TRAINER,
-    payload: request
+    return {
+      type: CREATE_TRAINER,
+      payload: request
+    };
   };
 };
 
