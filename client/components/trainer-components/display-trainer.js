@@ -24,15 +24,17 @@ const DisplayTrainer = ({trainer}) => {
     liftingStyles = trainer_bio.liftingStyles;
   }
 
-  const { id } = trainer;
+  const { id, email, name, location, displayName } = trainer;
   console.log(trainer);
   return (
     <div>
       <ProfileHeader
-        name={trainer.displayName}
-        location={trainer.location}
+        name={displayName}
+        location={location}
         userType='trainer'
         userId={id}
+        userType='trainer'
+        email={email}
       />
       <NavigationLinks />
       <ProfileInformation
