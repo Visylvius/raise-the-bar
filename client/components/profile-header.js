@@ -14,7 +14,7 @@ const ProfileHeader = (props) => {
   };
 
   const imageStyles = stylesObject.imageContainer;
-  imageStyles.backgroundImage = `url(/avatars/${props.userId}.jpg)`;
+  imageStyles.backgroundImage = `url(/avatars/${props.userType}/${props.userId}.jpg)`;
   return (
     <div className='profile-container'>
       <div className='row profile-top'>

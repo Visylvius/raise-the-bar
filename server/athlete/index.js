@@ -51,7 +51,7 @@ exports.postAthlete = function(req, res) {
 
           .then((img) => img.resizeAsync(300, 250))
           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-          .then((buffer) => fs.writeFileAsync(`../dist/avatars/${athlete.id}.jpg`, buffer))
+          .then((buffer) => fs.writeFileAsync(`../dist/avatars/athlete/${athlete.id}.jpg`, buffer))
           .then(() => res.json(athlete))
           .catch((err) => {
             console.log(err);
@@ -143,12 +143,13 @@ exports.updateAthlete = function(req, res) {
       athlete.hasTrainer = req.body.hasTrainer;
       athlete.preferedGyms = req.body.preferedGyms;
       athlete.cardDescription = req.body.cardDescription;
-
       athlete.save(function(err) {
         if (err) {
           throw err;
         } else {
           athlete.getAthlete_bio(function(err, bio) {
+            console.log('req.body line 151', req.body);
+            // console.log('bio line 146', bio.liftingStyles);
             if (err) {
               console.log(err);
               res.sendStatus(500).json({err: err});
@@ -161,13 +162,36 @@ exports.updateAthlete = function(req, res) {
                     if (err) {
                       res.sendStatus(500).json({err: err});
                     } else {
-                      res.json(athlete);
+                      const avatar = req.body.avatar.split(',');
+                      const imgBuffer = Buffer.from(avatar[1], 'base64');
+                      const type = avatar[0].match('/jpeg|png|jpg/');
+                      const { x, y, width, height } = req.body.crop;
+                      if (!type) {
+                        res.status(400).json({err: 'please provide a valid image type'});
+                      } else {
+                        lwip.openAsync(imgBuffer, 'jpg')
+                          .then((img) => {
+                            const widthRatio = img.width() /100;
+                            const heightRatio = img.height() /100;
+                            return img.cropAsync(x * widthRatio, y * heightRatio, (x + width) * widthRatio, (y + height) * heightRatio);
+                          })
+
+                          .then((img) => img.resizeAsync(300, 250))
+                          .then((img) => img.toBufferAsync('jpg', {quality: 90}))
+                          .then((buffer) => fs.writeFileAsync(`../dist/avatars/athlete/${athlete.id}.jpg`, buffer))
+                          .then(() => res.json(athlete))
+                          .catch((err) => {
+                            console.log(err);
+                            res.sendStatus(500).json({err: 'Image Conversion Error'});
+                          });
+                        }
                     }
                   });
                 }
               });
               //change to promises
             } else {
+              console.log('bio line 193', bio);
               bio.about = req.body.bio.about;
               bio.liftingStyles = req.body.bio.liftingStyles;
               bio.experience = req.body.bio.experience;
@@ -175,7 +199,29 @@ exports.updateAthlete = function(req, res) {
                 if (err) {
                   res.sendStatus(500).json({err: 'error saving bio'});
                 } else {
-                  res.json(athlete);
+                  const avatar = req.body.avatar.split(',');
+                  const imgBuffer = Buffer.from(avatar[1], 'base64');
+                  const type = avatar[0].match('/jpeg|png|jpg/');
+                  const { x, y, width, height } = req.body.crop;
+                  if (!type) {
+                    res.status(400).json({err: 'please provide a valid image type'});
+                  } else {
+                    lwip.openAsync(imgBuffer, 'jpg')
+                      .then((img) => {
+                        const widthRatio = img.width() /100;
+                        const heightRatio = img.height() /100;
+                        return img.cropAsync(x * widthRatio, y * heightRatio, (x + width) * widthRatio, (y + height) * heightRatio);
+                      })
+
+                      .then((img) => img.resizeAsync(300, 250))
+                      .then((img) => img.toBufferAsync('jpg', {quality: 90}))
+                      .then((buffer) => fs.writeFileAsync(`../dist/avatars/athlete/${athlete.id}.jpg`, buffer))
+                      .then(() => res.json(athlete))
+                      .catch((err) => {
+                        console.log(err);
+                        res.sendStatus(500).json({err: 'Image Conversion Error'});
+                      });
+                    }
                 }
               });
             }

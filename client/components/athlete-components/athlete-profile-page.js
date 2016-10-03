@@ -129,6 +129,7 @@ const baseStyles = {
  return (
   <div className='container-fluid'>
    <ProfileHeader
+      className='profile-header'
       userId={id}
       userType='athlete'
       name={name}
@@ -137,6 +138,7 @@ const baseStyles = {
    />
     <NavigationLinks />
     <ProfileInformation
+      className='profile-information'
       about={about}
       experience={experience}
       liftingStyles={liftingStyles}

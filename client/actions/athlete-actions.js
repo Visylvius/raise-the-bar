@@ -94,14 +94,26 @@ export const updateAthlete = (attributes, id) => {
     experience: attributes.experience,
     about: attributes.about
   };
-  const request = axios.put(`/api/athlete/update/${id}`, attributes)
+  return (dispatch, getState) => {
+    // console.log('attributes', attributes);
+    // console.log('object.assign update athlete action', Object.assign(attributes, {crop: getState().crop}))
+    const request = axios.put(`/api/athlete/update/${id}`, Object.assign(attributes, {crop: getState().crop}))
     .then((response) => response.data);
-  return {
-    type: UPDATE_ATHLETE,
-    payload: request
-  };
+    return {
+      type: UPDATE_ATHLETE,
+      payload: request
+    };
+  }
 };
 
+//error: undefined. Is this because Im using stateless components?
+// axios.put(`/api/athlete/update/${id}`, Object.assign(attributes, {crop: getState().crop}))
+//   .then(response => {
+//       dispatch({
+//         type: UPDATE_ATHLETE,
+//         payload: response.data
+//       });
+//   });
 
 export const displayAthleteGyms = (profile) => {
   const { email } = profile;

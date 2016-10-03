@@ -12,7 +12,6 @@ export const makeTrainer = (attributes) => {
     const { email } = AuthService.getProfile();
     const request = axios.post('/api/trainer', Object.assign({email}, attributes, {crop: getState().crop}))
       .then(response => response.data);
-
     return {
       type: CREATE_TRAINER,
       payload: request
@@ -47,12 +46,14 @@ export const updateTrainer = (attributes, id) => {
     experience: attributes.experience,
     about: attributes.about
   };
-
-  const request = axios.put(`/api/trainer/update/${id}`, attributes)
+  return (dispatch, getState) => {
+    // console.log('attributes', attributes);
+    // console.log('object.assign update athlete action', Object.assign(attributes, {crop: getState().crop}))
+    const request = axios.put(`/api/trainer/${id}`, Object.assign(attributes, {crop: getState().crop}))
     .then((response) => response.data);
-
-  return {
-    type: UPDATE_TRAINER,
-    payload: request
+    return {
+      type: UPDATE_TRAINER,
+      payload: request
+    };
   };
 };

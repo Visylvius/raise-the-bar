@@ -93,7 +93,7 @@ exports.postTrainer = function(req, res) {
 
           .then((img) => img.resizeAsync(300, 250))
           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainers/${trainer.id}.jpg`, buffer))
+          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.id}.jpg`, buffer))
           .then(() => res.json(trainer))
           .catch((err) => {
             console.log(err);
@@ -167,7 +167,29 @@ exports.updateTrainer = function(req, res) {
                     if (err) {
                       res.sendStatus(500).json({err: err});
                     } else {
-                      res.json(trainer);
+                      const avatar = req.body.avatar.split(',');
+                      const imgBuffer = Buffer.from(avatar[1], 'base64');
+                      const type = avatar[0].match('/jpeg|png|jpg/');
+                      const { x, y, width, height } = req.body.crop;
+                      if (!type) {
+                        res.status(400).json({err: 'please provide a valid image type'});
+                      } else {
+                        lwip.openAsync(imgBuffer, 'jpg')
+                          .then((img) => {
+                            const widthRatio = img.width() /100;
+                            const heightRatio = img.height() /100;
+                            return img.cropAsync(x * widthRatio, y * heightRatio, (x + width) * widthRatio, (y + height) * heightRatio);
+                          })
+
+                          .then((img) => img.resizeAsync(300, 250))
+                          .then((img) => img.toBufferAsync('jpg', {quality: 90}))
+                          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.id}.jpg`, buffer))
+                          .then(() => res.json(trainer))
+                          .catch((err) => {
+                            console.log(err);
+                            res.sendStatus(500).json({err: 'Image Conversion Error'});
+                          });
+                        }
                     }
                   });
                 }
@@ -181,7 +203,29 @@ exports.updateTrainer = function(req, res) {
                 if (err) {
                   res.sendStatus(500).json({err: 'error saving bio'});
                 } else {
-                  res.json(trainer);
+                  const avatar = req.body.avatar.split(',');
+                  const imgBuffer = Buffer.from(avatar[1], 'base64');
+                  const type = avatar[0].match('/jpeg|png|jpg/');
+                  const { x, y, width, height } = req.body.crop;
+                  if (!type) {
+                    res.status(400).json({err: 'please provide a valid image type'});
+                  } else {
+                    lwip.openAsync(imgBuffer, 'jpg')
+                      .then((img) => {
+                        const widthRatio = img.width() /100;
+                        const heightRatio = img.height() /100;
+                        return img.cropAsync(x * widthRatio, y * heightRatio, (x + width) * widthRatio, (y + height) * heightRatio);
+                      })
+
+                      .then((img) => img.resizeAsync(300, 250))
+                      .then((img) => img.toBufferAsync('jpg', {quality: 90}))
+                      .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.id}.jpg`, buffer))
+                      .then(() => res.json(trainer))
+                      .catch((err) => {
+                        console.log(err);
+                        res.sendStatus(500).json({err: 'Image Conversion Error'});
+                      });
+                    }
                 }
               });
             }

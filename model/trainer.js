@@ -1,4 +1,4 @@
-var orm = require('orm');
+  var orm = require('orm');
 module.exports = {
   properties: {
     displayName: String,

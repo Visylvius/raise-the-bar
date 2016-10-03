@@ -28,6 +28,7 @@ const UpdateAthlete = ({fields: {
   const { athlete_bio } = athlete;
 
   const onSubmit = (attributes) => {
+    console.log('updateAthlete', updateAthlete(attributes, id));
     updateAthlete(attributes, id)
       .then(() => {
         context.router.push(`/athlete/${id}`);
@@ -41,9 +42,9 @@ const UpdateAthlete = ({fields: {
   };
   let cropElement = null;
   if (avatar.value) {
-    cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={crop}/>;
+    cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={Object.assign({aspect: 1.2}, crop)}/>;
   }
-  console.log(trainer);
+  console.log(crop);
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='updateAthleteForm'>
       {makeInput(displayName, 'text', 'Display Name')}

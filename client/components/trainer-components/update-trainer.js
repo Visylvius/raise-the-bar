@@ -2,8 +2,10 @@ import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
+import ReactCrop from 'react-image-crop';
 
 import { updateTrainer } from '../../actions/trainer-actions';
+import { changeAvatar, cropImage } from '../../actions/athlete-actions';
 import { makeInput, createValidate } from '../utils/form-utils';
 
 const UpdateTrainer = ({fields: {
@@ -19,8 +21,9 @@ const UpdateTrainer = ({fields: {
   phoneNumber,
   about,
   liftingStyles,
-  experience
-}, handleSubmit, updateTrainer, trainer, router}, context) => {
+  experience,
+  avatar
+}, handleSubmit, updateTrainer, changeAvatar, cropImage, crop, trainer, router}, context) => {
 
   if (trainer === null) {
     return null;
@@ -34,6 +37,17 @@ const UpdateTrainer = ({fields: {
         context.router.push(`/trainer/${id}`);
       });
   };
+
+  const onAvatarBlur = (event) => {
+    changeAvatar('UpdateTrainer', 'avatar', event.target.files);
+  };
+  const onAvatarComplete = (crop) => {
+    cropImage('UpdateTrainer', 'crop', crop);
+  };
+  let cropElement = null;
+  if (avatar.value) {
+    cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={Object.assign({aspect: 1.2}, crop)}/>;
+  }
 
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='updateTrainerForm'>
@@ -62,6 +76,8 @@ const UpdateTrainer = ({fields: {
       {makeInput(about, 'textArea', 'update your about here')}
       {makeInput(experience, 'textArea', 'update your bio here')}
       {makeInput(liftingStyles, 'textArea', 'update your liftingStyles here')}
+      {makeInput(Object.assign({}, avatar, {onChange: onAvatarBlur, onBlur: onAvatarBlur}), 'file', 'Please upload your profile picture here.')}
+        {cropElement}
       <button type='submit' className='btn btn-primary'>Submit</button>
     </form>
   );
@@ -70,13 +86,12 @@ const UpdateTrainer = ({fields: {
 
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({updateTrainer}, dispatch)
+  return bindActionCreators({updateTrainer, changeAvatar, cropImage}, dispatch)
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
   const trainer = state.trainer.trainer;
-  return { trainer };
+  return { crop: state.crop, trainer };
 };
 
 UpdateTrainer.contextTypes = {
@@ -86,6 +101,6 @@ UpdateTrainer.contextTypes = {
 export default reduxForm({
   form: 'UpdateTrainer',
   fields: ['displayName', 'name', 'location', 'email', 'driveForClient', 'offerFitnessAssessment', 'offerNutritionPlan',
-   'price', 'takingNewClients', 'phoneNumber', 'about', 'experience', 'liftingStyles'],
+   'price', 'takingNewClients', 'phoneNumber', 'about', 'experience', 'liftingStyles', 'avatar'],
 
 }, mapStateToProps, mapDispatchToProps)(UpdateTrainer)
