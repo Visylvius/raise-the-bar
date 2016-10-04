@@ -26,7 +26,7 @@ export const saveGym = (placeId, email, gym) => {
   console.log('gym', gym);
   const type = JSON.parse(localStorage.getItem('type'));
   console.log('type', type);
-    const request = axios.post(`/api/gym/${placeId}`, {email, gym})
+    const request = axios.post(`/api/gym/${placeId}`, {email, gym, type})
       .then((response) => response.data)
     return {
       type: SAVE_GYM,

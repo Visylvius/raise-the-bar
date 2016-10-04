@@ -68,38 +68,78 @@ exports.saveSpecificGym = function(req, res) {
   const userEmail = req.body.email;
   const placeId = req.params.placeId;
   const userGym = req.body.gym;
+  const userType = req.body.type;
   // console.log('userGym', userGym);
-  console.log('req.models', req.models.athlete.one({}, function(err, athlete) {}));
-  req.models.athlete.one({email: userEmail}, function(err, athlete) {
-    if (err) {
-      return res.sendStatus(500).json({err: err});
-    }
-    //if !athlete then return res.sendStatus(400) <== client problem
-    // console.log('athlete', athlete);
-    // console.log('a', Object.keys(athlete));
-    // console.log('a', Object.keys(athlete.__proto__));
-    console.log('userGym in req.models.athlete', userGym.opening_hours);
-    req.models.gym.create({
-      name: userGym.name,
-      placeId: userGym.place_id,
-      address: userGym.formatted_address,
-      phoneNumber: userGym.formatted_phone_number,
-      url: userGym.url,
-      dailyHours: userGym.opening_hours
-    }, function(err, gym) {
-      console.log('gym in models.create', gym);
+  console.log('user type', userType);
+  // if (type === 'trainer')
+  console.log(userType.type === 'athlete');
+  if (userType.type === 'athlete') {
+    req.models.athlete.one({email: userEmail}, function(err, athlete) {
       if (err) {
-        res.sendStatus(500).json({err: err});
-      } else {
-        //if !gym return sendStaus(400) <== incorrect place id
-        athlete.addGyms(gym, function(err) {
-          if (err) {
-            res.sendStatus(500).json({err: err});
-          } else {
-            res.send(200, athlete);
-          }
-        });
+        return res.sendStatus(500).json({err: err});
       }
+      //if !athlete then return res.sendStatus(400) <== client problem
+      // console.log('athlete', athlete);
+      // console.log('a', Object.keys(athlete));
+      // console.log('a', Object.keys(athlete.__proto__));
+      console.log('userGym in req.models.athlete', userGym.opening_hours);
+      req.models.gym.create({
+        name: userGym.name,
+        placeId: userGym.place_id,
+        address: userGym.formatted_address,
+        phoneNumber: userGym.formatted_phone_number,
+        url: userGym.url,
+        dailyHours: userGym.opening_hours
+      }, function(err, gym) {
+        // console.log('gym in models.create', gym);
+        console.log('inside req.models.create athlete');
+        if (err) {
+          res.sendStatus(500).json({err: err});
+        } else {
+          console.log('athlete line 98', athlete);
+          //if !gym return sendStaus(400) <== incorrect place id
+          athlete.addGyms(gym, function(err) {
+            if (err) {
+              return res.sendStatus(500).json({err: err});
+            } else {
+              res.send(200, athlete);
+            }
+          });
+        }
+      });
     });
-  });
+  } else if (userType.type === 'trainer') {
+    req.models.trainer.one({email: userEmail}, function(err, trainer) {
+      if (err) {
+        return res.sendStatus(500).json({err: err});
+      }
+      //if !athlete then return res.sendStatus(400) <== client problem
+      // console.log('athlete', athlete);
+      // console.log('a', Object.keys(athlete));
+      // console.log('a', Object.keys(athlete.__proto__));
+      console.log('userGym in req.models.athlete', userGym.opening_hours);
+      req.models.gym.create({
+        name: userGym.name,
+        placeId: userGym.place_id,
+        address: userGym.formatted_address,
+        phoneNumber: userGym.formatted_phone_number,
+        url: userGym.url,
+        dailyHours: userGym.opening_hours
+      }, function(err, gym) {
+        console.log('gym in models.create', gym);
+        if (err) {
+          return res.sendStatus(500).json({err: err});
+        } else {
+          //if !gym return sendStaus(400) <== incorrect place id
+          trainer.addGyms(gym, function(err) {
+            if (err) {
+              return res.sendStatus(500).json({err: err});
+            } else {
+              res.send(200, trainer);
+            }
+          });
+        }
+      });
+    });
+  }
 };
