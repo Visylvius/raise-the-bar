@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 
-import { sendMessage } from '../actions/inbox-actions';
-import { makeInput, createValidate } from './utils/form-utils';
+import { sendMessage } from '../../actions/inbox-actions';
+import { makeInput, createValidate } from '../utils/form-utils';
 
 const SendMessage = ({fields: {
   body

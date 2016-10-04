@@ -40,18 +40,32 @@ exports.getMessages = function(req, res) {
   const userId = req.params.id;
 
   console.log('user email is', userEmail);
-  req.models.athlete.find({email: userEmail}, function(err, athlete) {
-    console.log(athlete);
-    const { id } = athlete[0];
-    console.log(id, 'id');
-    req.models.inbox.find({to: `/api/athlete/${id}`}, function(err, messages) {
-      if (err) {
-        res.sendStatus(500).json({err: err});
-      } else {
-        res.json(messages);
-      }
+  console.log('userType', userType);
+  if (userType === 'athlete') {
+    req.models.athlete.find({email: userEmail}, function(err, athlete) {
+      console.log(athlete);
+      const { id } = athlete[0];
+      console.log(id, 'id');
+      req.models.inbox.find({to: `/api/athlete/${id}`}, function(err, messages) {
+        if (err) {
+          res.sendStatus(500).json({err: err});
+        } else {
+          res.json(messages);
+        }
+      });
     });
-  });
+  } else if (userType === 'trainer') {
+    req.models.trainer.find({email: userEmail}, function(err, trainer) {
+      console.log('trainer line 59', trainer);
+      const { id } = trainer[0];
+      req.models.inbox.find({to: `/api/trainer/${id}`}, function(err, messages) {
+        if (err) {
+          return res.sendStatus(500).json(err);
+        }
+        res.json(messages);
+      });
+    });
+  }
 };
 
 //TODO make a join table between athlete / trainer called user that takes the trainerId, athleteId, single column is athlete has a 1

@@ -3,10 +3,12 @@ import axios from 'axios';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const SEND_MESSAGE = 'SEND_MESSAGES';
 
-export const getMessages = (profile) => {
-  const { email } = profile
-  console.log(email);
-  const request = axios.get(`/api/inbox/${email}`)
+export const getMessages = (profile, userType) => {
+  const { email } = profile;
+  const { type } = userType;
+  console.log('type', type);
+  console.log('email', email);
+  const request = axios.get(`/api/inbox/${type}/${email}`)
     .then(response => response.data)
   return {
     type: GET_MESSAGES,
@@ -15,6 +17,7 @@ export const getMessages = (profile) => {
 };
 
 export const sendMessage = (type, id, to, from, attributes) => {
+  // const type = JSON.parse(localStorage.getItem('type'));
   const request = axios.post(`/api/inbox/${type}/${id}`, Object.assign({}, {to: to, from: from}, attributes))
     .then(response => response.data)
   return {

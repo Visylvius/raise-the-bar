@@ -21,8 +21,8 @@ import UpdateTrainer from './components/trainer-components/update-trainer';
 import HomePage from './components/home-page';
 import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
-import Inbox from './components/inbox';
-import SendMessage from './components/send-message';
+import Inbox from './components/inbox-components/inbox';
+import SendMessage from './components/inbox-components/send-message';
 
 const requireAuth = (nextState, replace) => {
   console.log('logged in', auth.loggedIn());
@@ -132,7 +132,7 @@ export default (
               component={UpdateTrainer} />
         <Route path='/createtrainer' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateTrainer} />
         <Route path='inbox' onEnter={(nextState, replace) => {
-            requireAuth(nextState, replace) && fetchBoundMessages(JSON.parse(localStorage.getItem('profile')))
+            requireAuth(nextState, replace) && fetchBoundMessages(JSON.parse(localStorage.getItem('profile')), JSON.parse(localStorage.getItem('type')))
         }} component={Inbox}></Route>
         <Route path='inbox/:type/:id' onEnter={(nextState, replace) => { requireAuth(nextState, replace)}} component={SendMessage}></Route>
         <Route path='/gymsearch' component={GymSearch} />
