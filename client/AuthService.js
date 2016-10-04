@@ -86,6 +86,11 @@ class AuthService extends EventEmitter {
           resolve(null);
         }
         console.log('user exists', result);
+        if (result.data.type === 'athlete') {
+          localStorage.setItem('type', JSON.stringify({type: 'athlete'}));
+        } else if (result.data.type === 'trainer') {
+          localStorage.setItem('type', JSON.stringify({type: 'trainer'}));
+        }
         resolve(result);
       });
    });
@@ -129,6 +134,7 @@ class AuthService extends EventEmitter {
     // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
+    localStorage.removeItem('type');
   }
 }
 

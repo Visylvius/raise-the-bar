@@ -7,7 +7,16 @@ exports.getUser = function(req, res) {
     if (athlete) {
       res.status(200).send({type: 'athlete', athlete});
     } else {
-      res.status(200).send({type: 'not found'});
+      req.models.trainer.one({email: userEmail}, function(err, trainer) {
+        if (err) {
+          return res.sendStatus(500).json({err});
+        }
+        if (trainer) {
+          res.status(200).send({type: 'trainer', trainer});
+        } else {
+          res.status(200).send({type: 'not found'});
+        }
+      });
     }
   });
 };

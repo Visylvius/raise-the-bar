@@ -95,8 +95,7 @@ export const updateAthlete = (attributes, id) => {
     about: attributes.about
   };
   return (dispatch, getState) => {
-    // console.log('attributes', attributes);
-    // console.log('object.assign update athlete action', Object.assign(attributes, {crop: getState().crop}))
+    //why is crop populated with data with getState? 
     const request = axios.put(`/api/athlete/update/${id}`, Object.assign(attributes, {crop: getState().crop}))
     .then((response) => response.data);
     return {

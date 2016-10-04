@@ -22,6 +22,7 @@ const CreateTrainer = ({fields: {
   avatar
 }, handleSubmit, makeTrainer, changeAvatar, cropImage, crop}, { router }) => {
   const onSubmit = (attributes) => {
+    localStorage.setItem('type', JSON.stringify({type: 'trainer'}));
     makeTrainer(attributes);
   };
   const onAvatarBlur = (event) => {

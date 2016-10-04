@@ -22,6 +22,7 @@ const CreateAthlete = ({fields: {
   bio
 }, handleSubmit, makeAthlete, changeAvatar, cropImage, crop}, { router }) => {
   const onSubmit = (attributes) => {
+    localStorage.setItem('type', JSON.stringify({type: 'athlete'}));
     makeAthlete(attributes);
   };
   const onAvatarBlur = (event) => {

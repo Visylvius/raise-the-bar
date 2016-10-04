@@ -12,8 +12,8 @@ const DisplayGym = (props) => {
   const saveGym = () => {
     const userProfile = JSON.parse(localStorage.getItem('profile'));
     const { email } = userProfile;
-    console.log('props.gym', props.gym.result);
-    props.saveGym(props.gym.result.place_id, email, props.gym.result);
+      console.log('props.gym', props.gym.result);
+      props.saveGym(props.gym.result.place_id, email, props.gym.result);
   };
   return (
     <div>

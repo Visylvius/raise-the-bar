@@ -68,7 +68,8 @@ exports.saveSpecificGym = function(req, res) {
   const userEmail = req.body.email;
   const placeId = req.params.placeId;
   const userGym = req.body.gym;
-  console.log('userGym', userGym);
+  // console.log('userGym', userGym);
+  console.log('req.models', req.models.athlete.one({}, function(err, athlete) {}));
   req.models.athlete.one({email: userEmail}, function(err, athlete) {
     if (err) {
       return res.sendStatus(500).json({err: err});
