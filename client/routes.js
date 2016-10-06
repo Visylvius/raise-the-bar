@@ -101,7 +101,11 @@ export default (
         onEnter={() => document.querySelector('body').className = 'homePage'}
         onLeave={() => document.querySelector('body.homePage').className = ''}
       />
-      <Route path='login' component={Login} />
+      <Route path='login'
+        component={Login}
+        onEnter={() => document.querySelector('body').className = 'loginPage'}
+        onLeave={() => document.querySelector('body.homePage').className = ''}
+      />
       <Route component={MenuBar}>
         <Route path='createathlete' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
