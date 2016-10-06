@@ -1,6 +1,12 @@
 import React, { PropTypes } from 'react';
 import auth from '../AuthService';
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import MenuItem from 'material-ui/MenuItem';
+import HappyFace from 'material-ui/svg-icons/social/mood';
 
 import { EventEmitter } from 'events';
 import { bindActionCreators } from 'redux';
@@ -15,7 +21,7 @@ class MenuBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { isShowingModal: false };
+    this.state = { isShowingModal: false, isShowingDrawer: false };
 
     auth.on('server-profile-non-existent', (serverProfile) => {
       this.createUserProfile(serverProfile);
@@ -30,7 +36,12 @@ class MenuBar extends React.Component {
     this.setState({isShowingModal: false});
   }
 
-   userButton() {
+  toggleDrawer() {
+    this.setState({isShowingDrawer: !this.state.isShowingDrawer});
+  }
+
+
+  userButton() {
      if (localStorage.getItem('id_token')) {
        return <a className='nav-link' href='#' onClick={this.logout.bind(this)}>Logout</a>;
      } else {
@@ -58,6 +69,7 @@ class MenuBar extends React.Component {
      console.log('in logout');
      this.props.auth.logout()
      // redirects to login page
+     console.log(this.context);
      this.context.router.push('/');
    }
 
@@ -75,9 +87,30 @@ class MenuBar extends React.Component {
       });
    }
 
+   findAthletes() {
+     this.setState({isShowingDrawer: false});
+     this.context.router.push(`/findathletes`);
+   }
+
   render(){
     return (
-      <div>
+    <div>
+      <AppBar
+        title="Raise The Bar"
+        iconElementLeft={
+          <IconButton onTouchTap={() => this.toggleDrawer()}><MenuIcon/></IconButton>
+        }
+        // onLeftIconButtonTouchTap={() => console.log('clicked')}
+        children={
+          <Drawer open={this.state.isShowingDrawer} openSecondary={true}>
+            <MenuItem
+              leftIcon={<HappyFace />}
+              onTouchTap={() => { this.findAthletes() }}
+            >Find Athletes</MenuItem>
+            <MenuItem>Find Trainers</MenuItem>
+          </Drawer>
+        }
+      />
         <nav className="navbar navbar-dark bg-inverse">
           <ul className="nav navbar-nav">
             <li className="nav-item active">
