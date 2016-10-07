@@ -8,9 +8,19 @@
    <style media="screen">
     html {
       height: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
     }
     #container {
       height: 100%;
+    }
+    body {
+      margin: 0;
+      padding: 0;
     }
     .ReactCrop {
       max-width: 300px!important;
@@ -23,6 +33,7 @@
       height: 100%;
       background-color: rgba(255, 0, 0, 0.5);
     }
+
   </style>
   </head>
   <body>

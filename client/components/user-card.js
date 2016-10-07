@@ -71,6 +71,8 @@ const styles = {
 };
 
 const UserCard = (props) => {
+  const userType = JSON.parse(localStorage.getItem('type'));
+  console.log(userType, 'userType in user-card');
   return (
     <div className='card-container' style={styles.cardContainer}>
       <div className='card' style={styles.supplementalStyles}>

@@ -103,7 +103,7 @@ export default (
       />
       <Route path='login'
         component={Login}
-        onEnter={() => document.querySelector('body').className = 'loginPage'}
+        onEnter={() => document.querySelector('body').className = 'homePage'}
         onLeave={() => document.querySelector('body.homePage').className = ''}
       />
       <Route component={MenuBar}>
