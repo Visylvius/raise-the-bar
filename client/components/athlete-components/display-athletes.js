@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router'
 import {GridList, GridTile} from 'material-ui/GridList';
-import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
+import ForwardSymbol from 'material-ui/svg-icons/content/forward';
+
+
 import UserCard from '../user-card';
 import UserProfile from '../user-profile';
-import ForwardSymbol from 'material-ui/svg-icons/content/forward';
 
 
 const DisplayAthletes = ({athletes}) => {
@@ -26,18 +28,17 @@ const DisplayAthletes = ({athletes}) => {
   };
 
   const athleteCard = athletes.map((athlete) => {
-    const userType = JSON.parse(localStorage.getItem('type'));
-    console.log(userType, 'userType in user-card');
     console.log(athlete)
     //const profileLink = `/athlete/${athlete.id}`
-    return (
-      <UserProfile
-        key={athlete.id}
-        title={athlete.displayName}
-        subtitle={athlete.liftingStyle}
-        userType='athlete'
-      />
-    )
+    // return (
+    //   <UserProfile
+    //     key={athlete.id}
+    //     title={athlete.displayName}
+    //     subtitle={athlete.liftingStyle}
+    //     userType='athlete'
+    //     cols={2}
+    //   />
+    // )
   })
 
   return (
@@ -50,8 +51,8 @@ const DisplayAthletes = ({athletes}) => {
           <GridTile
             key={athlete.id}
             title={athlete.displayName}
-            subtitle={<b>{athlete.liftingStyle}</b>}
-            actionIcon={<IconButton><ForwardSymbol color="white" /></IconButton>}
+            subtitle={<span>style <b>{athlete.liftingStyle}</b></span>}
+            actionIcon={<Link to={`athlete/${athlete.id}`}><IconButton><ForwardSymbol color="white" /></IconButton></Link>}
           >
             <img src={`/avatars/athlete/${athlete.id}.jpg`} />
           </GridTile>

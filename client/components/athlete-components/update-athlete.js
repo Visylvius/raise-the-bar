@@ -7,6 +7,7 @@ import ReactCrop from 'react-image-crop';
 import { updateAthlete, changeAvatar, cropImage } from '../../actions/athlete-actions';
 import { makeInput, createValidate } from '../utils/form-utils';
 
+
 const UpdateAthlete = ({fields: {
   displayName,
   name,
@@ -30,9 +31,13 @@ const UpdateAthlete = ({fields: {
   const onSubmit = (attributes) => {
     console.log('updateAthlete', updateAthlete(attributes, id));
     updateAthlete(attributes, id)
-      .then(() => {
-        context.router.push(`/athlete/${id}`);
-      });
+
+    //show loader to user until profile finishes updating
+    //store.dispatch started updating user just an action that tells the store that user is updating you cn
+    //put the axios.put here instead of the action creator
+    //in the .then from axios you want to dispatch an action
+    // .then(return dispatch(action))
+    .then(context.router.push(`/athlete/${id}`));
   };
   const onAvatarBlur = (event) => {
     changeAvatar('UpdateAthlete', 'avatar', event.target.files);

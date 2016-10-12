@@ -7,15 +7,127 @@ import ProfileInformation from '../profile-information';
 import { fetchAthlete } from '../../actions/athlete-actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {Tabs, Tab} from 'material-ui/Tabs';
 
+  const AthleteProfile = ({athlete}) => {
+    if (athlete === null) {
+      return null;
+    }
+    let about, experience, liftingStyles;
+    if (athlete.athlete_bio === undefined) {
+      about = experience = liftingStyles = '';
+    } else {
+      const { athlete_bio } = athlete;
+      about = athlete_bio.about;
+      experience = athlete_bio.experience;
+      liftingStyles = athlete_bio.liftingStyles
+    }
+  const { name, location, id, email } = athlete;
+  const { type } = JSON.parse(localStorage.getItem('type'));
+  const profileImageStyles = baseStyles.profileImage;
+  profileImageStyles.backgroundImage = `url(/avatars/${type}/${id}.jpg)`
 
-const styleObject = {
-  upperContainer: {
-    marginTop: '20px'
+  function handleActive(tab) {
+    alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
   }
-}
+
+ return (
+  <div className='container-fluid'>
+    <div className='image-container' style={baseStyles.profileImageContainer}>
+      <div className='image' style={baseStyles.imageContent}>
+        <img src={`/avatars/${type}/${id}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
+        <p style={baseStyles.centerText}>{athlete.liftingStyle}</p>
+      </div>
+
+      {/* <div className='user-avatar' style={baseStyles.profileImage}></div> */}
+    </div>
+    <Tabs>
+      <Tab label="Item One" >
+        <div>
+          <h2 style={baseStyles.headline}>Tab One</h2>
+          <p>
+            This is an example tab.
+          </p>
+          <p>
+            You can put any sort of HTML or react component in here. It even keeps the component state!
+          </p>
+        </div>
+      </Tab>
+      <Tab label="Item Two" >
+        <div>
+          <h2 style={baseStyles.headline}>Tab Two</h2>
+          <p>
+            This is another example tab.
+          </p>
+        </div>
+      </Tab>
+      <Tab
+      label="onActive"
+      data-route="/home"
+      onActive={handleActive}
+      >
+        <div>
+          <h2 style={baseStyles.headline}>Tab Three</h2>
+          <p>
+            This is a third example tab.
+          </p>
+        </div>
+      </Tab>
+    </Tabs>
+
+   {/* <ProfileHeader
+      className='profile-header'
+      userId={id}
+      userType='athlete'
+      name={name}
+      email={email}
+      location={location}
+   /> */}
+    <NavigationLinks />
+    <ProfileInformation
+      className='profile-information'
+      about={about}
+      experience={experience}
+      liftingStyles={liftingStyles}
+    />
+   </div>
+ );
+};
 
 const baseStyles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+  centerText: {
+    textAlign: 'center'
+  },
+  profileImageContainer: {
+    display: 'table',
+    width: '100%'
+  },
+  // profileImage: {
+  //   height: '250px',
+  //   width: '250px',
+  //   border: '1px solid red',
+  //   backgroundRepeat: 'no-repeat',
+  //   backgroundSize: '65%',
+  //   borderRadius: '5px',
+  //   marginRight: 'auto',
+  //   marginLeft: 'auto'
+  // },
+  profileImage: {
+    border: '1px solid red',
+    borderRadius: '5px',
+    height: '150px'
+  },
+  imageContent: {
+    display: 'table-cell',
+    verticalAlign: 'middle',
+    textAlign: 'center'
+  },
   upperContainer: {
     marginTop: '20px',
     backgroundColor: '#blue'
@@ -109,45 +221,6 @@ const baseStyles = {
     marginLeft: '25px'
   }
 };
-
-  const AthleteProfile = ({athlete}) => {
-    if (athlete === null) {
-      return null;
-    }
-    let about, experience, liftingStyles;
-    if (athlete.athlete_bio === undefined) {
-      about = experience = liftingStyles = '';
-    } else {
-      const { athlete_bio } = athlete;
-      about = athlete_bio.about;
-      experience = athlete_bio.experience;
-      liftingStyles = athlete_bio.liftingStyles
-    }
-
-    const { name, location, id, email } = athlete;
-
- return (
-  <div className='container-fluid'>
-   <ProfileHeader
-      className='profile-header'
-      userId={id}
-      userType='athlete'
-      name={name}
-      email={email}
-      location={location}
-   />
-    <NavigationLinks />
-    <ProfileInformation
-      className='profile-information'
-      about={about}
-      experience={experience}
-      liftingStyles={liftingStyles}
-    />
-   </div>
- );
-};
-
-
 //TODO
 //refactor into reusable components for trainers and athletes
 //pass the style to through props, and then render the props, on the element in the component

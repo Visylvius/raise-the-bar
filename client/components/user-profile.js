@@ -26,7 +26,6 @@ const UserProfile = (props) => {
       <GridList
         cellHeight={180}
         style={styles.gridList}
-        cols={2}
       >
         <Subheader>{props.userType}</Subheader>
         <GridTile

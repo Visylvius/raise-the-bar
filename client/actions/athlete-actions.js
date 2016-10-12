@@ -95,13 +95,27 @@ export const updateAthlete = (attributes, id) => {
     about: attributes.about
   };
   return (dispatch, getState) => {
-    //why is crop populated with data with getState? 
-    const request = axios.put(`/api/athlete/update/${id}`, Object.assign(attributes, {crop: getState().crop}))
-    .then((response) => response.data);
-    return {
-      type: UPDATE_ATHLETE,
-      payload: request
-    };
+    //why is crop populated with data with getState?
+    // dispatch({
+    //   axios.put('', data)
+    //     .then (response => response.data)
+    //   type: response.data
+    //   payload: request
+    // })
+    return axios.put(`/api/athlete/update/${id}`, Object.assign(attributes, {crop: getState().crop}))
+    //can dispatch
+    // .then((response) => response.data);
+    .then((response) => {
+      dispatch({
+        type: UPDATE_ATHLETE,
+        payload: response.data
+      })
+    });
+
+    // return {
+    //   type: UPDATE_ATHLETE,
+    //   payload: request
+    // };
   }
 };
 
