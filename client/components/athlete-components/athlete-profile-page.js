@@ -1,15 +1,18 @@
 import React from 'react';
 import Radium from 'radium';
+import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import ProfileHeader from '../profile-header';
 import NavigationLinks from '../navigation-links';
 import ProfileInformation from '../profile-information';
 
-import { fetchAthlete } from '../../actions/athlete-actions';
+import { fetchAthlete, displayAthleteGyms } from '../../actions/athlete-actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import store from '../../reducers/index'
 
-  const AthleteProfile = ({athlete}) => {
+  const AthleteProfile = ({athlete, gyms}, props) => {
     if (athlete === null) {
       return null;
     }
@@ -31,6 +34,10 @@ import {Tabs, Tab} from 'material-ui/Tabs';
     alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
   }
 
+  const fetchUserGyms = () => {
+    store.dispatch(displayAthleteGyms(JSON.parse(localStorage.getItem('profile'))))
+  }
+
  return (
   <div className='container-fluid'>
     <div className='image-container' style={baseStyles.profileImageContainer}>
@@ -41,7 +48,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
       </div>
     </div>
     <Tabs>
-      <Tab label="Item One" >
+      <Tab label="First Item">
         <div>
           <h2 style={baseStyles.headline}>Tab One</h2>
           <p>
@@ -52,7 +59,36 @@ import {Tabs, Tab} from 'material-ui/Tabs';
           </p>
         </div>
       </Tab>
-      <Tab label="Item Two" >
+      <Tab label="Gyms" onActive={fetchUserGyms}>
+        {/*You don't have a gym yet, why not select one?*/}
+        {gyms.loaded ?
+          <div className='gym-card-container'>
+            {gyms.userGyms.map((result) => {
+              return (
+                <Card>
+                  <CardHeader
+                    title="Daily Hours"
+                    subtitle={result.phoneNumber}
+                    actAsExpander={true}
+                    showExpandableButton={true}
+                  />
+                  <CardText expandable={true}>
+                    {result.dailyHours.weekday_text.map((hours) => {
+                      return (
+                        <div className='daily-hours-container'>{hours}</div>
+                      );
+                    })}
+                  </CardText>
+                </Card>
+                // {/* <div className='gym-card-content'>
+                //   <div>{result.name}</div>
+                //   <div>{result.address}</div>
+                //   <div>{result.phoneNumber}</div>
+                // </div> */}
+              );
+            })}
+          </div>
+          : <div>Gyms are loading</div>}
         <div>
           <h2 style={baseStyles.headline}>Tab Two</h2>
           <p>
@@ -238,8 +274,9 @@ const baseStyles = {
 const mapStateToProps = (state) => {
   console.log(state);
   const athlete = state.profile.athlete;
-  console.log(athlete);
-  return { athlete };
+  const gyms = state.athleteGym;
+  console.log('athlete', athlete, 'gyms', gyms);
+  return { athlete, gyms };
 };
 
 const mapDispatchToProps = (dispatch) => {

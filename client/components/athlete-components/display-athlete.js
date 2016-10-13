@@ -6,7 +6,7 @@ const DisplayAthlete = ({athlete}) => {
     return null;
   }
   return (
-    <AthleteProfile key={athlete.id} displayName={athlete.displayName} name={athlete.name} location={props.location}/> 
+    <AthleteProfile key={athlete.id} displayName={athlete.displayName} name={athlete.name} location={props.location}/>
   )
 }
 

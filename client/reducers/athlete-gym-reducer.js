@@ -1,6 +1,6 @@
 import { DISPLAY_ATHLETE_GYMS } from '../actions/athlete-actions';
 
-const initialState = { userGyms: null, error: null, loading: null };
+const initialState = { userGyms: null, error: null, loaded: null };
 
 export const displayAthleteGymsReducer = (state=initialState, action) => {
   switch (action.type) {
