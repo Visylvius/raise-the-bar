@@ -22,7 +22,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
       experience = athlete_bio.experience;
       liftingStyles = athlete_bio.liftingStyles
     }
-  const { name, location, id, email } = athlete;
+  const { name, location, id, email, displayName } = athlete;
   const { type } = JSON.parse(localStorage.getItem('type'));
   const profileImageStyles = baseStyles.profileImage;
   profileImageStyles.backgroundImage = `url(/avatars/${type}/${id}.jpg)`
@@ -36,10 +36,9 @@ import {Tabs, Tab} from 'material-ui/Tabs';
     <div className='image-container' style={baseStyles.profileImageContainer}>
       <div className='image' style={baseStyles.imageContent}>
         <img src={`/avatars/${type}/${id}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
-        <p style={baseStyles.centerText}>{athlete.liftingStyle}</p>
+        <p className='athlete-display-name' style={baseStyles.athleteDisplayName}>{athlete.displayName}</p>
+        <p className='athlete-lifting-style' style={baseStyles.athleteLiftingStyle}>{athlete.liftingStyle}</p>
       </div>
-
-      {/* <div className='user-avatar' style={baseStyles.profileImage}></div> */}
     </div>
     <Tabs>
       <Tab label="Item One" >
@@ -101,8 +100,13 @@ const baseStyles = {
     marginBottom: 12,
     fontWeight: 400,
   },
-  centerText: {
-    textAlign: 'center'
+  athleteDisplayName: {
+    textAlign: 'center',
+    fontSize: '20px'
+  },
+  athleteLiftingStyle: {
+    textAlign: 'center',
+    fontSize: '14px'
   },
   profileImageContainer: {
     display: 'table',
@@ -119,7 +123,6 @@ const baseStyles = {
   //   marginLeft: 'auto'
   // },
   profileImage: {
-    border: '1px solid red',
     borderRadius: '5px',
     height: '150px'
   },
