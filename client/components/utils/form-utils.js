@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
 
 export const makeInput = (field, inputType, label, options, inputAttributes) => {
   let control;
@@ -16,7 +17,7 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
     control = <input className='form-control' type={inputType} {...field} value={null}></input>;
   } else if (inputType === 'textArea') {
     //value={field.value} is required to make the resetForm function work.
-    control = <textarea {...field} className='form-control' rows='3'/>;
+    control = <TextField floatingLabelText={label} multiLine={true} fullWidth={true} rows={2} {...field} className='text-field'/>;
   } else {
     control = <input type={inputType} {...field} {...inputAttributes} className='form-control'></input>;
   }

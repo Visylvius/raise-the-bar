@@ -2,9 +2,12 @@ import React from 'react';
 import Radium from 'radium';
 import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 import ProfileHeader from '../profile-header';
 import NavigationLinks from '../navigation-links';
 import ProfileInformation from '../profile-information';
+import SendMessage from '../inbox-components/send-message';
+import SendLetterIcon from 'material-ui/svg-icons/communication/contact-mail';
 
 import { fetchAthlete, displayAthleteGyms } from '../../actions/athlete-actions';
 import { connect } from 'react-redux';
@@ -12,7 +15,7 @@ import { bindActionCreators } from 'redux';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import store from '../../reducers/index'
 
-  const AthleteProfile = ({athlete, gyms}, props) => {
+  const AthleteProfile = ({athlete, gyms, routeParams}, props) => {
     if (athlete === null) {
       return null;
     }
@@ -48,16 +51,28 @@ import store from '../../reducers/index'
       </div>
     </div>
     <Tabs>
-      <Tab label="First Item">
-        <div>
-          <h2 style={baseStyles.headline}>Tab One</h2>
-          <p>
-            This is an example tab.
-          </p>
-          <p>
-            You can put any sort of HTML or react component in here. It even keeps the component state!
-          </p>
-        </div>
+      <Tab label="Profile">
+        <Card>
+          <CardHeader
+            title="About"
+            actAsExpander={true}
+            showExpandableButton={true}
+          />
+          <CardText expandable={true}>
+            {console.log('routeParams', routeParams)}
+            <p className='about-text'>{about}</p>
+          </CardText>
+        </Card>
+        <Card>
+          <CardHeader
+            title="Lifting Styles"
+            actAsExpander={true}
+            showExpandableButton={true}
+          />
+          <CardText expandable={true}>
+            <p className='lifting-styles-text'>{liftingStyles}</p>
+          </CardText>
+        </Card>
       </Tab>
       <Tab label="Gyms" onActive={fetchUserGyms}>
         {/*You don't have a gym yet, why not select one?*/}
@@ -97,27 +112,21 @@ import store from '../../reducers/index'
         </div>
       </Tab>
       <Tab
-      label="onActive"
-      data-route="/home"
-      onActive={handleActive}
+      icon={<SendLetterIcon />}
+      label="Send Message"
       >
-        <div>
-          <h2 style={baseStyles.headline}>Tab Three</h2>
-          <p>
-            This is a third example tab.
-          </p>
-        </div>
+        <SendMessage userId={routeParams.id} />
       </Tab>
     </Tabs>
 
-   {/* <ProfileHeader
+   <ProfileHeader
       className='profile-header'
       userId={id}
       userType='athlete'
       name={name}
       email={email}
       location={location}
-   /> */}
+   />
     <NavigationLinks />
     <ProfileInformation
       className='profile-information'
@@ -272,10 +281,8 @@ const baseStyles = {
 // )
 
 const mapStateToProps = (state) => {
-  console.log(state);
   const athlete = state.profile.athlete;
   const gyms = state.athleteGym;
-  console.log('athlete', athlete, 'gyms', gyms);
   return { athlete, gyms };
 };
 

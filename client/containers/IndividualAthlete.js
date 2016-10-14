@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchAthlete } from '../actions/athlete-actions';
-import DisplayAthlete from '../components/athlete-components/display-athlete';
+import AthleteProfile from '../components/athlete-components/athlete-profile-page';
 
 const IndividualAthlete = (props) => {
+  console.log('props', props);
   return (
-    <DisplayAthlete athlete={props.athletes}/>
+    <AthleteProfile athlete={props.athletes} routeParams={props.routeParams}/>
   );
 };
 

@@ -7,14 +7,18 @@ import { makeInput, createValidate } from '../utils/form-utils';
 
 const SendMessage = ({fields: {
   body
-}, handleSubmit, sendMessage, router, routeParams}, context) => {
+}, handleSubmit, sendMessage, router, routeParams, userId}, props, context) => {
   const onSubmit = (attributes) => {
-      console.log('attributes', attributes);
-      const messageRecipient = `/api/${routeParams.type}/${routeParams.id}`
-      const messageAuthor = JSON.parse(localStorage.getItem('profile'));
-      const { email } = messageAuthor;
+      console.log('userId', userId);
+      const userInformation = JSON.parse(localStorage.getItem('profile'));
+      const userType = JSON.parse(localStorage.getItem('type'));
+      const { email } = userInformation;
+      const { type } = userType
+      const messageRecipient = `/api/${type}/${userId}`
+
+
       console.log(email, 'email');
-      sendMessage(routeParams.type, routeParams.id, messageRecipient, email, attributes);
+      sendMessage(type, userId, messageRecipient, email, attributes);
       // socket.emit('message', {body: attributes.body, to: messageRecipient, from: email});
     };
 
