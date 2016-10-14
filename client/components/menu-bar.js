@@ -6,7 +6,9 @@ import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import MenuItem from 'material-ui/MenuItem';
-import HappyFace from 'material-ui/svg-icons/social/mood';
+import GroupIcon from 'material-ui/svg-icons/social/group';
+import UserProfileIcon from 'material-ui/svg-icons/action/account-circle';
+
 
 import { EventEmitter } from 'events';
 import { bindActionCreators } from 'redux';
@@ -104,10 +106,11 @@ class MenuBar extends React.Component {
         children={
           <Drawer open={this.state.isShowingDrawer} openSecondary={true}>
             <MenuItem
-              leftIcon={<HappyFace />}
+              leftIcon={<GroupIcon />}
               onTouchTap={() => { this.findAthletes() }}
             >Find Athletes</MenuItem>
             <MenuItem>Find Trainers</MenuItem>
+            <MenuItem>Edit Your Profile</MenuItem>
           </Drawer>
         }
       />

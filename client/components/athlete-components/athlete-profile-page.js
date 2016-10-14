@@ -1,13 +1,16 @@
 import React from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router';
 import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import ProfileHeader from '../profile-header';
 import NavigationLinks from '../navigation-links';
 import ProfileInformation from '../profile-information';
 import SendMessage from '../inbox-components/send-message';
 import SendLetterIcon from 'material-ui/svg-icons/communication/contact-mail';
+import UserProfileIcon from 'material-ui/svg-icons/action/account-box';
+import EditProfileIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 import { fetchAthlete, displayAthleteGyms } from '../../actions/athlete-actions';
 import { connect } from 'react-redux';
@@ -37,6 +40,31 @@ import store from '../../reducers/index'
     alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
   }
 
+  const editProfileButton = () => {
+    const userProfile = JSON.parse(localStorage.getItem('profile'));
+    const userType = JSON.parse(localStorage.getItem('type'));
+    const { type } = userType;
+    const { email } = userProfile;
+
+    if (athlete.email === email) {
+      return (
+        <div className='edit-profile-container' style={baseStyles.centerEditButton}>
+        <Link to={`/${type}/update/${routeParams.id}`}>
+          <RaisedButton
+          className={'athlete-profile-edit-button'}
+          label="Edit Profile"
+          primary={true}
+          style={baseStyles.marginHelper}
+          icon={<EditProfileIcon />}
+          />
+        </Link>
+        </div>
+      );
+    } else {
+      return '';
+    }
+  };
+
   const fetchUserGyms = () => {
     store.dispatch(displayAthleteGyms(JSON.parse(localStorage.getItem('profile'))))
   }
@@ -51,7 +79,10 @@ import store from '../../reducers/index'
       </div>
     </div>
     <Tabs>
-      <Tab label="Profile">
+      <Tab
+        label="Profile"
+        icon={<UserProfileIcon />}
+      >
         <Card>
           <CardHeader
             title="About"
@@ -73,6 +104,17 @@ import store from '../../reducers/index'
             <p className='lifting-styles-text'>{liftingStyles}</p>
           </CardText>
         </Card>
+        <Card>
+          <CardHeader
+            title="Experience"
+            actAsExpander={true}
+            showExpandableButton={true}
+          />
+          <CardText expandable={true}>
+            <p className='experience-text'>{experience}</p>
+          </CardText>
+        </Card>
+        {editProfileButton()}
       </Tab>
       <Tab label="Gyms" onActive={fetchUserGyms}>
         {/*You don't have a gym yet, why not select one?*/}
@@ -127,13 +169,6 @@ import store from '../../reducers/index'
       email={email}
       location={location}
    />
-    <NavigationLinks />
-    <ProfileInformation
-      className='profile-information'
-      about={about}
-      experience={experience}
-      liftingStyles={liftingStyles}
-    />
    </div>
  );
 };
@@ -156,6 +191,10 @@ const baseStyles = {
   profileImageContainer: {
     display: 'table',
     width: '100%'
+  },
+  centerEditButton: {
+    textAlign: 'center',
+    marginTop: '10px'
   },
   // profileImage: {
   //   height: '250px',

@@ -4,7 +4,9 @@ import { Link } from 'react-router';
 
 const ProfileHeader = (props) => {
 
+
   const editProfileButton = () => {
+    console.log('props in profileheader', props);
     const userEmail = JSON.parse(localStorage.getItem('profile')).email;
     if (props.email === userEmail) {
       return <Link to={`/${props.userType}/update/${props.userId}`}><button type='button' className='btn btn-primary btn-lg' style={stylesObject.editProfile}><i className="fa fa-pencil-square-o" style={stylesObject.editIcon} aria-hidden="true"></i>Edit Profile</button></Link>;

@@ -17,9 +17,6 @@ const SendMessage = ({fields: {
       const { email } = userInformation;
       const { type } = userType
       const messageRecipient = `/api/${type}/${userId}`
-
-
-      console.log(email, 'email');
       sendMessage(type, userId, messageRecipient, email, attributes);
       // socket.emit('message', {body: attributes.body, to: messageRecipient, from: email});
     };
@@ -30,12 +27,11 @@ const SendMessage = ({fields: {
     <form className='form' onSubmit={handleSubmit(onSubmit)}>
       {makeInput(body, 'textArea', 'Enter Your Message Here')}
       <RaisedButton
-      label="Send"
-      primary={true}
-      icon={<MessageIcon />}
-      type='submit'
-    />
-      <button type='submit'>Send Message</button>
+        label="Send"
+        primary={true}
+        icon={<MessageIcon />}
+        type='submit'
+      />
     </form>
   );
 };
