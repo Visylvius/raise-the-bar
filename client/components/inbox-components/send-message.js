@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
+import RaisedButton from 'material-ui/RaisedButton';
+import MessageIcon from 'material-ui/svg-icons/content/mail'
 
 import { sendMessage } from '../../actions/inbox-actions';
 import { makeInput, createValidate } from '../utils/form-utils';
@@ -27,6 +29,12 @@ const SendMessage = ({fields: {
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)}>
       {makeInput(body, 'textArea', 'Enter Your Message Here')}
+      <RaisedButton
+      label="Send"
+      primary={true}
+      icon={<MessageIcon />}
+      type='submit'
+    />
       <button type='submit'>Send Message</button>
     </form>
   );
