@@ -1,14 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router';
+import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import SendMessage from '../inbox-components/send-message';
+import RaisedButton from 'material-ui/RaisedButton';
+import FontIcon from 'material-ui/FontIcon';
+import SendLetterIcon from 'material-ui/svg-icons/communication/contact-mail';
+import UserProfileIcon from 'material-ui/svg-icons/action/account-box';
+import EditProfileIcon from 'material-ui/svg-icons/editor/mode-edit';
 
-import { fetchTrainer } from '../../actions/trainer-actions';
+import { fetchTrainer, displayTrainerGyms } from '../../actions/trainer-actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import store from '../../reducers/index'
 
 import ProfileHeader from '../profile-header';
 import NavigationLinks from '../navigation-links';
 import ProfileInformation from '../profile-information';
 
-const DisplayTrainer = ({trainer}) => {
+const DisplayTrainer = ({trainer, gyms, routeParams}) => {
   if (trainer === null) {
     return null;
   }
@@ -25,27 +35,159 @@ const DisplayTrainer = ({trainer}) => {
   }
 
   const { id, email, name, location, displayName } = trainer;
+  const { type } = JSON.parse(localStorage.getItem('type'));
   console.log(trainer);
+
+  const fetchUserGyms = () => {
+    store.dispatch(displayTrainerGyms(JSON.parse(localStorage.getItem('profile'))))
+  }
+
+  const editProfileButton = () => {
+    const userProfile = JSON.parse(localStorage.getItem('profile'));
+    const userType = JSON.parse(localStorage.getItem('type'));
+    const { type } = userType;
+    const { email } = userProfile;
+
+    if (trainer.email === email && type === 'trainer') {
+      return (
+        <div className='edit-profile-container' style={baseStyles.centerEditButton}>
+        <Link to={`/${type}/update/${routeParams.id}`}>
+          <RaisedButton
+          className={'trainer-profile-edit-button'}
+          label="Edit Profile"
+          primary={true}
+          style={baseStyles.marginHelper}
+          icon={<EditProfileIcon />}
+          />
+        </Link>
+        </div>
+      );
+    } else {
+      return '';
+    }
+  };
+
   return (
-    <div>
-      <ProfileHeader
-        name={displayName}
-        location={location}
-        userType='trainer'
-        userId={id}
-        userType='trainer'
-        email={email}
-      />
-      <NavigationLinks />
-      <ProfileInformation
-        about={about}
-        experience={experience}
-        liftingStyles={liftingStyles}
-      />
-    </div>
+    <div className='container-fluid'>
+      <div className='image-container' style={baseStyles.profileImageContainer}>
+        <div className='image' style={baseStyles.imageContent}>
+          <img src={`/avatars/${type}/${trainer.imgId}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
+          <p className='trainer-display-name' style={baseStyles.trainerDisplayName}>{trainer.displayName}</p>
+          <p className='trainer-lifting-style' style={baseStyles.trainerLiftingStyle}>{trainer.location}</p>
+        </div>
+      </div>
+      <Tabs>
+        <Tab
+          label="Profile"
+          icon={<UserProfileIcon />}
+        >
+          <Card>
+            <CardHeader
+              title="About"
+              actAsExpander={true}
+              showExpandableButton={true}
+            />
+            <CardText expandable={true}>
+              <p className='about-text'>{about}</p>
+            </CardText>
+          </Card>
+          <Card>
+            <CardHeader
+              title="Lifting Styles"
+              actAsExpander={true}
+              showExpandableButton={true}
+            />
+            <CardText expandable={true}>
+              <p className='lifting-styles-text'>{liftingStyles}</p>
+            </CardText>
+          </Card>
+          <Card>
+            <CardHeader
+              title="Experience"
+              actAsExpander={true}
+              showExpandableButton={true}
+            />
+            <CardText expandable={true}>
+              <p className='experience-text'>{experience}</p>
+            </CardText>
+          </Card>
+          {editProfileButton()}
+        </Tab>
+        <Tab label="Gyms" onActive={fetchUserGyms}>
+          {/*You don't have a gym yet, why not select one?*/}
+          {gyms.loaded ?
+            <div className='gym-card-container'>
+              {gyms.userGyms.map((result) => {
+                return (
+                  <Card>
+                    <CardHeader
+                      title="Daily Hours"
+                      subtitle={result.phoneNumber}
+                      actAsExpander={true}
+                      showExpandableButton={true}
+                    />
+                    <CardText expandable={true}>
+                      {result.dailyHours.weekday_text.map((hours) => {
+                        return (
+                          <div className='daily-hours-container'>{hours}</div>
+                        );
+                      })}
+                    </CardText>
+                  </Card>
+                  // {/* <div className='gym-card-content'>
+                  //   <div>{result.name}</div>
+                  //   <div>{result.address}</div>
+                  //   <div>{result.phoneNumber}</div>
+                  // </div> */}
+                );
+              })}
+            </div>
+            : <div>Gyms are loading</div>}
+          <div>
+            <h2 style={baseStyles.headline}>Tab Two</h2>
+            <p>
+              This is another example tab.
+            </p>
+          </div>
+        </Tab>
+        <Tab
+        icon={<SendLetterIcon />}
+        label="Send Message"
+        >
+          <SendMessage userId={routeParams.id}/>
+        </Tab>
+      </Tabs>
+     </div>
   );
 };
 
+const baseStyles = {
+  centerEditButton: {
+    textAlign: 'center',
+    marginTop: '10px'
+  },
+  trainerDisplayName: {
+    textAlign: 'center',
+    fontSize: '20px'
+  },
+  trainerLiftingStyle: {
+    textAlign: 'center',
+    fontSize: '14px'
+  },
+  profileImageContainer: {
+    display: 'table',
+    width: '100%'
+  },
+  imageContent: {
+    display: 'table-cell',
+    verticalAlign: 'middle',
+    textAlign: 'center'
+  },
+  profileImage: {
+    borderRadius: '5px',
+    height: '150px'
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({fetchTrainer}, dispatch);
@@ -53,7 +195,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   const trainer = state.trainer.trainer;
-  return { trainer };
+  const gyms = state.athleteGym;
+  return { trainer, gyms };
 }
 
 

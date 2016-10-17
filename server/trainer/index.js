@@ -236,3 +236,22 @@ exports.updateTrainer = function(req, res) {
     }
   });
 };
+
+exports.showTrainerGyms = function(req, res) {
+  const userEmail = req.params.email;
+  req.models.trainer.one({email: userEmail}, function(err, trainer) {
+    if (err) {
+      return res.sendStatus(500).json({err: err});
+    } else {
+      console.log('trainer', trainer);
+      trainer.getGyms(function(err, gyms) {
+        console.log('gyms inside of get gyms', gyms);
+        if (err) {
+          return res.sendStatus(500).json({err: err});
+        } else {
+          res.send(200, gyms);
+        }
+      });
+    }
+  });
+};

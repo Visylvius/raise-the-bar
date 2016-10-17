@@ -7,6 +7,7 @@ export const CREATE_TRAINER = 'CREATE_TRAINER';
 export const FETCH_TRAINERS = 'FETCH_TRAINERS';
 export const FETCH_TRAINER = 'FETCH_TRAINER';
 export const UPDATE_TRAINER = 'UPDATE_TRAINER';
+export const DISPLAY_TRAINER_GYMS = 'SHOW_TRAINER_GYMS';
 
 export const makeTrainer = (attributes) => {
   return (dispatch, getState) => {
@@ -64,5 +65,15 @@ export const updateTrainer = (attributes, id) => {
       type: UPDATE_TRAINER,
       payload: request
     };
+  };
+};
+
+export const displayTrainerGyms = (profile) => {
+  const { email } = profile;
+  const request = axios.get(`/api/trainer/gyms/${email}`)
+    .then((response) => response.data)
+  return {
+    type: DISPLAY_TRAINER_GYMS,
+    payload: request
   };
 };
