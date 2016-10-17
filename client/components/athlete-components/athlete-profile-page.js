@@ -31,6 +31,8 @@ import store from '../../reducers/index'
       experience = athlete_bio.experience;
       liftingStyles = athlete_bio.liftingStyles
     }
+
+
   const { name, location, id, email, displayName } = athlete;
   const { type } = JSON.parse(localStorage.getItem('type'));
   const profileImageStyles = baseStyles.profileImage;
@@ -46,7 +48,7 @@ import store from '../../reducers/index'
     const { type } = userType;
     const { email } = userProfile;
 
-    if (athlete.email === email) {
+    if (athlete.email === email && type === 'athlete') {
       return (
         <div className='edit-profile-container' style={baseStyles.centerEditButton}>
         <Link to={`/${type}/update/${routeParams.id}`}>

@@ -72,7 +72,8 @@ exports.postTrainer = function(req, res) {
     offerNutritionPlan: req.body.offerNutritionPlan,
     price: req.body.price,
     takingNewClients: req.body.takingNewClients,
-    phoneNumber: req.body.phoneNumber
+    phoneNumber: req.body.phoneNumber,
+    imgId: req.body.imgId
   }, function(err, trainer) {
     if (err) {
       return res.status(500).json({err});
@@ -93,7 +94,7 @@ exports.postTrainer = function(req, res) {
 
           .then((img) => img.resizeAsync(300, 250))
           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.id}.jpg`, buffer))
+          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.imgId}.jpg`, buffer))
           .then(() => res.json(trainer))
           .catch((err) => {
             console.log(err);
@@ -149,7 +150,7 @@ exports.updateTrainer = function(req, res) {
       trainer.price = req.body.price;
       trainer.takingNewClients = req.body.takingNewClients;
       trainer.phoneNumber = req.body.phoneNumber;
-
+      trainer.imgId = req.body.imgId;
       trainer.save(function(err) {
         if (err) {
           throw err;
@@ -183,7 +184,7 @@ exports.updateTrainer = function(req, res) {
 
                           .then((img) => img.resizeAsync(300, 250))
                           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-                          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.id}.jpg`, buffer))
+                          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.imgId}.jpg`, buffer))
                           .then(() => res.json(trainer))
                           .catch((err) => {
                             console.log(err);
@@ -219,7 +220,7 @@ exports.updateTrainer = function(req, res) {
 
                       .then((img) => img.resizeAsync(300, 250))
                       .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-                      .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.id}.jpg`, buffer))
+                      .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.imgId}.jpg`, buffer))
                       .then(() => res.json(trainer))
                       .catch((err) => {
                         console.log(err);

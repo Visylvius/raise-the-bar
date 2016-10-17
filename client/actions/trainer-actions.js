@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { blur, change } from 'redux-form';
 import AuthService  from '../AuthService';
+import randomString from 'randomstring';
 
 export const CREATE_TRAINER = 'CREATE_TRAINER';
 export const FETCH_TRAINERS = 'FETCH_TRAINERS';
@@ -10,7 +11,11 @@ export const UPDATE_TRAINER = 'UPDATE_TRAINER';
 export const makeTrainer = (attributes) => {
   return (dispatch, getState) => {
     const { email } = AuthService.getProfile();
-    const request = axios.post('/api/trainer', Object.assign({email}, attributes, {crop: getState().crop}))
+    const userImgId = randomString.generate({
+        length: 60,
+        charset: 'hex'
+      });
+    const request = axios.post('/api/trainer', Object.assign({email}, {imgId: userImgId}, attributes, {crop: getState().crop}))
       .then(response => response.data);
     return {
       type: CREATE_TRAINER,
@@ -49,7 +54,11 @@ export const updateTrainer = (attributes, id) => {
   return (dispatch, getState) => {
     // console.log('attributes', attributes);
     // console.log('object.assign update athlete action', Object.assign(attributes, {crop: getState().crop}))
-    const request = axios.put(`/api/trainer/${id}`, Object.assign(attributes, {crop: getState().crop}))
+    const userImgId = randomString.generate({
+        length: 60,
+        charset: 'hex'
+      });
+    const request = axios.put(`/api/trainer/${id}`, Object.assign(attributes, {imgId: userImgId}, {crop: getState().crop}))
     .then((response) => response.data);
     return {
       type: UPDATE_TRAINER,
