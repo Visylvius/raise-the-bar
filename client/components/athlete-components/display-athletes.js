@@ -27,20 +27,6 @@ const DisplayAthletes = ({athletes}) => {
     },
   };
 
-  const athleteCard = athletes.map((athlete) => {
-    console.log(athlete)
-    //const profileLink = `/athlete/${athlete.id}`
-    // return (
-    //   <UserProfile
-    //     key={athlete.id}
-    //     title={athlete.displayName}
-    //     subtitle={athlete.liftingStyle}
-    //     userType='athlete'
-    //     cols={2}
-    //   />
-    // )
-  })
-
   return (
     <div style={styles.root}>
       <GridList
