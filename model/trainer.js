@@ -13,6 +13,7 @@ module.exports = {
     price: Number,
     takingNewClients: Boolean,
     phoneNumber: {type: 'number', size: 8},
+    imgId: String,
     id: {type: 'serial', key: true}
   }
 };

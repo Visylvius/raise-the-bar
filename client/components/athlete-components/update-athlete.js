@@ -29,7 +29,6 @@ const UpdateAthlete = ({fields: {
   const { athlete_bio } = athlete;
 
   const onSubmit = (attributes) => {
-    console.log('updateAthlete', updateAthlete(attributes, id));
     updateAthlete(attributes, id)
 
     //show loader to user until profile finishes updating
@@ -37,7 +36,10 @@ const UpdateAthlete = ({fields: {
     //put the axios.put here instead of the action creator
     //in the .then from axios you want to dispatch an action
     // .then(return dispatch(action))
-    .then(context.router.push(`/athlete/${id}`));
+    .then(() => {
+      console.info('pushing the router');
+      context.router.push(`/athlete/${id}`);
+    });
   };
   const onAvatarBlur = (event) => {
     changeAvatar('UpdateAthlete', 'avatar', event.target.files);

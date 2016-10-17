@@ -9,15 +9,17 @@ import MenuItem from 'material-ui/MenuItem';
 import GroupIcon from 'material-ui/svg-icons/social/group';
 import UserProfileIcon from 'material-ui/svg-icons/action/account-circle';
 
-
 import { EventEmitter } from 'events';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { getUser } from '../actions/user-actions';
+import { getMessages } from '../actions/inbox-actions';
 
+import store from '../reducers';
 import Modal from './modal';
+
 
 class MenuBar extends React.Component {
   constructor(props) {
@@ -84,9 +86,17 @@ class MenuBar extends React.Component {
       .then((user) => {
         if (user.value.type === 'athlete') {
           const { id } = user.value.athlete;
-          this.context.router.push(`/athlete/${id}`)
+          this.context.router.push(`/athlete/${id}`);
+        } else if (user.value.type === 'trainer') {
+          const { id } = user.value.trainer;
+          this.context.router.push(`/trainer/${id}`);
         }
       });
+   }
+
+   directToInbox() {
+     this.setState({isShowingDrawer: false});
+     this.context.router.push(`/inbox`);
    }
 
    findAthletes() {
@@ -110,7 +120,14 @@ class MenuBar extends React.Component {
               onTouchTap={() => { this.findAthletes() }}
             >Find Athletes</MenuItem>
             <MenuItem>Find Trainers</MenuItem>
-            <MenuItem>Edit Your Profile</MenuItem>
+            <MenuItem
+              onTouchTap={() => this.context.router.push(`/gymsearch`)}>Find Gyms</MenuItem>
+            <MenuItem
+              onTouchTap={() => this.userProfile() }
+            >Profile</MenuItem>
+            <MenuItem
+              onTouchTap={() => this.directToInbox()}
+            >Inbox</MenuItem>
           </Drawer>
         }
       />

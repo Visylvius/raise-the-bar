@@ -14,6 +14,7 @@ var Athlete = module.exports = {
     password: String,
     hasTrainer: Boolean,
     preferedGyms: String,
+    imgId: String,
     id: {type: 'serial', key: true}
   }
 };

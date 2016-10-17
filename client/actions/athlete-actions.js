@@ -2,7 +2,7 @@ import axios from 'axios';
 import ReduxThunk from 'redux-thunk';
 import { blur, change } from 'redux-form';
 import AuthService  from '../AuthService';
-
+import randomString from 'randomstring';
 
 export const CREATE_ATHLETE = 'CREATE_ATHLETE';
 export const FETCH_ATHLETES = 'FETCH_ATHLETES';
@@ -14,7 +14,11 @@ export const DISPLAY_ATHLETE_GYMS = 'DISPLAY_ATHLETE_GYMS';
 export const makeAthlete = (attributes) => {
   return (dispatch, getState) => {
     const { email } = AuthService.getProfile();
-    const request = axios.post('/api/athlete', Object.assign({email}, attributes, {crop: getState().crop}))
+    const userImgId = randomString.generate({
+        length: 60,
+        charset: 'hex'
+      });
+    const request = axios.post('/api/athlete', Object.assign({email}, {imgId: userImgId}, attributes, {crop: getState().crop}))
       .then(response => response.data);
       return {
         type: CREATE_ATHLETE,
@@ -102,10 +106,16 @@ export const updateAthlete = (attributes, id) => {
     //   type: response.data
     //   payload: request
     // })
-    return axios.put(`/api/athlete/update/${id}`, Object.assign(attributes, {crop: getState().crop}))
+    console.info('starting the update request');
+    const userImgId = randomString.generate({
+        length: 60,
+        charset: 'hex'
+      });
+    return axios.put(`/api/athlete/update/${id}`, Object.assign(attributes, {imgId: userImgId}, {crop: getState().crop}))
     //can dispatch
     // .then((response) => response.data);
     .then((response) => {
+      console.info('recieve the response');
       dispatch({
         type: UPDATE_ATHLETE,
         payload: response.data

@@ -73,7 +73,7 @@ import store from '../../reducers/index'
   <div className='container-fluid'>
     <div className='image-container' style={baseStyles.profileImageContainer}>
       <div className='image' style={baseStyles.imageContent}>
-        <img src={`/avatars/${type}/${id}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
+        <img src={`/avatars/${type}/${athlete.imgId}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
         <p className='athlete-display-name' style={baseStyles.athleteDisplayName}>{athlete.displayName}</p>
         <p className='athlete-lifting-style' style={baseStyles.athleteLiftingStyle}>{athlete.liftingStyle}</p>
       </div>
@@ -160,15 +160,6 @@ import store from '../../reducers/index'
         <SendMessage userId={routeParams.id} />
       </Tab>
     </Tabs>
-
-   <ProfileHeader
-      className='profile-header'
-      userId={id}
-      userType='athlete'
-      name={name}
-      email={email}
-      location={location}
-   />
    </div>
  );
 };
