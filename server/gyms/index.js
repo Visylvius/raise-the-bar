@@ -69,6 +69,7 @@ exports.saveSpecificGym = function(req, res) {
   const placeId = req.params.placeId;
   const userGym = req.body.gym;
   const userType = req.body.type;
+  const currentlyWorkingOut = req.body.currentlyWorkingOut;
   // console.log('userGym', userGym);
   console.log('user type', userType);
   // if (type === 'trainer')
@@ -82,14 +83,15 @@ exports.saveSpecificGym = function(req, res) {
       // console.log('athlete', athlete);
       // console.log('a', Object.keys(athlete));
       // console.log('a', Object.keys(athlete.__proto__));
-      console.log('userGym in req.models.athlete', userGym.opening_hours);
+      console.log('userGym in req.models.athlete', userGym);
       req.models.gym.create({
         name: userGym.name,
         placeId: userGym.place_id,
         address: userGym.formatted_address,
         phoneNumber: userGym.formatted_phone_number,
         url: userGym.url,
-        dailyHours: userGym.opening_hours
+        dailyHours: userGym.opening_hours,
+        currentlyWorkingOut: currentlyWorkingOut
       }, function(err, gym) {
         // console.log('gym in models.create', gym);
         console.log('inside req.models.create athlete');
@@ -124,7 +126,8 @@ exports.saveSpecificGym = function(req, res) {
         address: userGym.formatted_address,
         phoneNumber: userGym.formatted_phone_number,
         url: userGym.url,
-        dailyHours: userGym.opening_hours
+        dailyHours: userGym.opening_hours,
+        currentlyWorkingOut: currentlyWorkingOut
       }, function(err, gym) {
         console.log('gym in models.create', gym);
         if (err) {
