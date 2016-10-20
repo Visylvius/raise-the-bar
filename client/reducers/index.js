@@ -16,8 +16,10 @@ import { inboxReducer } from './inbox-reducer';
 import { messageReducer } from './message-reducer';
 import { userReducer } from './user-reducer';
 import { saveGymReducer } from './save-gym-reducer';
+import { toggleGymToActiveReducer } from './toggle-active';
 import { displayAthleteGymsReducer } from './athlete-gym-reducer';
 import { displayTrainerGymsReducer } from './trainer-gym-reducer';
+
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise(), ReduxThunk, createLogger())(createStore);
 
@@ -34,6 +36,7 @@ const rootReducer = combineReducers({
   trainers: trainersReducer,
   trainer: trainerReducer,
   message: messageReducer,
+  toggledGym: toggleGymToActiveReducer,
   crop: cropReducer,
   user: userReducer
 });

@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_GYMS = 'FETCH_GYMS';
 export const FETCH_GYM = 'FETCH_GYM';
 export const SAVE_GYM = 'SAVE_GYM';
+export const TOGGLE_ACTIVE = 'TOGGLE_ACTIVE';
 
 export const fetchGyms = (address, distance) => {
   const axiosPromise = axios.post('/api/gym', {address, distance})
@@ -32,6 +33,18 @@ export const saveGym = (placeId, email, gym) => {
       type: SAVE_GYM,
       payload: request
     };
+};
+
+export const toggleGymToActive = (placeId, email) => {
+  const { type } = JSON.parse(localStorage.getItem('type'));
+  console.log('email', email, 'type', type);
+  console.log('placeId', placeId, 'es6 {placeId}', {placeId});
+  const request = axios.put(`/api/gym/${placeId}`, {email, type, placeId})
+    .then(response => response.data)
+  return {
+    type: TOGGLE_ACTIVE,
+    payload: request
+  };
 };
 
 

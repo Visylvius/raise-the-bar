@@ -5,7 +5,6 @@ const GymSearchBar = ({fetchGyms}) => {
     event.preventDefault();
     const form = event.target;
     fetchGyms(form.address.value, form.distance.value);
-
   };
   return (
     <form onSubmit={onSubmit}>

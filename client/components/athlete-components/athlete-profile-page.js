@@ -13,6 +13,7 @@ import UserProfileIcon from 'material-ui/svg-icons/action/account-box';
 import EditProfileIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 import { fetchAthlete, displayAthleteGyms } from '../../actions/athlete-actions';
+import { toggleGymToActive } from '../../actions/gyms-actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -71,6 +72,11 @@ import store from '../../reducers/index'
     store.dispatch(displayAthleteGyms(JSON.parse(localStorage.getItem('profile'))))
   }
 
+  const setGymToActive = (placeId, profile) => {
+    const { email } = profile;
+    store.dispatch(toggleGymToActive(placeId, email))
+  }
+
  return (
   <div className='container-fluid'>
     <div className='image-container' style={baseStyles.profileImageContainer}>
@@ -122,7 +128,7 @@ import store from '../../reducers/index'
         {/*You don't have a gym yet, why not select one?*/}
         {gyms.loaded ?
           <div className='gym-card-container'>
-            {gyms.userGyms.map((result) => {
+            {gyms.userGyms.map((result, index) => {
               return (
                 <Card>
                   <CardHeader
@@ -138,6 +144,16 @@ import store from '../../reducers/index'
                       );
                     })}
                   </CardText>
+                  <CardActions>
+                    <RaisedButton
+                      label='I am at the gym'
+                      key={result.id}
+                      className={`button-${index}`}
+                      onTouchTap={() => {
+                        setGymToActive(result.placeId, JSON.parse(localStorage.getItem('profile')))
+                      }}
+                    />
+                  </CardActions>
                 </Card>
                 // {/* <div className='gym-card-content'>
                 //   <div>{result.name}</div>

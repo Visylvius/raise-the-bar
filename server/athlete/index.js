@@ -241,9 +241,31 @@ exports.showAthleteGyms = function(req, res) {
     if (err) {
       return res.sendStatus(500).json({err: err});
     } else {
-      console.log('athlete', athlete);
       athlete.getGyms(function(err, gyms) {
-        console.log('gyms inside of get gyms', gyms);
+
+        // const placeId = 'ChIJR9FqTriwj4ARw_N_z-yKat0';
+        // gyms.forEach((gym) => {
+        //   console.log('gym placeId', gym.placeId);
+        // });
+        // gyms.filter((gym, index) => {
+        //   if (gym.placeId === placeId) {
+        //     console.log('I have found the gym with the placeId', gym.placeId, placeId);
+        //   } else {
+        //     console.log('there is no place with that Id');
+        //   }
+        // });
+        // console.log('gyms', gyms);
+        // const gymId = gyms[0].placeId;
+        // console.log('gymId', gymId);
+        // req.models.gym.
+
+        // gyms.find({name: "The Little Gym of Mountain View"}, function(err, results) {
+        //   console.log('results in gyms.find', results);
+        // });
+        // athlete.hasGyms(, function(err, results) {
+        //   console.log('results in gyms.find', results);
+        // });
+        // console.log('gyms inside of get gyms', gyms);
         if (err) {
           return res.sendStatus(500).json({err: err});
         } else {

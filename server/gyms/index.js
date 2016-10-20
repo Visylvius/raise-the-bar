@@ -146,3 +146,27 @@ exports.saveSpecificGym = function(req, res) {
     });
   }
 };
+
+exports.toggleGymToActive = (req, res) => {
+  const userEmail = req.body.email;
+  const type = req.body.type;
+  const placeId = req.params.placeId
+  console.log('userEmail', userEmail, 'type', type, 'placeId', placeId);
+  if (type === 'athlete') {
+    req.models.athlete.one({email: userEmail}, (err, athlete) => {
+      athlete.getGyms((err, gyms) => {
+        if (err) {
+          return res.sendStatus(500).json({err});
+        }
+        gyms.filter((gym, index) => {
+          if (gym.placeId === placeId) {
+            console.log('there is a match');
+          } else {
+            console.log('there is not a match');
+          }
+        });
+        res.send(200, gyms);
+      });
+    });
+  }
+};
