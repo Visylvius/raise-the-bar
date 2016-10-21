@@ -151,9 +151,11 @@ import store from '../../reducers/index'
                       className={`button-${index}`}
                       onTouchTap={() => {
                         setGymToActive(result.placeId, JSON.parse(localStorage.getItem('profile')))
+                        store.dispatch({type: 'TOGGLE_ACTIVE_LOCAL', placeId: result.placeId })
                       }}
                     />
                   </CardActions>
+                  {result.currentlyWorkingOut ? <div>IM HERE</div> : null  }
                 </Card>
                 // {/* <div className='gym-card-content'>
                 //   <div>{result.name}</div>

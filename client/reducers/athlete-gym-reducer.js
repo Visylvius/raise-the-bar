@@ -10,6 +10,14 @@ export const displayAthleteGymsReducer = (state=initialState, action) => {
       return { userGyms: action.payload, error: null, loaded: true};
     case `${DISPLAY_ATHLETE_GYMS}_REJECTED`:
       return { userGyms: null, error: action.payload, loaded: false};
+    case `TOGGLE_ACTIVE_LOCAL`:
+      return { userGyms: state.userGyms.map((gym) => {
+        if (action.placeId === gym.placeId) {
+          return Object.assign({}, gym, {currentlyWorkingOut: true});
+        }
+        return gym;
+      })
+    };
     default:
     return state;
   }
