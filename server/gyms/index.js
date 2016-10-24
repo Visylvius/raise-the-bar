@@ -70,7 +70,7 @@ exports.saveSpecificGym = function(req, res) {
   const placeId = req.params.placeId;
   const userGym = req.body.gym;
   const userType = req.body.type;
-  const currentlyWorkingOut = req.body.currentlyWorkingOut;
+  const startedWorkingOut = req.body.startedWorkingOut;
   // console.log('userGym', userGym);
   console.log('user type', userType);
   // if (type === 'trainer')
@@ -99,7 +99,7 @@ exports.saveSpecificGym = function(req, res) {
           gym.phoneNumer = gym.phoneNumber;
           gym.url = gym.url;
           gym.dailyHours = gym.dailyHours;
-          gym.currentlyWorkingOut = gym.currentlyWorkingOut;
+          gym.startedWorkingOut = gym.startedWorkingOut;
           gym.save((err) => {
             if (err) {
               return res.sendStatus(500).json({err: err});
@@ -117,7 +117,7 @@ exports.saveSpecificGym = function(req, res) {
             phoneNumber: userGym.formatted_phone_number,
             url: userGym.url,
             dailyHours: userGym.opening_hours,
-            currentlyWorkingOut: currentlyWorkingOut
+            startedWorkingOut: startedWorkingOut
           }, function(err, gym) {
             // console.log('gym in models.create', gym);
             console.log('inside req.models.create athlete');
@@ -155,7 +155,7 @@ exports.saveSpecificGym = function(req, res) {
           gym.phoneNumer = gym.phoneNumber;
           gym.url = gym.url;
           gym.dailyHours = gym.dailyHours;
-          gym.currentlyWorkingOut = gym.currentlyWorkingOut;
+          gym.startedWorkingOut = gym.startedWorkingOut;
           gym.save((err) => {
             if (err) {
               return res.sendStatus(500).json({err: err});
@@ -172,7 +172,7 @@ exports.saveSpecificGym = function(req, res) {
             phoneNumber: userGym.formatted_phone_number,
             url: userGym.url,
             dailyHours: userGym.opening_hours,
-            currentlyWorkingOut: currentlyWorkingOut
+            startedWorkingOut: startedWorkingOut
           }, function(err, gym) {
             // console.log('gym in models.create', gym);
             // console.log('inside req.models.create athlete');
@@ -216,12 +216,13 @@ exports.toggleGymToActive = (req, res) => {
         }
         gyms.forEach((gym) => {
           if (gym.placeId === placeId) {
-            gym.currentlyWorkingOut = (Date.now() /1000);
+            gym.startedWorkingOut = (Date.now() / 1000);
             gym.save((err) => {
               if (err) {
                 return res.send(500);
               }
-              res.send(200);
+              console.log(gym);
+              res.send(200, gym);
             });
           } else {
             console.log('there is not a match');

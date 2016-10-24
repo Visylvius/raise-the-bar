@@ -126,7 +126,8 @@ import store from '../../reducers/index'
       </Tab>
       <Tab label="Gyms" onActive={fetchUserGyms}>
         {/*You don't have a gym yet, why not select one?*/}
-        {gyms.loaded ?
+        {console.log('gyms', gyms)}
+        { gyms.loaded ?
           <div className='gym-card-container'>
             {gyms.userGyms.map((result, index) => {
               return (
@@ -155,7 +156,10 @@ import store from '../../reducers/index'
                       }}
                     />
                   </CardActions>
-                  {result.currentlyWorkingOut ? <div>IM HERE</div> : null  }
+                  {/*date.now - result.startedWorkingOut < 1*60*60 ? IM HERE only do that on reload*/}
+                  { console.log(result.startedWorkingOut) }
+                  { ((Date.now() / 1000) - result.startedWorkingOut) < (1*3600) ? console.log(true) : console.log(false) }
+                  { ((Date.now() / 1000) - result.startedWorkingOut) < (1 * 3600) ? <div>IM HERE</div> : null }
                 </Card>
                 // {/* <div className='gym-card-content'>
                 //   <div>{result.name}</div>

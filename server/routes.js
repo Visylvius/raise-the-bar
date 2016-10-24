@@ -24,7 +24,7 @@ module.exports = new Router()
   .post('/gym', gymHandler.getGyms)
   .get('/gym/:placeId', gymHandler.getSpecificGym)
   .post('/gym/:placeId', gymHandler.saveSpecificGym)
-  .put('/gym/:placeId', gymHandler.toggleGymToActive)
+  .put('/gym/toggleactive/:placeId', gymHandler.toggleGymToActive)
   .get('/user/:email', userHandler.getUser);
 
 

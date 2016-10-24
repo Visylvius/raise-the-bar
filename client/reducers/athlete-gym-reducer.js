@@ -13,10 +13,10 @@ export const displayAthleteGymsReducer = (state=initialState, action) => {
     case `TOGGLE_ACTIVE_LOCAL`:
       return { userGyms: state.userGyms.map((gym) => {
         if (action.placeId === gym.placeId) {
-          return Object.assign({}, gym, {currentlyWorkingOut: true});
+          return Object.assign({}, gym, {startedWorkingOut: (Date.now() / 1000)});
         }
         return gym;
-      })
+      }), error: null, loaded: true
     };
     default:
     return state;

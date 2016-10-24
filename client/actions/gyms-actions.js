@@ -27,7 +27,7 @@ export const saveGym = (placeId, email, gym) => {
   console.log('gym', gym);
   const type = JSON.parse(localStorage.getItem('type'));
   console.log('type', type);
-    const request = axios.post(`/api/gym/${placeId}`, {email, gym, type, currentlyWorkingOut: false})
+    const request = axios.post(`/api/gym/${placeId}`, {email, gym, type, startedWorkingOut: null})
       .then((response) => response.data)
     return {
       type: SAVE_GYM,
@@ -39,7 +39,7 @@ export const toggleGymToActive = (placeId, email) => {
   const { type } = JSON.parse(localStorage.getItem('type'));
   console.log('email', email, 'type', type);
   console.log('placeId', placeId, 'es6 {placeId}', {placeId});
-  const request = axios.put(`/api/gym/${placeId}`, {email, type, placeId})
+  const request = axios.put(`/api/gym/toggleactive/${placeId}`, {email, type, placeId})
     .then(response => response.data)
   return {
     type: TOGGLE_ACTIVE,
