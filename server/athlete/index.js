@@ -267,7 +267,12 @@ exports.showAthleteGyms = function(req, res) {
         // });
         // console.log('gyms inside of get gyms', gyms);
         if (err) {
-          return res.sendStatus(500).json({err: err});
+          console.log(res.headersSent);
+          // console.log(res.sendStatus(500));
+          res.status(500);
+          console.log(res.headersSent);
+          res.json({err});
+          // return res.sendStatus(500).json({err: err});
         } else {
           res.send(200, gyms);
         }

@@ -78,7 +78,10 @@ exports.saveSpecificGym = function(req, res) {
   if (userType.type === 'athlete') {
     req.models.athlete.one({email: userEmail}, function(err, athlete) {
       if (err) {
-        return res.sendStatus(500).json({err: err});
+        return res.status(500).json({err: err});
+      }
+      if (!athlete) {
+        return res.sendStatus(400);
       }
       //if !athlete then return res.sendStatus(400) <== client problem
       // console.log('athlete', athlete);
@@ -87,7 +90,7 @@ exports.saveSpecificGym = function(req, res) {
       // console.log('userGym', userGym);
       athlete.getGyms((err, gyms) => {
         const gymValues = _.where(gyms, {placeId});
-        if (gymValues) {
+        if (gymValues.length > 0) {
           gym = gymValues[0];
           gym.name = gym.name;
           gym.placeId = gym.placeId;
@@ -213,7 +216,7 @@ exports.toggleGymToActive = (req, res) => {
         }
         gyms.forEach((gym) => {
           if (gym.placeId === placeId) {
-            gym.currentlyWorkingOut = true;
+            gym.currentlyWorkingOut = (Date.now() /1000);
             gym.save((err) => {
               if (err) {
                 return res.send(500);

@@ -9,6 +9,6 @@ module.exports = {
     phoneNumber: String,
     url: String,
     dailyHours: Object,
-    currentlyWorkingOut: Boolean
+    startedWorkingOut: Number
   }
 };
