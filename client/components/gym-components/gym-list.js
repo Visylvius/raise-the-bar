@@ -1,7 +1,10 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+import {GridList, GridTile} from 'material-ui/GridList';
 import { Link } from 'react-router';
+import ForwardSymbol from 'material-ui/svg-icons/content/forward';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+
 
 
 const GymList = ( { listOfGyms } ) => {
@@ -18,36 +21,69 @@ const GymList = ( { listOfGyms } ) => {
   console.log(listOfGyms);
 
   return (
-    <div>
-      {listOfGyms.results.map((gym) => {
-        return (
-          <Card>
-            <CardMedia
-              overlay={<CardTitle title={gym.name} subtitle={gym.vicinity} />}
-            >
-            { gym.photos && gym.photos[0]
-              ? <img src={getGymPhotoUrl(gym.photos[0].photo_reference)} />
-              : <img src='http://placekitten.com/300/200' />
-            }
-
-            </CardMedia>
-            <CardTitle title="Card title" subtitle="Card subtitle" />
-            <CardText>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-              Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-              Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-            </CardText>
-            <CardActions>
-              <Link to={`/gym/${gym.place_id}`}><RaisedButton>More Information</RaisedButton></Link>
-            </CardActions>
-          </Card>
-        )
-      })}
-    </div>
+    <div style={styles.root}>
+      <GridList
+        cellHeight={300}
+        style={styles.gridList}
+      >
+      {listOfGyms.results.map((gym) => (
+        <GridTile
+          key={gym.place_id}
+          title={gym.name}
+          subtitle={<b>{gym.vicinity}</b>}
+          actionIcon={<Link to={`/gym/${gym.place_id}`}><IconButton><ForwardSymbol color="white" /></IconButton></Link>}
+        >
+        { gym.photos && gym.photos[0]
+          ? <img src={getGymPhotoUrl(gym.photos[0].photo_reference)} />
+          : <img src='http://placekitten.com/300/200' />
+        }
+        </GridTile>
+        ))}
+      </GridList>
+  </div>
   );
 };
 
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  gridList: {
+    width: 600,
+    height: 550,
+    overflowY: 'auto',
+  },
+};
+
+
+{/* <div>
+  {listOfGyms.results.map((gym) => {
+    return (
+      <Card>
+        <CardMedia
+          overlay={<CardTitle title={gym.name} subtitle={gym.vicinity} />}
+          overlayContentStyle={styles.overlayStyle}
+        >
+
+
+        </CardMedia>
+        <CardTitle title="Card title" subtitle="Card subtitle" />
+        <CardText>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+        </CardText>
+        <CardActions>
+          <RaisedButton>More Information</RaisedButton></Link>
+        </CardActions>
+      </Card>
+    )
+  })}
+</div> */}
 // {/* <div>
 //   <span>Name</span>
 //   <div>{gymData.name}</div>
