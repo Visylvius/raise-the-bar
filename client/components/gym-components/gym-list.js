@@ -1,8 +1,8 @@
 import React from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router';
 
-import GymCard from './gym-card.js';
 
 const GymList = ( { listOfGyms } ) => {
   if (listOfGyms === null) {
@@ -39,6 +39,7 @@ const GymList = ( { listOfGyms } ) => {
               Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
             </CardText>
             <CardActions>
+              <Link to={`/gym/${gym.place_id}`}><RaisedButton>More Information</RaisedButton></Link>
             </CardActions>
           </Card>
         )

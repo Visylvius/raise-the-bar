@@ -99,7 +99,10 @@ exports.saveSpecificGym = function(req, res) {
           gym.phoneNumer = gym.phoneNumber;
           gym.url = gym.url;
           gym.dailyHours = gym.dailyHours;
-          gym.startedWorkingOut = gym.startedWorkingOut;
+          gym.extra.startedWorkingOut = gym.startedWorkingOut;
+          // gym.startedWorkingOut = gym.startedWorkingOut;
+          //TODO if save doesn't save the extra.startedWorkingOut
+          //try using athlete.addGyms if the gym.save doesn't work.
           gym.save((err) => {
             if (err) {
               return res.sendStatus(500).json({err: err});
@@ -116,8 +119,7 @@ exports.saveSpecificGym = function(req, res) {
             address: userGym.formatted_address,
             phoneNumber: userGym.formatted_phone_number,
             url: userGym.url,
-            dailyHours: userGym.opening_hours,
-            startedWorkingOut: startedWorkingOut
+            dailyHours: userGym.opening_hours
           }, function(err, gym) {
             // console.log('gym in models.create', gym);
             console.log('inside req.models.create athlete');
@@ -155,7 +157,7 @@ exports.saveSpecificGym = function(req, res) {
           gym.phoneNumer = gym.phoneNumber;
           gym.url = gym.url;
           gym.dailyHours = gym.dailyHours;
-          gym.startedWorkingOut = gym.startedWorkingOut;
+          gym.extra.startedWorkingOut = gym.startedWorkingOut;
           gym.save((err) => {
             if (err) {
               return res.sendStatus(500).json({err: err});
@@ -171,8 +173,7 @@ exports.saveSpecificGym = function(req, res) {
             address: userGym.formatted_address,
             phoneNumber: userGym.formatted_phone_number,
             url: userGym.url,
-            dailyHours: userGym.opening_hours,
-            startedWorkingOut: startedWorkingOut
+            dailyHours: userGym.opening_hours
           }, function(err, gym) {
             // console.log('gym in models.create', gym);
             // console.log('inside req.models.create athlete');
@@ -215,8 +216,32 @@ exports.toggleGymToActive = (req, res) => {
           return res.sendStatus(500).json({err});
         }
         gyms.forEach((gym) => {
+          console.log('gym', gym);
           if (gym.placeId === placeId) {
-            gym.startedWorkingOut = (Date.now() / 1000);
+            gym.extra.startedWorkingOut = (Date.now() / 1000);
+            gym.save((err) => {
+              if (err) {
+                return res.send(500);
+              }
+              console.log(gym);
+              res.send(200, gym);
+            });
+          } else {
+            console.log('there is not a match');
+          }
+        });
+      });
+    });
+  } else if (type === 'trainer') {
+    req.models.trainer.one({email: userEmail}, (err, trainer) => {
+      trainer.getGyms((err, gyms) => {
+        if (err) {
+          return res.sendStatus(500).json({err});
+        }
+        gyms.forEach((gym) => {
+          console.log('gym', gym);
+          if (gym.placeId === placeId) {
+            gym.extra.startedWorkingOut = (Date.now() / 1000);
             gym.save((err) => {
               if (err) {
                 return res.send(500);

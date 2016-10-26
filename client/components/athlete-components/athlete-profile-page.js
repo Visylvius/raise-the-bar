@@ -157,8 +157,8 @@ import store from '../../reducers/index'
                     />
                   </CardActions>
                   {/*date.now - result.startedWorkingOut < 1*60*60 ? IM HERE only do that on reload*/}
-                  { console.log(result.startedWorkingOut) }
-                  { ((Date.now() / 1000) - result.startedWorkingOut) < (1*3600) ? console.log(true) : console.log(false) }
+                  { console.log('result.startedWorkingOut', result.startedWorkingOut) }
+                  { ((Date.now() / 1000) - result.startedWorkingOut) < (1*3600) ? console.log('user is at the gym', true) : console.log('user is not at the gym', false) }
                   { ((Date.now() / 1000) - result.startedWorkingOut) < (1 * 3600) ? <div>IM HERE</div> : null }
                 </Card>
                 // {/* <div className='gym-card-content'>
@@ -170,12 +170,6 @@ import store from '../../reducers/index'
             })}
           </div>
           : <div>Gyms are loading</div>}
-        <div>
-          <h2 style={baseStyles.headline}>Tab Two</h2>
-          <p>
-            This is another example tab.
-          </p>
-        </div>
       </Tab>
       <Tab
       icon={<SendLetterIcon />}
