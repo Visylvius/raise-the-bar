@@ -77,6 +77,10 @@ import store from '../../reducers/index'
     store.dispatch(toggleGymToActive(placeId, email))
   }
 
+  const isUserAtTheGym = (currentGym) => {
+    return ((Date.now() / 1000) - currentGym.startedWorkingOut) < (1 * 3600)
+  }
+
  return (
   <div className='container-fluid'>
     <div className='image-container' style={baseStyles.profileImageContainer}>
@@ -159,7 +163,7 @@ import store from '../../reducers/index'
                   {/*date.now - result.startedWorkingOut < 1*60*60 ? IM HERE only do that on reload*/}
                   { console.log('result.startedWorkingOut', result.startedWorkingOut) }
                   { ((Date.now() / 1000) - result.startedWorkingOut) < (1*3600) ? console.log('user is at the gym', true) : console.log('user is not at the gym', false) }
-                  { ((Date.now() / 1000) - result.startedWorkingOut) < (1 * 3600) ? <div>IM HERE</div> : null }
+                  { isUserAtTheGym(result) ? <div>IM HERE</div> : null }
                 </Card>
                 // {/* <div className='gym-card-content'>
                 //   <div>{result.name}</div>
