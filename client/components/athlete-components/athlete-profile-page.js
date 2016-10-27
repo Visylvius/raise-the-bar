@@ -69,8 +69,8 @@ import store from '../../reducers/index'
   };
 
   const fetchUserGyms = () => {
-    store.dispatch(displayAthleteGyms(JSON.parse(localStorage.getItem('profile'))))
-  }
+    store.dispatch(displayAthleteGyms(JSON.parse(localStorage.getItem('profile'))));
+  };
 
   const setGymToActive = (placeId, profile) => {
     const { email } = profile;
@@ -84,6 +84,7 @@ import store from '../../reducers/index'
 
  return (
   <div className='container-fluid'>
+  
     <div className='image-container' style={baseStyles.profileImageContainer}>
       <div className='image' style={baseStyles.imageContent}>
         <img src={`/avatars/${type}/${athlete.imgId}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>

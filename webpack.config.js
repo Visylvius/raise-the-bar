@@ -45,6 +45,12 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   devServer: {
+    proxy: {
+     '/api': {
+       target: 'http://localhost:4000',
+       secure: false
+     }
+   },
     inline: true,
     historyApiFallback: true,
     contentBase: './'
