@@ -12,9 +12,6 @@ var server = app.listen(port, function() {
   console.log('server is listening on ' + port);
 });
 
-var io = require('socket.io')(server);
-var socketHandlers = require('./socketRoutes')(io);
-
 app.get('*', function(req, res) {
   res.send(fs.readFileSync(__dirname + '/../dist/index.html', 'utf-8'));
 });
