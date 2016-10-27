@@ -78,7 +78,8 @@ import store from '../../reducers/index'
   }
 
   const isUserAtTheGym = (currentGym) => {
-    return ((Date.now() / 1000) - currentGym.startedWorkingOut) < (1 * 3600)
+    return ((Date.now() / 1000) - currentGym.extra.startedWorkingOut) < (1 * 3600) &&
+    gyms.userGyms.filter(gym => gym.extra.startedWorkingOut > currentGym.extra.startedWorkingOut).length === 0
   }
 
  return (
