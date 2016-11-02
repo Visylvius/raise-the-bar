@@ -4,7 +4,10 @@ module.exports = {
   properties: {
     to: String,
     from: String,
-    body: String,
+    displayName: String,
+    imgId: String,
+    userType: String,
+    body: String
   }
 };
 

@@ -18,7 +18,7 @@ export const getMessages = (profile, userType) => {
 
 export const sendMessage = (type, id, to, from, attributes) => {
   // const type = JSON.parse(localStorage.getItem('type'));
-  const request = axios.post(`/api/inbox/${type}/${id}`, Object.assign({}, {to: to, from: from}, attributes))
+  const request = axios.post(`/api/inbox/${type}/${id}`, Object.assign({}, {to, type, from}, attributes))
     .then(response => response.data)
   return {
     type: SEND_MESSAGE,

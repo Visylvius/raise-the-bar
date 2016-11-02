@@ -14,9 +14,9 @@ const Inbox = ({messages}) => {
         {messages.map((message) => {
           return (
             <li className='user' style={styles.user}>
-              <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/athlete/test.jpg`}/></div>
+              <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/${message.userType}/${message.imgId}.jpg`}/></div>
               <div className='message-container' style={styles.messageContainer}>
-                <h4 className='user-name' style={styles.userName}>{message.from}</h4>
+                <h4 className='user-name' style={styles.userName}>{message.displayName}</h4>
                 <div className='user-message'>{message.body}</div>
               </div>
             </li>
