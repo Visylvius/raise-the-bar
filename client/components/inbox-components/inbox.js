@@ -2,7 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 
-import { SHOW_MESSAGE_THREAD } from '../../actions/inbox-actions';
+import { SHOW_MESSAGE_THREAD, HIDE_MESSAGE_THREAD } from '../../actions/inbox-actions';
 import store from '../../reducers';
 
 import { connect } from 'react-redux';
@@ -31,8 +31,40 @@ const Inbox = ({myState}) => {
       </ul>
       { myState.modalShowing ?
         <ModalContainer>
-          <ModalDialog>
-            <div>Hello World!</div>
+          <ModalDialog style={styles.modalContainer}>
+            <div className='message-header' style={styles.messageHeader}>
+              <div className='message-avatar' style={styles.messageAvatar}>
+                <img
+                  className='message-header-avatar'
+                  src={`avatars/athlete/test.jpg`}
+                  style={styles.avatarImage}
+                />
+              </div>
+              <div
+                className='message-header-text'
+                style={{display: 'inline-block', verticalAlign: 'middle'}}
+              >
+                <p
+                  className='message-username'
+                  style={styles.messageUserName}
+                >
+                  UserName
+                </p>
+                <p
+                className='time-stamp'
+                style={styles.messageTimeStamp}
+                >
+                It was created at ....
+                </p>
+              </div>
+            </div>
+            <div className='message-body'>Hello World!</div>
+            <div className='message-footer'></div>
+            <button
+              onTouchTap={() => store.dispatch({type: HIDE_MESSAGE_THREAD, showModal: false })}
+            >
+              close
+            </button>
           </ModalDialog>
         </ModalContainer> : null
       }
@@ -49,6 +81,39 @@ const styles = {
     maxWidth: '640px',
     backgroundColor: 'red',
     margin: '0 auto'
+  },
+  messageHeader: {
+    borderBottom: '1px solid #ECECEC',
+    paddingBottom: '18px'
+  },
+  messageUserName: {
+    fontSize: '22px',
+    marginBottom: 0
+  },
+  messageTimeStamp: {
+    fontSize: '18px',
+    color: '#888',
+    marginBottom: 0
+  },
+  messageAvatar: {
+    width: '80px',
+    overflow: 'hidden',
+    height: '80px',
+    borderRadius: '50%',
+    display: 'inline-block',
+    marginRight: '14px',
+    verticalAlign: 'middle'
+  },
+  avatarImage: {
+    width: '120%',
+    height: 'auto'
+  },
+  modalContainer: {
+    maxWidth: '500px',
+    width: '100%',
+    height: '100%',
+    zIndex: 2,
+    overflow: 'hidden'
   },
   userList: {
     padding: 0,

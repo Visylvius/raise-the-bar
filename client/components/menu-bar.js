@@ -109,6 +109,7 @@ class MenuBar extends React.Component {
     <div>
       <AppBar
         title="Raise The Bar"
+        style={{zIndex: 1}}
         iconElementLeft={
           <IconButton onTouchTap={() => this.toggleDrawer()}><MenuIcon/></IconButton>
         }
