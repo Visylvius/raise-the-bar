@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const SEND_MESSAGE = 'SEND_MESSAGES';
+export const SHOW_MESSAGE_THREAD = 'SHOW_MESSAGE_THREAD';
 
 export const getMessages = (profile, userType) => {
   const { email } = profile;

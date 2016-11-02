@@ -1,28 +1,42 @@
 import React from 'react';
 import Radium from 'radium';
+import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 
+import { SHOW_MESSAGE_THREAD } from '../../actions/inbox-actions';
+import store from '../../reducers';
 
 import { connect } from 'react-redux';
 
-const Inbox = ({messages}) => {
-  if (messages === null) {
+const Inbox = ({myState}) => {
+  if (myState.messages === null) {
     return null;
   }
+
   return (
     <div className='user-container' style={styles.container}>
       <ul className='user-list' style={styles.userList}>
-        {messages.map((message) => {
+        {myState.messages.map((message) => {
           return (
             <li className='user' style={styles.user}>
               <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/${message.userType}/${message.imgId}.jpg`}/></div>
               <div className='message-container' style={styles.messageContainer}>
                 <h4 className='user-name' style={styles.userName}>{message.displayName}</h4>
-                <div className='user-message'>{message.body}</div>
+                <div className='user-message'
+                  onTouchTap={() => store.dispatch({type: SHOW_MESSAGE_THREAD, messageId: message.id})}
+                  >{message.body}</div>
               </div>
             </li>
           )
         })}
       </ul>
+      { myState.modalShowing ?
+        <ModalContainer>
+          <ModalDialog>
+            <div>Hello World!</div>
+          </ModalDialog>
+        </ModalContainer> : null
+      }
+
     </div>
   );
 };
@@ -67,9 +81,7 @@ const styles = {
 
 //TODO make sure if number of characters is > 66 then show ...
 
-const mapStateToProps = (state) => {
-  const messages = state.inbox.messages;
-  return { messages };
-};
+const mapStateToProps = (state) => ({myState: state.inbox });
+
 
 export default connect(mapStateToProps, null)(Inbox);
