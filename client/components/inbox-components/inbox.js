@@ -11,7 +11,7 @@ const Inbox = ({myState}) => {
   if (myState.messages === null) {
     return null;
   }
-
+  console.log('myState', myState);
   return (
     <div className='user-container' style={styles.container}>
       <ul className='user-list' style={styles.userList}>
@@ -22,7 +22,7 @@ const Inbox = ({myState}) => {
               <div className='message-container' style={styles.messageContainer}>
                 <h4 className='user-name' style={styles.userName}>{message.displayName}</h4>
                 <div className='user-message'
-                  onTouchTap={() => store.dispatch({type: SHOW_MESSAGE_THREAD, messageId: message.id})}
+                  onTouchTap={() => store.dispatch({type: SHOW_MESSAGE_THREAD, message})}
                   >{message.body}</div>
               </div>
             </li>
@@ -36,7 +36,7 @@ const Inbox = ({myState}) => {
               <div className='message-avatar' style={styles.messageAvatar}>
                 <img
                   className='message-header-avatar'
-                  src={`avatars/athlete/test.jpg`}
+                  src={`avatars/${myState.message.userType}/${myState.message.imgId}.jpg`}
                   style={styles.avatarImage}
                 />
               </div>
@@ -48,7 +48,7 @@ const Inbox = ({myState}) => {
                   className='message-username'
                   style={styles.messageUserName}
                 >
-                  UserName
+                  {myState.message.displayName}
                 </p>
                 <p
                 className='time-stamp'
@@ -58,7 +58,7 @@ const Inbox = ({myState}) => {
                 </p>
               </div>
             </div>
-            <div className='message-body'>Hello World!</div>
+            <div className='message-body'>{myState.message.body}</div>
             <div className='message-footer'></div>
             <button
               onTouchTap={() => store.dispatch({type: HIDE_MESSAGE_THREAD, showModal: false })}
@@ -68,7 +68,6 @@ const Inbox = ({myState}) => {
           </ModalDialog>
         </ModalContainer> : null
       }
-
     </div>
   );
 };
