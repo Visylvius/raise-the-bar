@@ -18,21 +18,14 @@ export const getMessages = (profile, userType) => {
   };
 };
 
-export const sendMessage = (type, id, to, from, attributes) => {
-  // const type = JSON.parse(localStorage.getItem('type'));
-  const request = axios.post(`/api/inbox/${type}/${id}`, Object.assign({}, {to, type, from}, attributes))
+export const sendMessage = (recipientType, recipientId, to, from, attributes, userType) => {
+  const { type } = JSON.parse(localStorage.getItem('type'));
+  console.log('from', from);
+  const request = axios.post(`/api/inbox/${recipientType}/${recipientId}`, Object.assign({},
+    {to, recipientType, recipientId, from, userType, userSendingMessageType: type}, attributes))
     .then(response => response.data)
   return {
     type: SEND_MESSAGE,
     payload: request
   };
 };
-
-// export const sendMessages = (user) => {
-//   const request = axios.post(`/api/inbox/${type}/${id}`)
-//     .then(response => response.data)
-//   return {
-//     type: SEND_MESSAGES,
-//     payload: request
-//   };
-// };

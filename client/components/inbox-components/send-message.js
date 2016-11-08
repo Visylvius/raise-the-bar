@@ -2,26 +2,24 @@ import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import MessageIcon from 'material-ui/svg-icons/content/mail'
+import MessageIcon from 'material-ui/svg-icons/content/mail';
 
 import { sendMessage } from '../../actions/inbox-actions';
 import { makeInput, createValidate } from '../utils/form-utils';
 
 const SendMessage = ({fields: {
   body
-}, handleSubmit, sendMessage, router, routeParams, userId}, props, context) => {
+}, handleSubmit, sendMessage, router, routeParams, recipientId, recipientType}, props, context) => {
   const onSubmit = (attributes) => {
-      console.log('userId', userId);
+      console.log('recipientId', recipientId);
+      console.log('recipientType', recipientType);
       const userInformation = JSON.parse(localStorage.getItem('profile'));
       const userType = JSON.parse(localStorage.getItem('type'));
       const { email } = userInformation;
-      const { type } = userType
-      const messageRecipient = `/api/${type}/${userId}`
-      sendMessage(type, userId, messageRecipient, email, attributes);
-      // socket.emit('message', {body: attributes.body, to: messageRecipient, from: email});
+      const { type } = userType;
+      const messageRecipient = `/api/${recipientType}/${recipientId}`;
+      sendMessage(recipientType, recipientId, messageRecipient, email, attributes, type);
     };
-
-    // sendMessage(nextState.type, nextState.id, attributes);
 
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)}>
@@ -37,9 +35,8 @@ const SendMessage = ({fields: {
 };
 
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({sendMessage}, dispatch);
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({sendMessage}, dispatch);
+
 
 export default reduxForm({
   form: 'SendMessage',

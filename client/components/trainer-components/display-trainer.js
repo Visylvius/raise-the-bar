@@ -35,6 +35,8 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
   }
 
   const { id, email, name, location, displayName } = trainer;
+  //if the user is an athlete, then it won't render the profile picture properly.
+  //change this so it recives the trainer and then renders it properly.
   const { type } = JSON.parse(localStorage.getItem('type'));
   console.log(trainer);
 
@@ -71,7 +73,7 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
     <div className='container-fluid'>
       <div className='image-container' style={baseStyles.profileImageContainer}>
         <div className='image' style={baseStyles.imageContent}>
-          <img src={`/avatars/${type}/${trainer.imgId}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
+          <img src={`/avatars/trainer/${trainer.imgId}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
           <p className='trainer-display-name' style={baseStyles.trainerDisplayName}>{trainer.displayName}</p>
           <p className='trainer-lifting-style' style={baseStyles.trainerLiftingStyle}>{trainer.location}</p>
         </div>
@@ -189,15 +191,13 @@ const baseStyles = {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({fetchTrainer}, dispatch);
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({fetchTrainer}, dispatch);
 
 const mapStateToProps = (state) => {
   const trainer = state.trainer.trainer;
   const gyms = state.athleteGym;
   return { trainer, gyms };
-}
+};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(DisplayTrainer);

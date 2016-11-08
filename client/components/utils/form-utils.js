@@ -5,8 +5,9 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
   let control;
   if (inputType === 'select') {
     control = (
-      <select className='form-control' {...field } >
+      <select className='form-control' {...field}>
         {options.map((option) => {
+          console.log(option.value);
           return (
             <option key={`${label}_${option.label}`} value={option.value}>{option.label}</option>
           );
@@ -14,7 +15,7 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
       </select>
     );
   } else if (inputType === 'file') {
-    control = <input className='form-control' type={inputType} {...field} value={null}></input>;
+    control = <input className='form-control' accept='image/*' required type={inputType} {...field} value={null}></input>;
   } else if (inputType === 'textArea') {
     //value={field.value} is required to make the resetForm function work.
     control = <TextField floatingLabelText={label} multiLine={true} fullWidth={true} rows={2} {...field} className='text-field'/>;
@@ -34,6 +35,7 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
 
 export const createValidate = (messages) => {
   return (attributes) => {
+    console.log('attributes', attributes);
     const errors = {};
     for (var key in messages) {
       if (messages.hasOwnProperty(key) && attributes[key] === undefined ) {

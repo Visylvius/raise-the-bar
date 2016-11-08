@@ -58,13 +58,9 @@ const CreateAthlete = ({fields: {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({makeAthlete, changeAvatar, cropImage}, dispatch);
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({makeAthlete, changeAvatar, cropImage}, dispatch);
 
-const mapStateToProps = (state) => {
-  return { crop: state.crop };
-};
+const mapStateToProps = (state) => { crop: state.crop };
 
 export default reduxForm({
   form: 'CreateAthlete',
@@ -74,7 +70,6 @@ export default reduxForm({
     name: 'Please enter a name',
     liftingStyle: 'Please enter your prefered lifting style',
     location: 'Please enter your location',
-    //,
     // trainer: 'Validate that you are a trainer',
     // hasTrainer: 'Please validate if you have a trainer'
   })

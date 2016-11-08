@@ -13,18 +13,31 @@
 
 exports.sendMessage = (req, res) => {
   const from = req.body.from;
-  const type = req.body.type;
+  const userSendingMessageType = req.body.userSendingMessageType;
+  const recipientId = req.body.recipientId;
+  const recipientType = req.body.recipientType;
+  const to = req.body.to;
+  const body = req.body.body;
   console.log('from', from);
-  if (type === 'athlete') {
+  console.log('userSendingMessage', userSendingMessageType);
+  if (userSendingMessageType === 'athlete') {
+    console.log('in userSendingMessage');
     req.models.athlete.find({email: from}, (err, athlete) => {
+      console.log('in callback', err, athlete);
+      if (err) {
+        return res.sendStatus(500).json({err});
+      }
       console.log('athlete', athlete[0].imgId);
       req.models.inbox.create({
-        to: req.body.to,
-        from: req.body.from,
+        to,
+        from,
         displayName: athlete[0].displayName,
         imgId: athlete[0].imgId,
-        userType: type,
-        body: req.body.body
+        recipientId,
+        recipientType,
+        userSendingMessageType,
+        userSendingMessageId: athlete[0].id,
+        body
       }, (error, message) => {
         if (error) {
           return res.sendStatus(500).json({error});
@@ -32,7 +45,7 @@ exports.sendMessage = (req, res) => {
       res.json(message);
       });
     });
-  } else if (type === 'trainer') {
+  } else if (userSendingMessageType === 'trainer') {
     req.models.trainer.find({email: from}, (err, trainer) => {
       if (err) {
         return res.sendStatus(500).json({err});
@@ -42,7 +55,8 @@ exports.sendMessage = (req, res) => {
         from: req.body.from,
         displayName: trainer[0].displayName,
         imgId: trainer[0].imgId,
-        userType: type,
+        userSendingMessageType: type,
+        userSendingMessageId: trainer.id,
         body: req.body.body
       }, (error, message) => {
         if (error) {

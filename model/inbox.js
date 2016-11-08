@@ -6,7 +6,10 @@ module.exports = {
     from: String,
     displayName: String,
     imgId: String,
-    userType: String,
+    userSendingMessageType: String,
+    userSendingMessageId: {type: 'integer'},
+    recipientType: String,
+    recipientId: {type: 'integer'},
     body: String
   }
 };
