@@ -69,12 +69,13 @@ const Inbox = ({myState}) => {
                   recipientId={messages[i].userSendingMessageId}
                   recipientType={messages[i].userSendingMessageType}
                 />
+                <button
+                  onTouchTap={() => store.dispatch({type: HIDE_MESSAGE_THREAD })}
+                >
+                  close
+                </button>
               </div>
-              <button
-                onTouchTap={() => store.dispatch({type: HIDE_MESSAGE_THREAD })}
-              >
-                close
-              </button>
+
             </ModalDialog>
           </ModalContainer>
         )
@@ -94,7 +95,12 @@ const Inbox = ({myState}) => {
                 <h4 className='user-name' style={styles.userName}>{message.displayName}</h4>
                 <div className='user-message'
                   onTouchTap={() => store.dispatch({type: SHOW_MESSAGE_THREAD, messageId: message.id})}
-                  >{message.body}</div>
+                  style={{cursor: 'pointer'}}
+                >
+                  <div className='user-message-wrapper'>
+                    {message.body}
+                  </div>
+                </div>
               </div>
             </li>
           )
@@ -198,7 +204,7 @@ const styles = {
     icon={<MessageIcon />}
     type='submit'
   />
-</form> */}
+</form>  */}
 
 {/* <ModalContainer>
   <ModalDialog style={styles.modalContainer}>

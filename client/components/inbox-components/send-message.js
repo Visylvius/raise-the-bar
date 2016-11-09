@@ -24,12 +24,14 @@ const SendMessage = ({fields: {
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)}>
       {makeInput(body, 'textArea', 'Enter Your Message Here')}
-      <RaisedButton
-        label="Send"
-        primary={true}
-        icon={<MessageIcon />}
-        type='submit'
-      />
+      <div style={{textAlign: 'center'}}>
+        <RaisedButton
+          label="Send"
+          primary={true}
+          icon={<MessageIcon />}
+          type='submit'
+        />
+      </div>
     </form>
   );
 };

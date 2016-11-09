@@ -1,8 +1,13 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
 
 const GymSearchBar = ({fetchGyms}) => {
+  const storeValue = (value) => {
+    console.log('value', value);
+  };
   const onSubmit = event => {
     event.preventDefault();
+    console.log(event);
     const form = event.target;
     fetchGyms(form.address.value, form.distance.value);
   };

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import { fetchGyms } from '../actions/gyms-actions';
 import { fetchGym } from '../actions/gyms-actions';
-import GymSearchBar from '../components/gym-components/gym-search-bar';
+import GymSearchInputs from '../components/gym-components/gym-search-inputs';
 import GymList from '../components/gym-components/gym-list';
 
 class GymSearch extends Component {
@@ -15,7 +15,7 @@ class GymSearch extends Component {
     const { listOfGyms, fetchGyms } = this.props;
     return (
       <div>
-        <GymSearchBar fetchGyms={fetchGyms} />
+        <GymSearchInputs />
         <GymList listOfGyms={listOfGyms} />
       </div>
     );

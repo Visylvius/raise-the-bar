@@ -19,12 +19,26 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
   } else if (inputType === 'textArea') {
     //value={field.value} is required to make the resetForm function work.
     control = <TextField floatingLabelText={label} multiLine={true} fullWidth={true} rows={2} {...field} className='text-field'/>;
+  } else if (inputType === 'textAreaNumber') {
+    control = <TextField
+                floatingLabelText={label}
+                {...field}
+                className='text-field-number'
+                type='number'
+              />;
+  } else if (inputType === 'smallTextArea') {
+    control = <TextField
+                floatingLabelText={label}
+                {...field}
+                className='text-field-small'
+                type='text'
+              />;
   } else {
     control = <input type={inputType} {...field} {...inputAttributes} className='form-control'></input>;
   }
   return (
     <div className={`form-group ${field.touched && field.invalid ? 'has-danger' : ''}`}>
-      <label>{label}</label>
+      {/* <label>{label}</label> */}
       {control}
       <div className='text-help form-control-label'>
         {field.touched ? field.error : ''}

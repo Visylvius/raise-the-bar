@@ -5,6 +5,7 @@ import auth from './AuthService';
 import promise from 'bluebird';
 
 import GymSearch from './containers/GymSearch';
+import GymSearchInputs from './components/gym-components/gym-search-bar';
 import DisplayGym from './components/gym-components/display-gym';
 import DisplayUserGyms from './components/gym-components/display-user-gyms';
 import Login from './components/login';
