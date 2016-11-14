@@ -4,12 +4,13 @@ import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import MessageIcon from 'material-ui/svg-icons/content/mail';
 
-import { sendMessage } from '../../actions/inbox-actions';
+import { sendMessage, HIDE_MESSAGE_THREAD } from '../../actions/inbox-actions';
 import { makeInput, createValidate } from '../utils/form-utils';
+import store from '../../reducers';
 
 const SendMessage = ({fields: {
   body
-}, handleSubmit, sendMessage, router, routeParams, recipientId, recipientType}, props, context) => {
+}, handleSubmit, sendMessage, router, routeParams, recipientId, recipientType, showCloseButton, inbox}) => {
   const onSubmit = (attributes) => {
       console.log('recipientId', recipientId);
       console.log('recipientType', recipientType);
@@ -20,7 +21,14 @@ const SendMessage = ({fields: {
       const messageRecipient = `/api/${recipientType}/${recipientId}`;
       sendMessage(recipientType, recipientId, messageRecipient, email, attributes, type);
     };
+    console.log('showCloseButton', showCloseButton);
+  // const showCloseButton = () => {
+  //   if (inbox.messages !== null) {
+  //     return (
 
+  //     );
+  //   }
+  // };
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)}>
       {makeInput(body, 'textArea', 'Enter Your Message Here')}
@@ -31,6 +39,12 @@ const SendMessage = ({fields: {
           icon={<MessageIcon />}
           type='submit'
         />
+        { showCloseButton ? <RaisedButton
+                              label='close'
+                              onTouchTap={() => {store.dispatch({type: HIDE_MESSAGE_THREAD})}}
+                            />
+                            : null
+        }
       </div>
     </form>
   );
@@ -38,7 +52,10 @@ const SendMessage = ({fields: {
 
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({sendMessage}, dispatch);
-
+const mapStateToProps = (state) => {
+  const inbox = state.inbox;
+  return { inbox };
+};
 
 export default reduxForm({
   form: 'SendMessage',
@@ -47,4 +64,4 @@ export default reduxForm({
     body: 'please enter your message'
   })
 
-}, null, mapDispatchToProps)(SendMessage);
+}, mapStateToProps, mapDispatchToProps)(SendMessage);

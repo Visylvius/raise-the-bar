@@ -78,8 +78,9 @@ import store from '../../reducers/index'
   }
 
   const isUserAtTheGym = (currentGym) => {
-    return ((Date.now() / 1000) - currentGym.extra.startedWorkingOut) < (1 * 3600) &&
-    gyms.userGyms.filter(gym => gym.extra.startedWorkingOut > currentGym.extra.startedWorkingOut).length === 0
+    console.log('currentGym', currentGym);
+    return ((Date.now() / 1000) - currentGym.startedWorkingOut) < (1 * 3600) &&
+    gyms.userGyms.filter(gym => gym.placeId !== currentGym.placeId && gym.startedWorkingOut > currentGym.startedWorkingOut).length === 0
   }
 
  return (
@@ -181,7 +182,11 @@ import store from '../../reducers/index'
       icon={<SendLetterIcon />}
       label="Send Message"
       >
-        <SendMessage recipientId={routeParams.id} recipientType='athlete'  />
+        <SendMessage
+          recipientId={routeParams.id}
+          recipientType='athlete'
+          showCloseButton={false}
+        />
       </Tab>
     </Tabs>
    </div>

@@ -43,14 +43,14 @@ const CreateAthlete = ({fields: {
       {makeInput(liftingStyle, 'text', 'Lifting Style')}
       {makeInput(location, 'text', 'Location')}
       {makeInput(cardDescription, 'text', 'Tell us a little bit about yourself')}
-      {makeInput(trainer, 'select', 'Are You a Trainer?', [
+      {/* {makeInput(trainer, 'select', 'Are You a Trainer?', [
         {label: 'Yes', value: true},
         {label: 'No', value: false}
       ])}
       {makeInput(hasTrainer, 'select', 'Do You Have a Trainer?', [
         {label: 'Yes', value: true},
         {label: 'No', value: false}
-      ])}
+      ])} */}
       {makeInput(Object.assign({}, avatar, {onChange: onAvatarBlur, onBlur: onAvatarBlur}), 'file', 'Please upload your profile picture here.')}
         {cropElement}
       <button type='submit' className='btn btn-primary'>Submit</button>

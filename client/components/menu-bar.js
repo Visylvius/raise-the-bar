@@ -114,24 +114,75 @@ class MenuBar extends React.Component {
           <IconButton onTouchTap={() => this.toggleDrawer()}><MenuIcon/></IconButton>
         }
         // onLeftIconButtonTouchTap={() => console.log('clicked')}
-        children={
-          <Drawer open={this.state.isShowingDrawer} openSecondary={true}>
-            <MenuItem
-              leftIcon={<GroupIcon />}
-              onTouchTap={() => { this.findAthletes() }}
-            >Find Athletes</MenuItem>
-            <MenuItem>Find Trainers</MenuItem>
-            <MenuItem
-              onTouchTap={() => this.context.router.push(`/gymsearch`)}>Find Gyms</MenuItem>
-            <MenuItem
-              onTouchTap={() => this.userProfile() }
-            >Profile</MenuItem>
-            <MenuItem
-              onTouchTap={() => this.directToInbox()}
-            >Inbox</MenuItem>
-          </Drawer>
-        }
+        // children={
+        //   <Drawer
+        //     open={this.state.isShowingDrawer}
+        //     openSecondary={true}
+        //     className='Drawer'
+        //     style={{backgroundColor: 'blue'}}
+        //   >
+        //     <MenuItem
+        //       leftIcon={<GroupIcon />}
+        //       onTouchTap={() => { this.findAthletes() }}
+        //       style={{backgroundColor: 'blue'}}
+        //       className='Thing'
+        //     >
+        //       Find Athletes
+        //     </MenuItem>
+        //     <MenuItem>
+        //       Find Trainers
+        //     </MenuItem>
+        //     <MenuItem
+        //       onTouchTap={() => this.context.router.push(`/gymsearch`)}>Find Gyms</MenuItem>
+        //     <MenuItem
+        //       onTouchTap={() => this.userProfile() }
+        //     >
+        //       Profile
+        //     </MenuItem>
+        //     <MenuItem
+        //       onTouchTap={() => this.directToInbox()}
+        //     >
+        //       Inbox
+        //     </MenuItem>
+        //   </Drawer>
+        // }
       />
+      <Drawer
+        open={this.state.isShowingDrawer}
+        openSecondary={true}
+        className='Drawer'
+        children={
+          <div
+            style={{backgroundColor: '#222222', height: '100vh'}}
+            className='menu-item-wrapper'
+          >
+          <MenuItem
+            leftIcon={<GroupIcon />}
+            onTouchTap={() => { this.findAthletes() }}
+            style={{backgroundColor: 'blue'}}
+            className='Thing'
+          >
+            Find Athletes
+          </MenuItem>
+          <MenuItem>
+            Find Trainers
+          </MenuItem>
+          <MenuItem
+            onTouchTap={() => this.context.router.push(`/gymsearch`)}>Find Gyms</MenuItem>
+          <MenuItem
+            onTouchTap={() => this.userProfile() }
+          >
+            Profile
+          </MenuItem>
+          <MenuItem
+            onTouchTap={() => this.directToInbox()}
+          >
+            Inbox
+          </MenuItem>
+          </div>
+        }
+      >
+      </Drawer>
         <nav className="navbar navbar-dark bg-inverse">
           <ul className="nav navbar-nav">
             <li className="nav-item active">
@@ -181,6 +232,14 @@ MenuBar.PropTypes = {
   // auth: PropTypes.instanceOf(auth)
 };
 
+const styles = {
+  menuItems: {
+    borderTop: '2px solid #262626',
+    borderBottom: '2px solid #262626',
+    backgroundColor: '#222222',
+    color: '#EEEEEE'
+  }
+};
 
 const mapStateToProps = (state) => {
   const { user, error, loading } = state.user;

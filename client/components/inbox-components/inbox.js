@@ -68,12 +68,8 @@ const Inbox = ({myState}) => {
                 <SendMessage
                   recipientId={messages[i].userSendingMessageId}
                   recipientType={messages[i].userSendingMessageType}
+                  showCloseButton={true}
                 />
-                <button
-                  onTouchTap={() => store.dispatch({type: HIDE_MESSAGE_THREAD })}
-                >
-                  close
-                </button>
               </div>
 
             </ModalDialog>
@@ -114,11 +110,8 @@ const Inbox = ({myState}) => {
 
 const styles = {
   container: {
-    border: '1px solid black',
-    height: '500px',
     width: '100%',
     maxWidth: '640px',
-    backgroundColor: 'red',
     margin: '0 auto'
   },
   messageHeader: {
@@ -162,7 +155,9 @@ const styles = {
     listStyle: 'none'
   },
   user: {
-    height: '160px'
+    height: '160px',
+    borderTop: '1px solid black',
+    paddingTop: '18px'
   },
   avatarContainer: {
     height: '100%',
@@ -175,7 +170,10 @@ const styles = {
     display: 'inline-block',
     width: '70%',
     verticalAlign: 'top',
-    paddingLeft: '10px'
+    paddingLeft: '10px',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden'
   },
   avatar: {
     height: 'auto',
@@ -196,6 +194,7 @@ const styles = {
     multiLine={true}
     fullWidth={true}
     rows={2}
+    ref={(textFieldElement) => {this.textFieldElement = textFieldElement}}
     className='text-field'
   />
   <RaisedButton

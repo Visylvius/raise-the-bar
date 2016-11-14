@@ -90,6 +90,7 @@ exports.saveSpecificGym = function(req, res) {
       // console.log('userGym', userGym);
       athlete.getGyms((err, gyms) => {
         const gymValues = _.where(gyms, {placeId});
+        console.log('gymValues'. gymValues);
         if (gymValues.length > 0) {
           gym = gymValues[0];
           gym.name = gym.name;
@@ -100,37 +101,40 @@ exports.saveSpecificGym = function(req, res) {
           gym.url = gym.url;
           gym.dailyHours = gym.dailyHours;
           gym.extra.startedWorkingOut = gym.startedWorkingOut;
+          gym.imgId = gym.photos[0].photo_reference;
           // gym.startedWorkingOut = gym.startedWorkingOut;
           //TODO if save doesn't save the extra.startedWorkingOut
           //try using athlete.addGyms if the gym.save doesn't work.
           gym.save((err) => {
             if (err) {
-              return res.sendStatus(500).json({err: err});
+              return res.status(500).json({err: err});
             }
             console.log('in first if statement');
             res.send(200, gym);
           });
           console.log(gymValues[0].name, 'gymValues');
         } else {
-          console.log('in gym models create');
+          console.log('in gym models create', userGym.photos ? userGym.photos.length : userGym.photos);
           req.models.gym.create({
             name: userGym.name,
             placeId: userGym.place_id,
             address: userGym.formatted_address,
             phoneNumber: userGym.formatted_phone_number,
             url: userGym.url,
-            dailyHours: userGym.opening_hours
+            dailyHours: userGym.opening_hours,
+            imgId: userGym.photos && userGym.photos.length > 0 ? userGym.photos[0].photo_reference : null
           }, function(err, gym) {
             // console.log('gym in models.create', gym);
             console.log('inside req.models.create athlete');
             if (err) {
-              res.sendStatus(500).json({err: err});
+              console.log('err in 129', err);
+              res.status(500).json({err: err});
             } else {
               // console.log('athlete line 98', athlete);
               //if !gym return sendStaus(400) <== incorrect place id
               athlete.addGyms(gym, function(err) {
                 if (err) {
-                  return res.sendStatus(500).json({err: err});
+                  return res.status(500).json({err: err});
                 } else {
                   res.send(200, athlete);
                 }
@@ -158,6 +162,7 @@ exports.saveSpecificGym = function(req, res) {
           gym.url = gym.url;
           gym.dailyHours = gym.dailyHours;
           gym.extra.startedWorkingOut = gym.startedWorkingOut;
+          gym.imgId = gym.photos[0].photo_reference;
           gym.save((err) => {
             if (err) {
               return res.sendStatus(500).json({err: err});
@@ -173,7 +178,8 @@ exports.saveSpecificGym = function(req, res) {
             address: userGym.formatted_address,
             phoneNumber: userGym.formatted_phone_number,
             url: userGym.url,
-            dailyHours: userGym.opening_hours
+            dailyHours: userGym.opening_hours,
+            imgId: userGym.photos[0].photo_reference
           }, function(err, gym) {
             // console.log('gym in models.create', gym);
             // console.log('inside req.models.create athlete');
