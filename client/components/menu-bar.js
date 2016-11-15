@@ -188,7 +188,7 @@ class MenuBar extends React.Component {
       </MenuItem>
       <MenuItem
         onTouchTap={() => this.directToInbox()}
-        innerDivStyle={styles.menuItems}
+        innerDivStyle={styles.lastMenuItem}
       >
         Inbox
       </MenuItem>
@@ -245,7 +245,13 @@ MenuBar.PropTypes = {
 
 const styles = {
   menuItems: {
-    borderTop: '2px solid #262626',
+    borderTop: '1px solid #262626',
+    borderBottom: '1px solid #262626',
+    backgroundColor: '#222222',
+    color: '#EEEEEE'
+  },
+  lastMenuItem: {
+    borderTop: '1px solid #262626',
     borderBottom: '2px solid #262626',
     backgroundColor: '#222222',
     color: '#EEEEEE'
