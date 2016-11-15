@@ -30,9 +30,13 @@ const SendMessage = ({fields: {
   //   }
   // };
   return (
-    <form className='form' onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className='form'
+      onSubmit={handleSubmit(onSubmit)}
+      style={{backgroundColor: '#000000'}}
+    >
       {makeInput(body, 'textArea', 'Enter Your Message Here')}
-      <div style={{textAlign: 'center'}}>
+      <div style={{backgroundColor: '#000000', textAlign: 'center'}}>
         <RaisedButton
           label="Send"
           primary={true}
