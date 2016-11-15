@@ -18,13 +18,26 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
     control = <input className='form-control' accept='image/*' required type={inputType} {...field} value={null}></input>;
   } else if (inputType === 'textArea') {
     //value={field.value} is required to make the resetForm function work.
-    control = <TextField floatingLabelText={label} multiLine={true} fullWidth={true} rows={2} {...field} className='text-field'/>;
+    control = <TextField
+                floatingLabelText={label}
+                multiLine={true}
+                fullWidth={true}
+                rows={2}
+                {...field}
+                floatingLabelStyle={{color: '#fff'}}
+                floatingLabelFocusStyle={{color: '#43A047'}}
+                className='text-field'
+              />;
   } else if (inputType === 'textAreaNumber') {
     control = <TextField
                 floatingLabelText={label}
                 {...field}
                 className='text-field-number'
                 type='number'
+                inputStyle={{color: '#000'}}
+                floatingLabelStyle={{color: '#000'}}
+                floatingLabelFocusStyle={{color: '#43A047'}}
+                underlineShow
               />;
   } else if (inputType === 'smallTextArea') {
     control = <TextField
@@ -32,6 +45,10 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
                 {...field}
                 className='text-field-small'
                 type='text'
+                inputStyle={{color: '#000'}}
+                floatingLabelStyle={{color: '#000'}}
+                floatingLabelFocusStyle={{color: '#43A047'}}
+                underlineShow
               />;
   } else {
     control = <input type={inputType} {...field} {...inputAttributes} className='form-control'></input>;

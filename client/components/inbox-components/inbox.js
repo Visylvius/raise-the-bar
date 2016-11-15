@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
+import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MessageIcon from 'material-ui/svg-icons/content/mail'
@@ -31,49 +32,48 @@ const Inbox = ({myState}) => {
         console.log('in if', 'message[i]', messages[i], 'messageId', messageId);
         return (
           <ModalContainer>
-            <ModalDialog style={styles.modalContainer}>
-              <div className='message-header' style={styles.messageHeader}>
-                <div className='message-avatar' style={styles.messageAvatar}>
-                  <img
-                    className='message-header-avatar'
-                    src={`avatars/${messages[i].userSendingMessageType}/${messages[i].imgId}.jpg`}
-                    style={styles.avatarImage}
-                  />
-                </div>
-                <div
-                  className='message-header-text'
-                  style={{display: 'inline-block', verticalAlign: 'middle'}}
-                >
-                  <p
-                    className='message-username'
-                    style={styles.messageUserName}
-                  >
-                    {messages[i].displayName}
-                  </p>
-                  <p
-                  className='time-stamp'
-                  style={styles.messageTimeStamp}
-                  >
-                  It was created at ....
-                  </p>
-                </div>
-              </div>
-              <div
-                className='message-body'
-                style={styles.messageBody}
-              >
-                {messages[i].body}
-              </div>
-              <div className='message-footer'>
-                <SendMessage
-                  recipientId={messages[i].userSendingMessageId}
-                  recipientType={messages[i].userSendingMessageType}
-                  showCloseButton={true}
-                />
-              </div>
-
-            </ModalDialog>
-          </ModalContainer>
+           <ModalDialog style={styles.modalContainer}>
+             <div className='message-header' style={styles.messageHeader}>
+               <div className='message-avatar' style={styles.messageAvatar}>
+                 <img
+                   className='message-header-avatar'
+                   src={`avatars/${messages[i].userSendingMessageType}/${messages[i].imgId}.jpg`}
+                   style={styles.avatarImage}
+                 />
+               </div>
+               <div
+                 className='message-header-text'
+                 style={{display: 'inline-block', verticalAlign: 'middle'}}
+               >
+                 <p
+                   className='message-username'
+                   style={styles.messageUserName}
+                 >
+                   {messages[i].displayName}
+                 </p>
+                 <p
+                 className='time-stamp'
+                 style={styles.messageTimeStamp}
+                 >
+                 It was created at ....
+                 </p>
+               </div>
+             </div>
+             <div
+               className='message-body'
+               style={styles.messageBody}
+             >
+               {messages[i].body}
+             </div>
+             <div className='message-footer'>
+               <SendMessage
+                 recipientId={messages[i].userSendingMessageId}
+                 recipientType={messages[i].userSendingMessageType}
+                 showCloseButton={true}
+               />
+             </div>
+           </ModalDialog>
+         </ModalContainer>
         )
       }
     }
@@ -120,11 +120,12 @@ const styles = {
   },
   messageUserName: {
     fontSize: '22px',
-    marginBottom: 0
+    marginBottom: 0,
+    color: '#fff'
   },
   messageTimeStamp: {
     fontSize: '18px',
-    color: '#888',
+    color: '#fff',
     marginBottom: 0
   },
   messageAvatar: {
@@ -145,10 +146,13 @@ const styles = {
     width: '100%',
     height: '100%',
     zIndex: 2,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: '#303030'
   },
   messageBody: {
-    textAlign: 'center'
+    textAlign: 'center',
+    color: '#fff',
+    marginTop: '15px'
   },
   userList: {
     padding: 0,
@@ -183,88 +187,8 @@ const styles = {
     marginBottom: '5px'
   }
 };
+//current modal dialogue
 
-
-
-//To ask denis.
-//When event is passed, you don't have access to the text field, so you cannot access the value.
-{/* <form onSubmit={(event) => sendUserMessage(event)}>
-  <TextField
-    floatingLabelText={'Reply to the user here'}
-    multiLine={true}
-    fullWidth={true}
-    rows={2}
-    ref={(textFieldElement) => {this.textFieldElement = textFieldElement}}
-    className='text-field'
-  />
-  <RaisedButton
-    label="Send"
-    primary={true}
-    icon={<MessageIcon />}
-    type='submit'
-  />
-</form>  */}
-
-{/* <ModalContainer>
-  <ModalDialog style={styles.modalContainer}>
-    <div className='message-header' style={styles.messageHeader}>
-      <div className='message-avatar' style={styles.messageAvatar}>
-        <img
-          className='message-header-avatar'
-          src={`avatars/${myState.message.userType}/${myState.message.imgId}.jpg`}
-          style={styles.avatarImage}
-        />
-      </div>
-      <div
-        className='message-header-text'
-        style={{display: 'inline-block', verticalAlign: 'middle'}}
-      >
-        <p
-          className='message-username'
-          style={styles.messageUserName}
-        >
-          {myState.message.displayName}
-        </p>
-        <p
-        className='time-stamp'
-        style={styles.messageTimeStamp}
-        >
-        It was created at ....
-        </p>
-      </div>
-    </div>
-    <div
-      className='message-body'
-      style={styles.messageBody}
-    >
-      {myState.message.body}
-    </div>
-    <div className='message-footer'>
-      <form onSubmit={(event) => sendUserMessage(event)}>
-        <TextField
-          floatingLabelText={'Reply to the user here'}
-          multiLine={true}
-          fullWidth={true}
-          rows={2}
-          className='text-field'
-        />
-        <RaisedButton
-          label="Send"
-          primary={true}
-          icon={<MessageIcon />}
-          type='submit'
-        />
-      </form>
-    </div>
-    <button
-      onTouchTap={() => store.dispatch({type: HIDE_MESSAGE_THREAD })}
-    >
-      close
-    </button>
-  </ModalDialog>
-</ModalContainer>  */}
-
-//TODO make sure if number of characters is > 66 then show ...
 
 const mapStateToProps = (state) => ({myState: state.inbox });
 

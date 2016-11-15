@@ -156,6 +156,7 @@ import store from '../../reducers/index'
                     <RaisedButton
                       label='I am at the gym'
                       key={result.id}
+                      primary={true}
                       className={`button-${index}`}
                       onTouchTap={() => {
                         setGymToActive(result.placeId, JSON.parse(localStorage.getItem('profile')))

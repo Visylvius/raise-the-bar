@@ -55,6 +55,7 @@ const styles = {
     width: 600,
     height: 550,
     overflowY: 'auto',
+    marginTop: '12px'
   },
 };
 
