@@ -3,6 +3,7 @@ import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import ReactCrop from 'react-image-crop';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { updateAthlete, changeAvatar, cropImage } from '../../actions/athlete-actions';
 import { makeInput, createValidate } from '../utils/form-utils';
@@ -54,16 +55,26 @@ const UpdateAthlete = ({fields: {
   console.log(crop);
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='updateAthleteForm'>
-      {makeInput(displayName, 'text', 'Display Name')}
-      {makeInput(name, 'text', 'Name')}
-      {makeInput(liftingStyle, 'text', 'Lifting Style')}
-      {makeInput(location, 'text', 'Location')}
-      {makeInput(about, 'textArea', 'Update your Bio here')}
-      {makeInput(liftingStyles, 'textArea', 'Update your Lifting Styles Here')}
-      {makeInput(experience, 'textArea', 'Update Your Experience Here')}
+      {makeInput(displayName, 'smallTextArea', 'Display Name')}
+      {makeInput(name, 'smallTextArea', 'Name')}
+      {makeInput(liftingStyle, 'smallTextArea', 'Lifting Style')}
+      {makeInput(location, 'smallTextArea', 'Location')}
+      {makeInput(about, 'smallTextArea', 'Update your Bio here')}
+      {makeInput(liftingStyles, 'smallTextArea', 'Update your Lifting Styles Here')}
+      {makeInput(experience, 'smallTextArea', 'Update Your Experience Here')}
       {makeInput(Object.assign({}, avatar, {onChange: onAvatarBlur, onBlur: onAvatarBlur}), 'file', 'Please upload your profile picture here.')}
         {cropElement}
-      <button type='submit' className='btn btn-primary'>Submit</button>
+        <div
+          style={{textAlign: 'center'}}
+          className='submit-btn-wrapper'
+        >
+          <RaisedButton
+            label="Submit"
+            primary={true}
+            type='submit'
+          />
+        </div>
+
     </form>
   );
 };
