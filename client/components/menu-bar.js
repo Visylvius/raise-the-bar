@@ -104,6 +104,11 @@ class MenuBar extends React.Component {
      this.context.router.push(`/findathletes`);
    }
 
+   findTrainers() {
+     this.setState({isShowingDrawer: false});
+     this.context.router.push('/findtrainers');
+   }
+
   render(){
     return (
     <div>
@@ -151,37 +156,43 @@ class MenuBar extends React.Component {
         open={this.state.isShowingDrawer}
         openSecondary={true}
         className='Drawer'
-        children={
-          <div
-            style={{backgroundColor: '#222222', height: '100vh'}}
-            className='menu-item-wrapper'
-          >
-          <MenuItem
-            leftIcon={<GroupIcon />}
-            onTouchTap={() => { this.findAthletes() }}
-            style={{backgroundColor: 'blue'}}
-            className='Thing'
-          >
-            Find Athletes
-          </MenuItem>
-          <MenuItem>
-            Find Trainers
-          </MenuItem>
-          <MenuItem
-            onTouchTap={() => this.context.router.push(`/gymsearch`)}>Find Gyms</MenuItem>
-          <MenuItem
-            onTouchTap={() => this.userProfile() }
-          >
-            Profile
-          </MenuItem>
-          <MenuItem
-            onTouchTap={() => this.directToInbox()}
-          >
-            Inbox
-          </MenuItem>
-          </div>
-        }
       >
+      <div
+        style={{backgroundColor: '#222222', height: '100vh'}}
+        className='menu-item-wrapper'
+      >
+      <MenuItem
+        leftIcon={<GroupIcon />}
+        onTouchTap={() => this.findAthletes()}
+        innerDivStyle={styles.menuItems}
+      >
+        Find Athletes
+      </MenuItem>
+      <MenuItem
+        onTouchTap={() => this.findTrainers()}
+        innerDivStyle={styles.menuItems}
+      >
+        Find Trainers
+      </MenuItem>
+      <MenuItem
+        onTouchTap={() => this.context.router.push('/gymsearch')}
+        innerDivStyle={styles.menuItems}
+      >
+        Find Gyms
+      </MenuItem>
+      <MenuItem
+        onTouchTap={() => this.userProfile() }
+        innerDivStyle={styles.menuItems}
+      >
+        Profile
+      </MenuItem>
+      <MenuItem
+        onTouchTap={() => this.directToInbox()}
+        innerDivStyle={styles.menuItems}
+      >
+        Inbox
+      </MenuItem>
+      </div>
       </Drawer>
         <nav className="navbar navbar-dark bg-inverse">
           <ul className="nav navbar-nav">

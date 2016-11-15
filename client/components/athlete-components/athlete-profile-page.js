@@ -163,16 +163,10 @@ import store from '../../reducers/index'
                       }}
                     />
                   </CardActions>
-                  {/*date.now - result.startedWorkingOut < 1*60*60 ? IM HERE only do that on reload*/}
                   { console.log('result.startedWorkingOut', result.startedWorkingOut) }
                   { ((Date.now() / 1000) - result.startedWorkingOut) < (1*3600) ? console.log('user is at the gym', true) : console.log('user is not at the gym', false) }
                   { isUserAtTheGym(result) ? <div>IM HERE</div> : null }
                 </Card>
-                // {/* <div className='gym-card-content'>
-                //   <div>{result.name}</div>
-                //   <div>{result.address}</div>
-                //   <div>{result.phoneNumber}</div>
-                // </div> */}
               );
             })}
           </div>
@@ -351,19 +345,3 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Radium(AthleteProfile));
 // export default Radium(AthleteProfile);
-
-{/*<div className='row'>
-  <div className='col-md-12 profile-navigation' style={baseStyles.profileNavigation}>
-    <hr className='line-break hr-space' style={[baseStyles.hrSpace, baseStyles.lineBreak]} />
-    <div className='icons' style={baseStyles.icons}><i className='fa fa-user'></i></div>
-    <div className='navigation-links' style={baseStyles.navigationLinks}>Profile</div>
-    <hr className='hr-space' style={baseStyles.hrSpace} />
-    <div className='icons' style={baseStyles.icons}><i className='fa fa-envelope'></i></div>
-    <div className='navigation-links' style={baseStyles.navigationLinks}>Message</div>
-    <hr className='hr-space' style={baseStyles.hrSpace}/>
-    <div className='icons' style={baseStyles.icons}><i className='fa fa-building'></i></div>
-    <div className='navigation-links' style={baseStyles.navigationLinks}>Gyms</div>
-    <hr className='hr-space' style={baseStyles.hrSpace}/>
-    <div className='icons' style={baseStyles.icons}><i className='fa fa-calendar'></i></div>
-    <div className='navigation-links' style={baseStyles.navigationLinks}>Schedule</div>
-  </div>*/}
