@@ -58,14 +58,6 @@ const UpdateAthlete = ({fields: {
       {makeInput(name, 'text', 'Name')}
       {makeInput(liftingStyle, 'text', 'Lifting Style')}
       {makeInput(location, 'text', 'Location')}
-      {makeInput(trainer, 'select', 'Are You a Trainer?', [
-        {label: 'Yes', value: true},
-        {label: 'No', value: false}
-      ])}
-      {makeInput(hasTrainer, 'select', 'Do You Have a Trainer?', [
-        {label: 'Yes', value: true},
-        {label: 'No', value: false}
-      ])}
       {makeInput(about, 'textArea', 'Update your Bio here')}
       {makeInput(liftingStyles, 'textArea', 'Update your Lifting Styles Here')}
       {makeInput(experience, 'textArea', 'Update Your Experience Here')}

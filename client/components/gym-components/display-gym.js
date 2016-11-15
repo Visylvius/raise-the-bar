@@ -51,11 +51,17 @@ const DisplayGym = (props) => {
         })}
       </CardText>
       <CardActions>
-        <RaisedButton
-          key={props.gym.result.place_id}
-          label='Save this Gym'
-          onTouchTap={() => saveGym()}>
-        </RaisedButton>
+        <div
+          className='button-wrapper'
+          style={{textAlign: 'center'}}
+        >
+          <RaisedButton
+            key={props.gym.result.place_id}
+            label='Save this Gym'
+            primary={true}
+            onTouchTap={() => saveGym()}>
+          </RaisedButton>
+        </div>
       </CardActions>
     </Card>
   </div>

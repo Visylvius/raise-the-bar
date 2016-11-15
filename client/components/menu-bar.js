@@ -158,7 +158,7 @@ class MenuBar extends React.Component {
         className='Drawer'
       >
       <div
-        style={{backgroundColor: '#222222', height: '100vh'}}
+        style={{backgroundColor: '#303030', height: '100vh'}}
         className='menu-item-wrapper'
       >
       <MenuItem
@@ -247,13 +247,13 @@ const styles = {
   menuItems: {
     borderTop: '1px solid #262626',
     borderBottom: '1px solid #262626',
-    backgroundColor: '#222222',
+    backgroundColor: '#303030',
     color: '#EEEEEE'
   },
   lastMenuItem: {
     borderTop: '1px solid #262626',
     borderBottom: '2px solid #262626',
-    backgroundColor: '#222222',
+    backgroundColor: '#303030',
     color: '#EEEEEE'
   }
 };

@@ -24,9 +24,11 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
                 fullWidth={true}
                 rows={2}
                 {...field}
-                floatingLabelStyle={{color: '#fff'}}
+                textareaStyle={{color: '#000'}}
+                floatingLabelStyle={{color: '#000'}}
                 floatingLabelFocusStyle={{color: '#43A047'}}
                 className='text-field'
+                underlineShow
               />;
   } else if (inputType === 'textAreaNumber') {
     control = <TextField
