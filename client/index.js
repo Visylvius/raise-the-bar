@@ -15,7 +15,10 @@ import {
   purpleA100,
   grey600,
   fullWhite,
-  black
+  black,
+  orange500,
+  orange600,
+  orange700
 } from 'material-ui/styles/colors';
 
 import store from './reducers';
@@ -31,9 +34,9 @@ const customTheme = {
    primary1Color: green600,
    primary2Color: green600,
    primary3Color: grey600,
-   accent1Color: purpleA200,
-   accent2Color: purpleA400,
-   accent3Color: purpleA100,
+   accent1Color: orange500,
+   accent2Color: orange600,
+   accent3Color: orange700,
    textColor: fullWhite,
    secondaryTextColor: fade(fullWhite, 0.7),
    alternateTextColor: fullWhite,

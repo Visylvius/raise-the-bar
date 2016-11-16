@@ -34,7 +34,7 @@ const SendMessage = ({fields: {
     <form
       className='form'
       onSubmit={handleSubmit(onSubmit)}
-      style={{backgroundColor: '#303030'}}
+      style={{backgroundColor: '#303030', padding: '0 15px 15px'}}
     >
       {makeInput(body, 'sendMessage', 'Enter Your Message Here')}
       <div style={{backgroundColor: '#303030', textAlign: 'center'}}>
@@ -49,6 +49,7 @@ const SendMessage = ({fields: {
                               label='close'
                               primary={true}
                               onTouchTap={() => {store.dispatch({type: HIDE_MESSAGE_THREAD})}}
+                              style={{display: 'block'}}
                             />
                             : null
         }

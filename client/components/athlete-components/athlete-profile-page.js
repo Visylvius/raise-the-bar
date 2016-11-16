@@ -166,7 +166,13 @@ import store from '../../reducers/index'
                   </CardActions>
                   { console.log('result.startedWorkingOut', result.startedWorkingOut) }
                   { ((Date.now() / 1000) - result.startedWorkingOut) < (1*3600) ? console.log('user is at the gym', true) : console.log('user is not at the gym', false) }
-                  { isUserAtTheGym(result) ? <div>IM HERE</div> : null }
+                  { isUserAtTheGym(result) ?
+                    <div
+                      style={{display: 'inline-block', float: 'right'}}
+                    >
+                      IM HERE
+                    </div>
+                    : null }
                 </Card>
               );
             })}
