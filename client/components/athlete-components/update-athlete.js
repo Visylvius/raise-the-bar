@@ -30,6 +30,7 @@ const UpdateAthlete = ({fields: {
   const { athlete_bio } = athlete;
 
   const onSubmit = (attributes) => {
+    console.log('updateAthlete', updateAthlete);
     updateAthlete(attributes, id)
 
     //show loader to user until profile finishes updating

@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
 import ReactCrop from 'react-image-crop';
 import '!style!css!sass!react-image-crop/dist/ReactCrop.css';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { makeTrainer } from '../../actions/trainer-actions';
 import { changeAvatar, cropImage } from '../../actions/athlete-actions';
@@ -13,11 +14,7 @@ const CreateTrainer = ({fields: {
   displayName,
   name,
   location,
-  driveForClient,
-  offerFitnessAssessment,
-  offerNutritionPlan,
   price,
-  takingNewClients,
   phoneNumber,
   avatar
 }, handleSubmit, makeTrainer, changeAvatar, cropImage, crop}, { router }) => {
@@ -37,30 +34,23 @@ const CreateTrainer = ({fields: {
   }
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)}>
-      {makeInput(displayName, 'text', 'Display Name')}
-      {makeInput(name, 'text', 'Name')}
-      {makeInput(location, 'text', 'Location')}
-      {makeInput(driveForClient, 'select', 'Drive For Client?', [
-        {value: true, label: 'Yes'},
-        {value: false, label: 'No'}
-      ])}
-      {makeInput(offerFitnessAssessment, 'select', 'Offer Fitness Asssement', [
-        {value: true, label: 'Yes'},
-        {value: false, label: 'No'}
-      ])}
-      {makeInput(offerNutritionPlan, 'select', 'Offer Nutrition Plan?', [
-        {value: true, label: 'Yes'},
-        {value: false, label: 'No'}
-      ])}
-      {makeInput(price, 'number', 'Price', null, {min: 0, step: 0.05})}
-      {makeInput(takingNewClients, 'select', 'Taking New Clients?', [
-        {value: true, label: 'Yes'},
-        {value: false, label: 'No'}
-      ])}
-      {makeInput(phoneNumber, 'text', 'Phone Number')}
+      {makeInput(displayName, 'smallTextArea', 'Display Name')}
+      {makeInput(name, 'smallTextArea', 'Name')}
+      {makeInput(location, 'smallTextArea', 'Location')}
+      {makeInput(price, 'textAreaNumber', 'Price', null, {min: 0, step: 0.05})}
+      {makeInput(phoneNumber, 'textAreaNumber', 'Phone Number')}
       {makeInput(Object.assign({}, avatar, {onChange: onAvatarBlur, onBlur: onAvatarBlur}), 'file', 'Please upload your profile picture here.')}
       {cropElement}
-      <button type='submit' className='btn btn-primary'>Submit</button>
+      <div
+        className='submit-btn-wrapper'
+        style={{textAlign: 'center'}}
+      >
+        <RaisedButton
+          label="Send"
+          primary={true}
+          type='submit'
+        />
+      </div>
     </form>
   );
 };
@@ -79,5 +69,5 @@ const mapStateToProps = (state) => {
 
 export default reduxForm({
   form: 'CreateTrainer',
-  fields: ['displayName', 'name', 'location', 'driveForClient', 'offerFitnessAssessment', 'offerNutritionPlan', 'price', 'takingNewClients', 'phoneNumber', 'avatar']
+  fields: ['displayName', 'name', 'location', 'price', 'phoneNumber', 'avatar']
 }, mapStateToProps, mapDispatchToProps)(CreateTrainer);

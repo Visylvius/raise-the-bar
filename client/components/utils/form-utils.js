@@ -16,10 +16,7 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
       </select>
     );
   } else if (inputType === 'file') {
-    control = <RaisedButton
-                label='Choose an Image'
-                primary={true}
-              >
+    control =
                 <input
                   className='form-control'
                   accept='image/*'
@@ -27,18 +24,7 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
                   type={inputType}
                   {...field}
                   value={null}
-                  style={{
-                      cursor: 'pointer',
-                      position: 'absolute',
-                      top: 0,
-                      bottom: 0,
-                      right: 0,
-                      left: 0,
-                      width: '100%',
-                      opacity: 0,
-                    }}
                 />
-              </RaisedButton>
   } else if (inputType === 'textArea') {
     //value={field.value} is required to make the resetForm function work.
     control = <TextField
@@ -104,3 +90,21 @@ export const createValidate = (messages) => {
 
 //file input before changes
 {/* <input className='form-control' accept='image/*' required type={inputType} {...field} value={null}></input>; */}
+
+
+//style for fileInput
+{/* <RaisedButton
+              label='Choose an Image'
+              primary={true}
+            >
+            style={{
+                cursor: 'pointer',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                width: '100%',
+                opacity: 0,
+              }}
+</RaisedButton> */}

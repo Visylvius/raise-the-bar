@@ -99,44 +99,21 @@ export const updateAthlete = (attributes, id) => {
     about: attributes.about
   };
   return (dispatch, getState) => {
-    //why is crop populated with data with getState?
-    // dispatch({
-    //   axios.put('', data)
-    //     .then (response => response.data)
-    //   type: response.data
-    //   payload: request
-    // })
     console.info('starting the update request');
     const userImgId = randomString.generate({
         length: 60,
         charset: 'hex'
       });
-    return axios.put(`/api/athlete/update/${id}`, Object.assign(attributes, {imgId: userImgId}, {crop: getState().crop}))
-    //can dispatch
-    // .then((response) => response.data);
+    return axios.put(`/api/athlete/${id}`, Object.assign(attributes, {imgId: userImgId}, {crop: getState().crop}))
     .then((response) => {
       console.info('recieve the response');
       dispatch({
         type: UPDATE_ATHLETE,
         payload: response.data
-      })
+      });
     });
-
-    // return {
-    //   type: UPDATE_ATHLETE,
-    //   payload: request
-    // };
-  }
+  };
 };
-
-//error: undefined. Is this because Im using stateless components?
-// axios.put(`/api/athlete/update/${id}`, Object.assign(attributes, {crop: getState().crop}))
-//   .then(response => {
-//       dispatch({
-//         type: UPDATE_ATHLETE,
-//         payload: response.data
-//       });
-//   });
 
 export const displayAthleteGyms = (profile) => {
   const { email } = profile;

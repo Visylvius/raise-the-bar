@@ -53,18 +53,19 @@ export const updateTrainer = (attributes, id) => {
     about: attributes.about
   };
   return (dispatch, getState) => {
-    // console.log('attributes', attributes);
-    // console.log('object.assign update athlete action', Object.assign(attributes, {crop: getState().crop}))
+    console.log('start the update request');
     const userImgId = randomString.generate({
         length: 60,
         charset: 'hex'
       });
-    const request = axios.put(`/api/trainer/${id}`, Object.assign(attributes, {imgId: userImgId}, {crop: getState().crop}))
-    .then((response) => response.data);
-    return {
-      type: UPDATE_TRAINER,
-      payload: request
-    };
+    return axios.put(`/api/trainer/${id}`, Object.assign(attributes, {imgId: userImgId}, {crop: getState().crop}))
+    .then((response) => {
+      console.log('got the response', response)
+      dispatch({
+        type: UPDATE_TRAINER,
+        payload: response.data
+      });
+    });
   };
 };
 

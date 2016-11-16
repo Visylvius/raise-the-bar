@@ -3,6 +3,7 @@ import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import ReactCrop from 'react-image-crop';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { updateTrainer } from '../../actions/trainer-actions';
 import { changeAvatar, cropImage } from '../../actions/athlete-actions';
@@ -13,11 +14,7 @@ const UpdateTrainer = ({fields: {
   name,
   location,
   email,
-  driveForClient,
-  offerFitnessAssessment,
-  offerNutritionPlan,
   price,
-  takingNewClients,
   phoneNumber,
   about,
   liftingStyles,
@@ -32,8 +29,10 @@ const UpdateTrainer = ({fields: {
   const { trainer_bio } = trainer;
 
   const onSubmit = (attributes) => {
+    console.log('updateTrainer', updateTrainer);
     updateTrainer(attributes, id)
       .then(() => {
+        console.log('in the promise of updateTrainer')
         context.router.push(`/trainer/${id}`);
       });
   };
@@ -51,34 +50,27 @@ const UpdateTrainer = ({fields: {
 
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='updateTrainerForm'>
-      {makeInput(displayName, 'text', 'Display Name')}
-      {makeInput(name, 'text', 'Name')}
-      {makeInput(location, 'text', 'Location')}
+      {makeInput(displayName, 'smallTextArea', 'Display Name')}
+      {makeInput(name, 'smallTextArea', 'Name')}
+      {makeInput(location, 'smallTextArea', 'Location')}
       {makeInput(email, 'email', 'Email')}
-      {makeInput(driveForClient, 'select', 'Drive For Client?', [
-        {value: true, label: 'Yes'},
-        {value: false, label: 'No'}
-      ])}
-      {makeInput(offerFitnessAssessment, 'select', 'Offer Fitness Asssement', [
-        {value: true, label: 'Yes'},
-        {value: false, label: 'No'}
-      ])}
-      {makeInput(offerNutritionPlan, 'select', 'Offer Nutrition Plan?', [
-        {value: true, label: 'Yes'},
-        {value: false, label: 'No'}
-      ])}
-      {makeInput(price, 'number', 'Price', null, {min: 0, step: 0.05})}
-      {makeInput(takingNewClients, 'select', 'Taking New Clients?', [
-        {value: true, label: 'Yes'},
-        {value: false, label: 'No'}
-      ])}
-      {makeInput(phoneNumber, 'text', 'Phone Number')}
+      {makeInput(price, 'textAreaNumber', 'Price', null, {min: 0, step: 0.05})}
+      {makeInput(phoneNumber, 'smallTextArea', 'Phone Number')}
       {makeInput(about, 'textArea', 'update your about here')}
       {makeInput(experience, 'textArea', 'update your bio here')}
       {makeInput(liftingStyles, 'textArea', 'update your liftingStyles here')}
       {makeInput(Object.assign({}, avatar, {onChange: onAvatarBlur, onBlur: onAvatarBlur}), 'file', 'Please upload your profile picture here.')}
         {cropElement}
-      <button type='submit' className='btn btn-primary'>Submit</button>
+        <div
+          className='submit-btn-wrapper'
+          style={{textAlign: 'center'}}
+        >
+          <RaisedButton
+            label="Send"
+            primary={true}
+            type='submit'
+          />
+        </div>
     </form>
   );
 };
@@ -86,7 +78,7 @@ const UpdateTrainer = ({fields: {
 
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({updateTrainer, changeAvatar, cropImage}, dispatch)
+  return bindActionCreators({updateTrainer, changeAvatar, cropImage}, dispatch);
 };
 
 const mapStateToProps = (state) => {
@@ -100,7 +92,7 @@ UpdateTrainer.contextTypes = {
 
 export default reduxForm({
   form: 'UpdateTrainer',
-  fields: ['displayName', 'name', 'location', 'email', 'driveForClient', 'offerFitnessAssessment', 'offerNutritionPlan',
-   'price', 'takingNewClients', 'phoneNumber', 'about', 'experience', 'liftingStyles', 'avatar'],
+  fields: ['displayName', 'name', 'location', 'email',
+  'price', 'phoneNumber', 'about', 'experience', 'liftingStyles', 'avatar'],
 
 }, mapStateToProps, mapDispatchToProps)(UpdateTrainer)
