@@ -81,7 +81,7 @@ exports.saveSpecificGym = function(req, res) {
         return res.status(500).json({err: err});
       }
       if (!athlete) {
-        return res.sendStatus(400);
+        return res.status(400);
       }
       //if !athlete then return res.sendStatus(400) <== client problem
       // console.log('athlete', athlete);

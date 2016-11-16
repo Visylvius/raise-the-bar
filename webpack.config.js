@@ -61,3 +61,6 @@ module.exports = {
 //to set env variables, open terminal
 // example to set AUTH0_CLIENT_ID
 //export AUTH0_CLIENT_ID=xxx
+
+//to start webpack now run
+// node_modules/.bin/webpack-dev-server --content-base dist/

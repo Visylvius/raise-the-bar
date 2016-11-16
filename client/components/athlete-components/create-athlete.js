@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import ReactCrop from 'react-image-crop';
 import '!style!css!sass!react-image-crop/dist/ReactCrop.css';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { makeAthlete, changeAvatar, cropImage } from '../../actions/athlete-actions';
 import { makeInput, createValidate } from '../utils/form-utils';
@@ -16,8 +17,6 @@ const CreateAthlete = ({fields: {
   location,
   trainer,
   cardDescription,
-  hasTrainer,
-  preferedGyms,
   avatar,
   bio
 }, handleSubmit, makeAthlete, changeAvatar, cropImage, crop}, { router }) => {
@@ -38,22 +37,23 @@ const CreateAthlete = ({fields: {
 
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='athleteForm'>
-      {makeInput(displayName, 'text', 'Display Name')}
-      {makeInput(name, 'text', 'Name')}
-      {makeInput(liftingStyle, 'text', 'Lifting Style')}
-      {makeInput(location, 'text', 'Location')}
-      {makeInput(cardDescription, 'text', 'Tell us a little bit about yourself')}
-      {/* {makeInput(trainer, 'select', 'Are You a Trainer?', [
-        {label: 'Yes', value: true},
-        {label: 'No', value: false}
-      ])}
-      {makeInput(hasTrainer, 'select', 'Do You Have a Trainer?', [
-        {label: 'Yes', value: true},
-        {label: 'No', value: false}
-      ])} */}
+      {makeInput(displayName, 'textArea', 'Display Name')}
+      {makeInput(name, 'textArea', 'Name')}
+      {makeInput(liftingStyle, 'textArea', 'Lifting Style')}
+      {makeInput(location, 'textArea', 'Location')}
+      {makeInput(cardDescription, 'textArea', 'Tell us a little bit about yourself')}
       {makeInput(Object.assign({}, avatar, {onChange: onAvatarBlur, onBlur: onAvatarBlur}), 'file', 'Please upload your profile picture here.')}
         {cropElement}
-      <button type='submit' className='btn btn-primary'>Submit</button>
+        <div
+          style={{textAlign: 'center'}}
+          className='submit-btn-wrapper'
+        >
+          <RaisedButton
+            label="Submit"
+            primary={true}
+            type='submit'
+          />
+        </div>
     </form>
   );
 };
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => { crop: state.crop };
 
 export default reduxForm({
   form: 'CreateAthlete',
-  fields: ['displayName', 'name', 'liftingStyle', 'location', 'trainer', 'hasTrainer', 'cardDescription', 'avatar'],
+  fields: ['displayName', 'name', 'liftingStyle', 'location', 'cardDescription', 'avatar'],
   validate: createValidate({
     displayName: 'Please enter a display name',
     name: 'Please enter a name',

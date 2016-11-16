@@ -18,8 +18,9 @@ const SendMessage = ({fields: {
       const userType = JSON.parse(localStorage.getItem('type'));
       const { email } = userInformation;
       const { type } = userType;
+      const timeSent = Date.now();
       const messageRecipient = `/api/${recipientType}/${recipientId}`;
-      sendMessage(recipientType, recipientId, messageRecipient, email, attributes, type);
+      sendMessage(recipientType, recipientId, messageRecipient, email, attributes, type, timeSent);
     };
     console.log('showCloseButton', showCloseButton);
   // const showCloseButton = () => {
@@ -35,7 +36,7 @@ const SendMessage = ({fields: {
       onSubmit={handleSubmit(onSubmit)}
       style={{backgroundColor: '#303030'}}
     >
-      {makeInput(body, 'textArea', 'Enter Your Message Here')}
+      {makeInput(body, 'sendMessage', 'Enter Your Message Here')}
       <div style={{backgroundColor: '#303030', textAlign: 'center'}}>
         <RaisedButton
           label="Send"

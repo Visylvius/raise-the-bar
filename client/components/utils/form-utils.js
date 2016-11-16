@@ -39,6 +39,20 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
                 className='text-field'
                 underlineShow
               />;
+  } else if (inputType === 'sendMessage') {
+    //value={field.value} is required to make the resetForm function work.
+    control = <TextField
+                floatingLabelText={label}
+                multiLine={true}
+                fullWidth={true}
+                rows={2}
+                {...field}
+                textareaStyle={{color: '#fff'}}
+                floatingLabelStyle={{color: '#fff'}}
+                floatingLabelFocusStyle={{color: '#43A047'}}
+                className='text-field'
+                underlineShow
+              />;
   } else if (inputType === 'textAreaNumber') {
     control = <TextField
                 floatingLabelText={label}

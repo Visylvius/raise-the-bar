@@ -10,7 +10,8 @@ module.exports = {
     userSendingMessageId: {type: 'integer'},
     recipientType: String,
     recipientId: {type: 'integer'},
-    body: String
+    body: String,
+    timeSent: {type: 'integer'}
   }
 };
 

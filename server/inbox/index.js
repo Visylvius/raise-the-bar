@@ -18,6 +18,8 @@ exports.sendMessage = (req, res) => {
   const recipientType = req.body.recipientType;
   const to = req.body.to;
   const body = req.body.body;
+  const timeSent = req.body.timeSent;
+  console.log('timeSent', timeSent);
   console.log('from', from);
   console.log('userSendingMessage', userSendingMessageType);
   if (userSendingMessageType === 'athlete') {
@@ -37,10 +39,11 @@ exports.sendMessage = (req, res) => {
         recipientType,
         userSendingMessageType,
         userSendingMessageId: athlete[0].id,
-        body
+        body,
+        timeSent
       }, (error, message) => {
         if (error) {
-          return res.sendStatus(500).json({error});
+          return res.status(500).json({error});
         }
       res.json(message);
       });
@@ -51,16 +54,19 @@ exports.sendMessage = (req, res) => {
         return res.sendStatus(500).json({err});
       }
       req.models.inbox.create({
-        to: req.body.to,
-        from: req.body.from,
+        to,
+        from,
         displayName: trainer[0].displayName,
         imgId: trainer[0].imgId,
-        userSendingMessageType: type,
-        userSendingMessageId: trainer.id,
-        body: req.body.body
+        recipientId,
+        recipientType,
+        userSendingMessageType,
+        userSendingMessageId: trainer[0].id,
+        body,
+        timeSent
       }, (error, message) => {
         if (error) {
-          return res.sendStatus(500).json({error});
+          return res.status(500).json({error});
         }
         res.json(message);
       });

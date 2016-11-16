@@ -75,7 +75,6 @@ const UpdateAthlete = ({fields: {
             type='submit'
           />
         </div>
-
     </form>
   );
 };

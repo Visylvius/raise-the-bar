@@ -18,11 +18,12 @@ export const getMessages = (profile, userType) => {
   };
 };
 
-export const sendMessage = (recipientType, recipientId, to, from, attributes, userType) => {
+export const sendMessage = (recipientType, recipientId, to, from, attributes, userType, timeSent) => {
   const { type } = JSON.parse(localStorage.getItem('type'));
   console.log('from', from);
+  console.log('timeSent', timeSent);
   const request = axios.post(`/api/inbox/${recipientType}/${recipientId}`, Object.assign({},
-    {to, recipientType, recipientId, from, userType, userSendingMessageType: type}, attributes))
+    {to, recipientType, recipientId, from, userType, userSendingMessageType: type, timeSent}, attributes))
     .then(response => response.data)
   return {
     type: SEND_MESSAGE,
