@@ -31,7 +31,7 @@ const Inbox = ({myState}) => {
       if (messages[i].id === messageId) {
         console.log('in if', 'message[i]', messages[i], 'messageId', messageId);
         return (
-          <ModalContainer>
+          <ModalContainer className='thing-1' style={{backgroundColor: '#fff'}}>
            <ModalDialog style={styles.modalContainer}>
              <div className='message-header' style={styles.messageHeader}>
                <div className='message-avatar' style={styles.messageAvatar}>
@@ -69,7 +69,8 @@ const Inbox = ({myState}) => {
                <SendMessage
                  recipientId={messages[i].userSendingMessageId}
                  recipientType={messages[i].userSendingMessageType}
-                 showCloseButton={true}
+                 inboxLayout={true}
+                 profileLayout={false}
                />
              </div>
            </ModalDialog>
@@ -147,7 +148,8 @@ const styles = {
     height: '100%',
     zIndex: 2,
     overflow: 'hidden',
-    backgroundColor: '#303030'
+    backgroundColor: '#303030',
+    top: '0px'
   },
   messageBody: {
     textAlign: 'center',

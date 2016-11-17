@@ -154,7 +154,7 @@ import store from '../../reducers/index'
                   </CardText>
                   <CardActions>
                     <RaisedButton
-                      label='I am at the gym'
+                      label='Currently at the gym'
                       key={result.id}
                       primary={true}
                       className={`button-${index}`}
@@ -168,9 +168,15 @@ import store from '../../reducers/index'
                   { ((Date.now() / 1000) - result.startedWorkingOut) < (1*3600) ? console.log('user is at the gym', true) : console.log('user is not at the gym', false) }
                   { isUserAtTheGym(result) ?
                     <div
-                      style={{display: 'inline-block', float: 'right'}}
+                      style={
+                        {
+                          right: '10px',
+                          top: '90px',
+                          position: 'absolute',
+                          color: '#FF9800'
+                        }}
                     >
-                      IM HERE
+                      is at the gym
                     </div>
                     : null }
                 </Card>
@@ -186,7 +192,8 @@ import store from '../../reducers/index'
         <SendMessage
           recipientId={routeParams.id}
           recipientType='athlete'
-          showCloseButton={false}
+          profileLayout={true}
+          inboxLayout={false}
         />
       </Tab>
     </Tabs>

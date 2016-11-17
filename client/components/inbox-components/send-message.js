@@ -10,7 +10,7 @@ import store from '../../reducers';
 
 const SendMessage = ({fields: {
   body
-}, handleSubmit, sendMessage, router, routeParams, recipientId, recipientType, showCloseButton, inbox}) => {
+}, handleSubmit, sendMessage, router, routeParams, recipientId, recipientType, profileLayout, inboxLayout, inbox}) => {
   const onSubmit = (attributes) => {
       console.log('recipientId', recipientId);
       console.log('recipientType', recipientType);
@@ -22,7 +22,7 @@ const SendMessage = ({fields: {
       const messageRecipient = `/api/${recipientType}/${recipientId}`;
       sendMessage(recipientType, recipientId, messageRecipient, email, attributes, type, timeSent);
     };
-    console.log('showCloseButton', showCloseButton);
+    
   // const showCloseButton = () => {
   //   if (inbox.messages !== null) {
   //     return (
@@ -38,21 +38,33 @@ const SendMessage = ({fields: {
     >
       {makeInput(body, 'sendMessage', 'Enter Your Message Here')}
       <div style={{backgroundColor: '#303030', textAlign: 'center'}}>
-        <RaisedButton
-          label="Send"
-          primary={true}
-          icon={<MessageIcon />}
-          type='submit'
-          style={{marginRight: '10px'}}
-        />
-        { showCloseButton ? <RaisedButton
-                              label='close'
-                              primary={true}
-                              onTouchTap={() => {store.dispatch({type: HIDE_MESSAGE_THREAD})}}
-                              style={{display: 'block'}}
-                            />
-                            : null
-        }
+      { inboxLayout ? <span>
+                        <RaisedButton
+                          label="Send"
+                          primary={true}
+                          icon={<MessageIcon />}
+                          type='submit'
+                          style={{marginRight: '10px'}}
+                        />
+                        <RaisedButton
+                          label='close'
+                          primary={true}
+                          onTouchTap={() => {store.dispatch({type: HIDE_MESSAGE_THREAD})}}
+                        />
+                      </span>
+                    : null
+      }
+
+      { profileLayout ?
+                        <RaisedButton
+                          label="Send"
+                          primary={true}
+                          icon={<MessageIcon />}
+                          type='submit'
+                          style={{marginRight: '10px', display: 'block'}}
+                        />
+                      : null
+      }
       </div>
     </form>
   );
