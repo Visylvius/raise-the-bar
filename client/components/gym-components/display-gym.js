@@ -39,23 +39,35 @@ const DisplayGym = (props) => {
         : <img src='http://placekitten.com/300/200' />
       }
       </CardMedia>
-      <CardHeader
-        title="Daily Hours"
-        subtitle={<span>Phone Number <b>{props.gym.result.formatted_phone_number}</b></span>}
-        actAsExpander={true}
-        showExpandableButton={true}
-      />
-      <CardText expandable={true}>
-        {props.gym.result.opening_hours.weekday_text.map((hours) => {
-          return (
-            <div
-              key={hours}
-              className='daily-hours-container'>
-              {hours}
-            </div>
-          );
-        })}
-      </CardText>
+      {props.gym.result.opening_hours !== undefined
+        ? <CardHeader
+            title="Daily Hours"
+            subtitle={<span>Phone Number <b>{props.gym.result.formatted_phone_number}</b></span>}
+            actAsExpander={true}
+            showExpandableButton={true}
+        />
+        : <CardHeader
+            subtitle={<span>Phone Number <b>{props.gym.result.formatted_phone_number}</b></span>}
+        />
+      }
+
+      {console.log('props line 48', props.gym)}
+      {props.gym.result.opening_hours !== undefined
+        ? <CardText expandable={true}>
+          {props.gym.result.opening_hours.weekday_text.map((hours) => {
+            return (
+              <div
+                key={hours}
+                className='daily-hours-container'
+              >
+                {hours}
+              </div>
+            );
+          })}
+          </CardText>
+        : null
+      }
+
       <CardActions>
         <div
           className='button-wrapper'
