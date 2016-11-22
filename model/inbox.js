@@ -11,7 +11,7 @@ module.exports = {
     recipientType: String,
     recipientId: {type: 'integer'},
     body: String,
-    timeSent: {type: 'integer'}
+    timeSent: {type: 'number'}
   }
 };
 

@@ -5,6 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MessageIcon from 'material-ui/svg-icons/content/mail'
+import Moment from 'moment';
 
 import SendMessage from '../inbox-components/send-message';
 import { SHOW_MESSAGE_THREAD, HIDE_MESSAGE_THREAD } from '../../actions/inbox-actions';
@@ -52,10 +53,16 @@ const Inbox = ({myState}) => {
                    {messages[i].displayName}
                  </p>
                  <p
+                 className='time-stamp-header'
+                 style={styles.messageTimeStamp}
+                 >
+                 This message was sent at:
+                 </p>
+                 <p
                  className='time-stamp'
                  style={styles.messageTimeStamp}
                  >
-                 It was created at ....
+                 {Moment(messages[i]).format('llll')}
                  </p>
                </div>
              </div>

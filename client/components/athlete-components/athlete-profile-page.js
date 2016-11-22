@@ -1,7 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import { Link } from 'react-router';
-import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader, CardTitle, CardText, CardMedia} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import ProfileHeader from '../profile-header';
@@ -83,6 +83,11 @@ import store from '../../reducers/index'
     gyms.userGyms.filter(gym => gym.placeId !== currentGym.placeId && gym.startedWorkingOut > currentGym.startedWorkingOut).length === 0
   }
 
+  const getGymPhotoUrl = (photoReference) =>
+     'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' +
+      encodeURIComponent(photoReference) +
+      '&sensor=true&key=AIzaSyALGeTDHSBu-A1D8FltPiVBlgJZU7Cpmp0';
+
  return (
   <div className='container-fluid'>
 
@@ -139,6 +144,14 @@ import store from '../../reducers/index'
             {gyms.userGyms.map((result, index) => {
               return (
                 <Card>
+                  <CardMedia
+                    overlay={<CardTitle title={result.name} subtitle={result.address}/>}
+                  >
+                  { result.imgId && result.imdId !== null ?
+                    <img src={getGymPhotoUrl(result.imgId)} />
+                    : <img src='http://placekitten.com/300/200' />
+                  }
+                  </CardMedia>
                   <CardHeader
                     title="Daily Hours"
                     subtitle={result.phoneNumber}
@@ -171,12 +184,12 @@ import store from '../../reducers/index'
                       style={
                         {
                           right: '10px',
-                          top: '90px',
+                          top: '353px',
                           position: 'absolute',
                           color: '#FF9800'
                         }}
                     >
-                      is at the gym
+                      is at this gym
                     </div>
                     : null }
                 </Card>

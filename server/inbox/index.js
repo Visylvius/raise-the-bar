@@ -20,6 +20,7 @@ exports.sendMessage = (req, res) => {
   const body = req.body.body;
   const timeSent = req.body.timeSent;
   console.log('timeSent', timeSent);
+  console.log('timeSentType', typeof timeSent);
   console.log('from', from);
   console.log('userSendingMessage', userSendingMessageType);
   if (userSendingMessageType === 'athlete') {
@@ -30,6 +31,7 @@ exports.sendMessage = (req, res) => {
         return res.sendStatus(500).json({err});
       }
       console.log('athlete', athlete[0].imgId);
+      console.log('timeSent', timeSent);
       req.models.inbox.create({
         to,
         from,
@@ -42,6 +44,7 @@ exports.sendMessage = (req, res) => {
         body,
         timeSent
       }, (error, message) => {
+        console.log('outside of create', message);
         if (error) {
           return res.status(500).json({error});
         }
