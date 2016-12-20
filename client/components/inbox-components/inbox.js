@@ -91,7 +91,7 @@ const Inbox = ({myState}) => {
   return (
     <div className='user-container' style={styles.container}>
       <ul className='user-list' style={styles.userList}>
-        {myState.messages.map((message) => {
+        {myState.messages.reverse().map((message) => {
           return (
             <li className='user' style={styles.user}>
               <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/${message.userSendingMessageType}/${message.imgId}.jpg`}/></div>

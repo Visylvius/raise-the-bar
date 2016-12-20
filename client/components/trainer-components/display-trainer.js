@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import SendMessage from '../inbox-components/send-message';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
@@ -9,11 +12,10 @@ import UserProfileIcon from 'material-ui/svg-icons/action/account-box';
 import EditProfileIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 import { fetchTrainer, displayTrainerGyms } from '../../actions/trainer-actions';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { setGymToActive, isUserAtTheGym, getGymPhotoUrl } from '../athlete-components/athlete-profile-page';
 import store from '../../reducers/index'
 
+import DisplayProfileGyms from '../gym-components/display-profile-gyms';
 import ProfileHeader from '../profile-header';
 import NavigationLinks from '../navigation-links';
 import ProfileInformation from '../profile-information';
@@ -43,6 +45,8 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
   const fetchUserGyms = () => {
     store.dispatch(displayTrainerGyms(JSON.parse(localStorage.getItem('profile'))))
   }
+
+  console.log('fetchUserGyms', fetchUserGyms);
 
   const editProfileButton = () => {
     const userProfile = JSON.parse(localStorage.getItem('profile'));
@@ -117,40 +121,14 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
         </Tab>
         <Tab label="Gyms" onActive={fetchUserGyms}>
           {/*You don't have a gym yet, why not select one?*/}
-          {gyms.loaded ?
-            <div className='gym-card-container'>
-              {gyms.userGyms.map((result) => {
-                return (
-                  <Card>
-                    <CardHeader
-                      title="Daily Hours"
-                      subtitle={result.phoneNumber}
-                      actAsExpander={true}
-                      showExpandableButton={true}
-                    />
-                    <CardText expandable={true}>
-                      {result.dailyHours.weekday_text.map((hours) => {
-                        return (
-                          <div className='daily-hours-container'>{hours}</div>
-                        );
-                      })}
-                    </CardText>
-                  </Card>
-                  // {/* <div className='gym-card-content'>
-                  //   <div>{result.name}</div>
-                  //   <div>{result.address}</div>
-                  //   <div>{result.phoneNumber}</div>
-                  // </div> */}
-                );
-              })}
-            </div>
-            : <div>Gyms are loading</div>}
-          <div>
-            <h2 style={baseStyles.headline}>Tab Two</h2>
-            <p>
-              This is another example tab.
-            </p>
-          </div>
+          {console.log('gyms', gyms)}
+          {console.log('fetchUserGyms', fetchUserGyms())}
+          <DisplayProfileGyms
+            isUserAtTheGym={isUserAtTheGym}
+            setGymToActive={setGymToActive}
+            getGymPhotoUrl={getGymPhotoUrl}
+            gyms={gyms}
+          />
         </Tab>
         <Tab
         icon={<SendLetterIcon />}

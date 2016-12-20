@@ -4,13 +4,15 @@ import { Link } from 'react-router';
 import {Card, CardActions, CardHeader, CardTitle, CardText, CardMedia} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
+import SendLetterIcon from 'material-ui/svg-icons/communication/contact-mail';
+import UserProfileIcon from 'material-ui/svg-icons/action/account-box';
+import EditProfileIcon from 'material-ui/svg-icons/editor/mode-edit';
 import ProfileHeader from '../profile-header';
 import NavigationLinks from '../navigation-links';
 import ProfileInformation from '../profile-information';
 import SendMessage from '../inbox-components/send-message';
-import SendLetterIcon from 'material-ui/svg-icons/communication/contact-mail';
-import UserProfileIcon from 'material-ui/svg-icons/action/account-box';
-import EditProfileIcon from 'material-ui/svg-icons/editor/mode-edit';
+import DisplayProfileGyms from '../gym-components/display-profile-gyms';
+
 
 import { fetchAthlete, displayAthleteGyms } from '../../actions/athlete-actions';
 import { toggleGymToActive } from '../../actions/gyms-actions';
@@ -18,6 +20,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import store from '../../reducers/index'
+
+export const setGymToActive = (placeId, profile) => {
+  const { email } = profile;
+  store.dispatch(toggleGymToActive(placeId, email))
+}
+
+export const isUserAtTheGym = (currentGym, gyms) => {
+  console.log('currentGym', currentGym);
+  return ((Date.now() / 1000) - currentGym.startedWorkingOut) < (1 * 3600) &&
+  gyms.userGyms.filter(gym => gym.placeId !== currentGym.placeId && gym.startedWorkingOut > currentGym.startedWorkingOut).length === 0
+}
+
+export const getGymPhotoUrl = (photoReference) =>
+   'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' +
+    encodeURIComponent(photoReference) +
+    '&sensor=true&key=AIzaSyALGeTDHSBu-A1D8FltPiVBlgJZU7Cpmp0';
+
 
   const AthleteProfile = ({athlete, gyms, routeParams}, props) => {
     if (athlete === null) {
@@ -72,22 +91,6 @@ import store from '../../reducers/index'
     store.dispatch(displayAthleteGyms(JSON.parse(localStorage.getItem('profile'))));
   };
 
-  const setGymToActive = (placeId, profile) => {
-    const { email } = profile;
-    store.dispatch(toggleGymToActive(placeId, email))
-  }
-
-  const isUserAtTheGym = (currentGym) => {
-    console.log('currentGym', currentGym);
-    return ((Date.now() / 1000) - currentGym.startedWorkingOut) < (1 * 3600) &&
-    gyms.userGyms.filter(gym => gym.placeId !== currentGym.placeId && gym.startedWorkingOut > currentGym.startedWorkingOut).length === 0
-  }
-
-  const getGymPhotoUrl = (photoReference) =>
-     'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' +
-      encodeURIComponent(photoReference) +
-      '&sensor=true&key=AIzaSyALGeTDHSBu-A1D8FltPiVBlgJZU7Cpmp0';
-
  return (
   <div className='container-fluid'>
 
@@ -139,7 +142,13 @@ import store from '../../reducers/index'
       <Tab label="Gyms" onActive={fetchUserGyms}>
         {/*You don't have a gym yet, why not select one?*/}
         {console.log('gyms', gyms)}
-        { gyms.loaded ?
+        <DisplayProfileGyms
+          isUserAtTheGym={isUserAtTheGym}
+          setGymToActive={setGymToActive}
+          getGymPhotoUrl={getGymPhotoUrl}
+          gyms={gyms}
+        />
+        {/* { gyms.loaded ?
           <div className='gym-card-container'>
             {gyms.userGyms.map((result, index) => {
               return (
@@ -176,27 +185,26 @@ import store from '../../reducers/index'
                         store.dispatch({type: 'TOGGLE_ACTIVE_LOCAL', placeId: result.placeId })
                       }}
                     />
+                    { isUserAtTheGym(result) ?
+                      <div
+                        style={
+                          {
+                            color: '#FF9800',
+                            float: 'right',
+                            marginTop: '9px'
+                          }}
+                      >
+                        Is at this gym
+                      </div>
+                      : null }
                   </CardActions>
                   { console.log('result.startedWorkingOut', result.startedWorkingOut) }
                   { ((Date.now() / 1000) - result.startedWorkingOut) < (1*3600) ? console.log('user is at the gym', true) : console.log('user is not at the gym', false) }
-                  { isUserAtTheGym(result) ?
-                    <div
-                      style={
-                        {
-                          right: '10px',
-                          top: '353px',
-                          position: 'absolute',
-                          color: '#FF9800'
-                        }}
-                    >
-                      is at this gym
-                    </div>
-                    : null }
                 </Card>
               );
             })}
           </div>
-          : <div>Gyms are loading</div>}
+          : <div>Gyms are loading</div>} */}
       </Tab>
       <Tab
       icon={<SendLetterIcon />}

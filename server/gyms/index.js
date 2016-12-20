@@ -152,7 +152,7 @@ exports.saveSpecificGym = function(req, res) {
       }
       trainer.getGyms((err, gyms) => {
         const gymValues = _.where(gyms, {placeId});
-        if (gymValues) {
+        if (gymValues.length > 0) {
           gym = gymValues[0];
           gym.name = gym.name;
           gym.placeId = gym.placeId;
