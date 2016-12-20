@@ -13,7 +13,7 @@ import EditProfileIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 import { fetchTrainer, displayTrainerGyms } from '../../actions/trainer-actions';
 import { setGymToActive, isUserAtTheGym, getGymPhotoUrl } from '../athlete-components/athlete-profile-page';
-import store from '../../reducers/index'
+import store from '../../reducers/index';
 
 import DisplayProfileGyms from '../gym-components/display-profile-gyms';
 import ProfileHeader from '../profile-header';
@@ -43,10 +43,9 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
   console.log(trainer);
 
   const fetchUserGyms = () => {
-    store.dispatch(displayTrainerGyms(JSON.parse(localStorage.getItem('profile'))))
-  }
+    store.dispatch(displayTrainerGyms(JSON.parse(localStorage.getItem('profile'))));
+  };
 
-  console.log('fetchUserGyms', fetchUserGyms);
 
   const editProfileButton = () => {
     const userProfile = JSON.parse(localStorage.getItem('profile'));
@@ -122,7 +121,6 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
         <Tab label="Gyms" onActive={fetchUserGyms}>
           {/*You don't have a gym yet, why not select one?*/}
           {console.log('gyms', gyms)}
-          {console.log('fetchUserGyms', fetchUserGyms())}
           <DisplayProfileGyms
             isUserAtTheGym={isUserAtTheGym}
             setGymToActive={setGymToActive}
@@ -173,9 +171,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({fetchTrainer}, disp
 
 const mapStateToProps = (state) => {
   const trainer = state.trainer.trainer;
-  const gyms = state.athleteGym;
+  const gyms = state.trainerGym;
   return { trainer, gyms };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(DisplayTrainer);
