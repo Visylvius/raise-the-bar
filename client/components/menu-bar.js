@@ -47,9 +47,24 @@ class MenuBar extends React.Component {
 
   userButton() {
      if (localStorage.getItem('id_token')) {
-       return <a className='nav-link' href='#' onClick={this.logout.bind(this)}>Logout</a>;
+       return (
+         <MenuItem
+           onTouchTap={() => this.logout()}
+           innerDivStyle={styles.lastMenuItem}
+         >
+           Logout
+         </MenuItem>
+       )
      } else {
-       return <a className='nav-link' href='#' onClick={auth.login.bind(auth)}>Login</a>;
+       return (
+         <MenuItem
+           onTouchTap={auth.login.bind(auth)}
+           innerDivStyle={styles.lastMenuItem}
+         >
+           Login
+         </MenuItem>
+       )
+      //  return <a className='nav-link' href='#' onClick={auth.login.bind(auth)}>Login</a>;
      }
    }
 
@@ -157,65 +172,44 @@ class MenuBar extends React.Component {
         openSecondary={true}
         className='Drawer'
       >
-      <div
-        style={{backgroundColor: '#303030', height: '100vh'}}
+       <div
+        style={{backgroundColor: '<div id="303030"></div>', height: '100vh'}}
         className='menu-item-wrapper'
-      >
-      <MenuItem
-        leftIcon={<GroupIcon />}
-        onTouchTap={() => this.findAthletes()}
-        innerDivStyle={styles.menuItems}
-      >
-        Find Athletes
-      </MenuItem>
-      <MenuItem
-        onTouchTap={() => this.findTrainers()}
-        innerDivStyle={styles.menuItems}
-      >
-        Find Trainers
-      </MenuItem>
-      <MenuItem
-        onTouchTap={() => this.context.router.push('/gymsearch')}
-        innerDivStyle={styles.menuItems}
-      >
-        Find Gyms
-      </MenuItem>
-      <MenuItem
-        onTouchTap={() => this.userProfile() }
-        innerDivStyle={styles.menuItems}
-      >
-        Profile
-      </MenuItem>
-      <MenuItem
-        onTouchTap={() => this.directToInbox()}
-        innerDivStyle={styles.lastMenuItem}
-      >
-        Inbox
-      </MenuItem>
-      </div>
+       >
+        <MenuItem
+          leftIcon={<GroupIcon />}
+          onTouchTap={() => this.findAthletes()}
+          innerDivStyle={styles.menuItems}
+        >
+          Find Athletes
+        </MenuItem>
+        <MenuItem
+          onTouchTap={() => this.findTrainers()}
+          innerDivStyle={styles.menuItems}
+        >
+          Find Trainers
+        </MenuItem>
+        <MenuItem
+          onTouchTap={() => this.context.router.push('/gymsearch')}
+          innerDivStyle={styles.menuItems}
+        >
+          Find Gyms
+        </MenuItem>
+        <MenuItem
+          onTouchTap={() => this.userProfile() }
+          innerDivStyle={styles.menuItems}
+        >
+          Profile
+        </MenuItem>
+        <MenuItem
+          onTouchTap={() => this.directToInbox()}
+          innerDivStyle={styles.lastMenuItem}
+        >
+          Inbox
+        </MenuItem>
+        {this.userButton()}
+       </div>
       </Drawer>
-        <nav className="navbar navbar-dark bg-inverse">
-          <ul className="nav navbar-nav">
-            <li className="nav-item active">
-              <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Athletes</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Trainers</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Find Gyms Near You</a>
-            </li>
-            <li className='nav-item'>
-              <a className='nav-link' href="#" onClick={this.userProfile.bind(this)}>Profile</a>
-            </li>
-            <li className='nav-item'>
-              {this.userButton()}
-            </li>
-          </ul>
-        </nav>
         <div>
         {
           this.state.isShowingModal &&

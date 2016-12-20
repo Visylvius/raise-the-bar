@@ -7,14 +7,6 @@ import {Tab} from 'material-ui/Tabs';
 import store from '../../reducers/index'
 
 const DisplayProfileGyms = (props) => {
-
-  //necessary props for this to work.
-  //isUserAtTheGym, function
-  //setGymToActive function
-  //getGymPhotoUrl function
-  //fetchUserGyms
-  //Gyms = state from user profile
-
   return (
     <div>
       {/*You don't have a gym yet, why not select one?*/}
