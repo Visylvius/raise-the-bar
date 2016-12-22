@@ -25,7 +25,6 @@ const userSettings = () => {
           Delete Your Profile?
         </div>
     }
-
     </div>
   );
 };

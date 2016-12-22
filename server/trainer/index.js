@@ -123,7 +123,7 @@ exports.getIndividualTrainer = function(req, res) {
 
 exports.deleteTrainer = function(req, res) {
   req.models.trainer.find({email: req.params.email}, (err, trainer) => {
-    trainer.remove(function(err) {
+    trainer[0].remove(function(err) {
       if (err) {
         return res.status(500).json({err});
       }
