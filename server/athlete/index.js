@@ -120,7 +120,7 @@ exports.deleteAthlete = function(req, res) {
   req.models.athlete.get(req.params.id, function(err, athlete) {
     athlete.remove(function(err) {
       if (err) {
-        throw err;
+        return res.status(500).json({err});
       } else {
         res.sendStatus(204);
       }
