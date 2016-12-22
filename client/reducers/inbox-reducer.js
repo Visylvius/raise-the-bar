@@ -17,6 +17,7 @@ const initialState = {
 };
 
 export const inboxReducer = (state=initialState, action) => {
+  console.log('state', state);
   switch(action.type) {
     case `${GET_MESSAGES}_PENDING`:
       return initialState;
@@ -31,9 +32,18 @@ export const inboxReducer = (state=initialState, action) => {
     case HIDE_MESSAGE_THREAD:
       return Object.assign({}, state, {modalShowing: false});
     case SHOW_DELETE_MESSAGE_MODAL:
-      return Object.assign({}, state, {deleteMessageModal: true, messageId: action.messageId})
+      return Object.assign({}, state, {deleteMessageModal: true, messageId: action.messageId});
     case HIDE_DELETE_MESSAGE_MODAL:
-      return Object.assign({}, state, {deleteMessageModal: false, messageId: null})
+      return { messages: action.messages.filter((message) =>
+        message.id !== action.messageId
+      ),
+      deleteMessageModal: false,
+      messageId: null
+    };
+    case `${HIDE_DELETE_MESSAGE_MODAL}_PENDING`:
+      return state;
+    case `${HIDE_DELETE_MESSAGE_MODAL}_FULFILLED`:
+      return Object.assign({}, state, { deleteMessageModal: false, messageId: null });
     default:
       return state;
   }

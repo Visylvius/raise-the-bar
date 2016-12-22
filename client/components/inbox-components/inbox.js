@@ -94,13 +94,17 @@ const Inbox = ({myState}) => {
     }
   }
 
-  const showDeleteMessageModal = (messageId) => {
+  const showDeleteMessageModal = (messageId, messages) => {
     return (
       <ModalContainer>
         <ModalDialog>
           Hello Friends!
           <RaisedButton
-            onTouchTap={() => store.dispatch(deleteMessage(messageId))}
+            onTouchTap={() => {
+              store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL, messages, messageId});
+              store.dispatch(deleteMessage(messageId));
+            }
+          }
           >
             Proceed
           </RaisedButton>
@@ -153,7 +157,7 @@ const Inbox = ({myState}) => {
         })}
       </ul>
       { myState.modalShowing ? findMessageById(myState.messages, myState.messageId) : null }
-      { myState.deleteMessageModal ? showDeleteMessageModal(myState.messageId) : null }
+      { myState.deleteMessageModal ? showDeleteMessageModal(myState.messageId, myState.messages) : null }
     </div>
   );
 };

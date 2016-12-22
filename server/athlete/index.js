@@ -125,7 +125,7 @@ exports.deleteAthlete = function(req, res) {
         return res.status(500).json({err});
       }
       console.log('athlete was successfully deleted');
-      res.sendStatus(204);
+      res.status(204);
     });
   });
 };

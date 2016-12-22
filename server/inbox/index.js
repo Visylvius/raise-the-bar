@@ -123,7 +123,7 @@ exports.deleteMessage = (req, res) => {
         return res.status(500).json({err});
       }
       console.log('message was successfully deleted');
-      res.status(204);
+      res.sendStatus(204);
     });
   });
 };
