@@ -132,7 +132,12 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
         icon={<SendLetterIcon />}
         label="Send Message"
         >
-          <SendMessage userId={routeParams.id}/>
+          <SendMessage
+            userId={routeParams.id}
+            recipientType='trainer'
+            profileLayout={true}
+            inboxLayout={false}
+          />
         </Tab>
       </Tabs>
      </div>

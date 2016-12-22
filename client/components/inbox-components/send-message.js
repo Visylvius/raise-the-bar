@@ -22,7 +22,7 @@ const SendMessage = ({fields: {
       const messageRecipient = `/api/${recipientType}/${recipientId}`;
       sendMessage(recipientType, recipientId, messageRecipient, email, attributes, type, timeSent);
     };
-    
+    console.log('profileLayout', profileLayout);
   // const showCloseButton = () => {
   //   if (inbox.messages !== null) {
   //     return (
