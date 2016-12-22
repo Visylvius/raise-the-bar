@@ -7,6 +7,10 @@ import {Tab} from 'material-ui/Tabs';
 import store from '../../reducers/index'
 
 const DisplayProfileGyms = (props) => {
+  const userProfile = JSON.parse(localStorage.getItem('profile'));
+  const userType = JSON.parse(localStorage.getItem('type'));
+  const { type } = userType;
+  const { email } = userProfile;
   return (
     <div>
       {/*You don't have a gym yet, why not select one?*/}
@@ -40,16 +44,19 @@ const DisplayProfileGyms = (props) => {
                   )}
                 </CardText>
                 <CardActions>
-                  <RaisedButton
-                    label='Currently at the gym'
-                    key={result.id}
-                    primary={true}
-                    className={`button-${index}`}
-                    onTouchTap={() => {
-                      props.setGymToActive(result.placeId, JSON.parse(localStorage.getItem('profile')))
-                      store.dispatch({type: 'TOGGLE_ACTIVE_LOCAL', placeId: result.placeId })
-                    }}
-                  />
+                  {  props.userData.email === email && props.userType === type
+                    ? <RaisedButton
+                      label='Currently at the gym'
+                      key={result.id}
+                      primary={true}
+                      className={`button-${index}`}
+                      onTouchTap={() => {
+                        props.setGymToActive(result.placeId, JSON.parse(localStorage.getItem('profile')))
+                        store.dispatch({type: 'TOGGLE_ACTIVE_LOCAL', placeId: result.placeId })
+                      }}
+                    />
+                    : null
+                  }
                   { props.isUserAtTheGym(result, props.gyms) ?
                     <div
                       style={{

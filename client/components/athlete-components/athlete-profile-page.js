@@ -147,6 +147,8 @@ export const getGymPhotoUrl = (photoReference) =>
           setGymToActive={setGymToActive}
           getGymPhotoUrl={getGymPhotoUrl}
           gyms={gyms}
+          userData={athlete}
+          userType='athlete'
         />
         {/* { gyms.loaded ?
           <div className='gym-card-container'>

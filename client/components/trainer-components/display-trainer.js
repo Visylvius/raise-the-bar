@@ -126,6 +126,8 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
             setGymToActive={setGymToActive}
             getGymPhotoUrl={getGymPhotoUrl}
             gyms={gyms}
+            userData={trainer}
+            userType='trainer'
           />
         </Tab>
         <Tab
