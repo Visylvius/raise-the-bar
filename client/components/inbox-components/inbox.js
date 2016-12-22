@@ -23,7 +23,7 @@ const Inbox = ({myState}) => {
     event.preventDefault();
     console.log('event', event);
   }
-
+  const newestMessages = myState.messages.reverse();
   console.log('myState', myState);
 
   const findMessageById = (messages, messageId) => {
@@ -88,54 +88,12 @@ const Inbox = ({myState}) => {
     }
   }
 
-  // const displayNewestMessagesInOrder = () => {
-  //   const message = myState.messages;
-  //   for (let i = myState.messages.length - 1; i > 0; i++) {
-  //     console.log('messages[3]', message[i].userSendingMessageType);
-  //     <li className='user' style={styles.user}>
-  //       <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/${message[i].userSendingMessageType}/${message[i].imgId}.jpg`}/></div>
-  //       <div className='message-container' style={styles.messageContainer}>
-  //         <h4 className='user-name' style={styles.userName}>{message[i].displayName}</h4>
-  //         <div className='user-message'
-  //           onTouchTap={() => store.dispatch({type: SHOW_MESSAGE_THREAD, messageId: message[i].id})}
-  //           style={{cursor: 'pointer'}}
-  //         >
-  //           <div className='user-message-wrapper'>
-  //             {message[i].body}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </li>
-  //   }
-  // }
-
-  const displayNewestMessagesInOrder = () => {
-    forEachRight(myState.messages, (message) => {
-      console.log(message);
-      return (
-        <li className='user' style={styles.user}>
-          <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/${message.userSendingMessageType}/${message.imgId}.jpg`}/></div>
-          <div className='message-container' style={styles.messageContainer}>
-            <h4 className='user-name' style={styles.userName}>{message.displayName}</h4>
-            <div className='user-message'
-              onTouchTap={() => store.dispatch({type: SHOW_MESSAGE_THREAD, messageId: message.id})}
-              style={{cursor: 'pointer'}}
-            >
-              <div className='user-message-wrapper'>
-                {message.body}
-              </div>
-            </div>
-          </div>
-        </li>
-      )
-    });
-  }
-
+  
   return (
     <div className='user-container' style={styles.container}>
       <ul className='user-list' style={styles.userList}>
-        {displayNewestMessagesInOrder()}
-        {/* {myState.messages.map((message) => {
+        {/* {displayNewestMessagesInOrder()} */}
+        {newestMessages.map((message) => {
           return (
             <li className='user' style={styles.user}>
               <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/${message.userSendingMessageType}/${message.imgId}.jpg`}/></div>
@@ -152,7 +110,7 @@ const Inbox = ({myState}) => {
               </div>
             </li>
           )
-        })} */}
+        })}
       </ul>
       {/* TODO Change the esc to be disabled, or onClose on the container dispatch the hide message thread */}
       { myState.modalShowing ? findMessageById(myState.messages, myState.messageId) : null }
