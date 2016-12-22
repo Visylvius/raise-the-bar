@@ -5,6 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MessageIcon from 'material-ui/svg-icons/content/mail'
+import ClearIcon from 'material-ui/svg-icons/content/clear'
 import Moment from 'moment';
 
 import SendMessage from '../inbox-components/send-message';
@@ -97,7 +98,15 @@ const Inbox = ({myState}) => {
             <li className='user' style={styles.user}>
               <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/${message.userSendingMessageType}/${message.imgId}.jpg`}/></div>
               <div className='message-container' style={styles.messageContainer}>
+                <div
+                  style={{float: 'right'}}
+                >
+                  <ClearIcon
+                    style={{color: '#757575' }}
+                  />
+                </div>
                 <h4 className='user-name' style={styles.userName}>{message.displayName}</h4>
+
                 <div className='user-message'
                   onTouchTap={() => store.dispatch({type: SHOW_MESSAGE_THREAD, messageId: message.id})}
                   style={{cursor: 'pointer'}}
