@@ -122,13 +122,13 @@ exports.getIndividualTrainer = function(req, res) {
 //
 
 exports.deleteTrainer = function(req, res) {
-  req.models.trainer.get(req.params.id, function(err, trainer) {
+  req.models.trainer.find({email: req.params.email}, (err, trainer) => {
     trainer.remove(function(err) {
       if (err) {
-        throw err;
-      } else {
-        res.sendStatus(204);
+        return res.status(500).json({err});
       }
+        console.log('user was successfully deleted');
+        res.sendStatus(204);
     });
   });
 };

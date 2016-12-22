@@ -8,6 +8,7 @@ export const FETCH_TRAINERS = 'FETCH_TRAINERS';
 export const FETCH_TRAINER = 'FETCH_TRAINER';
 export const UPDATE_TRAINER = 'UPDATE_TRAINER';
 export const DISPLAY_TRAINER_GYMS = 'SHOW_TRAINER_GYMS';
+export const DELETE_TRAINER = 'DELETE_TRAINER';
 
 export const makeTrainer = (attributes) => {
   return (dispatch, getState) => {
@@ -75,6 +76,16 @@ export const displayTrainerGyms = (profile) => {
     .then((response) => response.data)
   return {
     type: DISPLAY_TRAINER_GYMS,
+    payload: request
+  };
+};
+
+export const deleteTrainer = (profile) => {
+  const { email } = profile;
+  const request = axios.delete(`/api/trainer/${email}`)
+    .then(response => response.data)
+  return {
+    type: DELETE_TRAINER,
     payload: request
   };
 };
