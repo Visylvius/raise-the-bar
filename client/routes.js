@@ -1,6 +1,10 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { initialize } from 'redux-form';
+import { fetchAthletes, fetchAthlete, displayAthleteGyms } from './actions/athlete-actions';
+import { fetchTrainers, fetchTrainer } from './actions/trainer-actions';
+import { getMessages, sendMessage } from './actions/inbox-actions';
+import { fetchGym } from './actions/gyms-actions';
 import auth from './AuthService';
 import promise from 'bluebird';
 
@@ -24,6 +28,9 @@ import MenuBar from './components/menu-bar';
 import MainLayout from './components/main-layout';
 import Inbox from './components/inbox-components/inbox';
 import SendMessage from './components/inbox-components/send-message';
+import UserSettings from './components/user-settings';
+
+import store from './reducers';
 
 const requireAuth = (nextState, replace) => {
   console.log('logged in', auth.loggedIn());
@@ -41,7 +48,6 @@ const requireAuth = (nextState, replace) => {
     }
     // auth._doAuthentication(hashString.substring(firstIndex, lastIndex));
     //return promise here
-
   }
   if (!auth.loggedIn()) {
     console.log(nextState, 'nextState', replace, 'replace');
@@ -50,16 +56,6 @@ const requireAuth = (nextState, replace) => {
   }
   return true;
 };
-
-
-
-import { fetchAthletes, fetchAthlete, displayAthleteGyms } from './actions/athlete-actions';
-import { fetchTrainers, fetchTrainer } from './actions/trainer-actions';
-import { getMessages, sendMessage } from './actions/inbox-actions';
-import { fetchGym } from './actions/gyms-actions';
-
-
-import store from './reducers';
 
 const fetchBoundAthletes = function() {
   store.dispatch(fetchAthletes());
@@ -144,6 +140,7 @@ export default (
         <Route path='/gym/:placeId' component={DisplayGym} onEnter={(nextState, replace) => {
           requireAuth(nextState, replace) && fetchBoundGym(nextState.params.placeId)
         }}/>
+        <Route path='/settings' onEnter={(nextState, replace) => {requireAuth(nextState, replace)}} component={UserSettings}></Route>
       </Route>
     </Route>
   </Router>

@@ -6,7 +6,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MessageIcon from 'material-ui/svg-icons/content/mail'
 import Moment from 'moment';
-import { forEachRight } from 'lodash';
 
 import SendMessage from '../inbox-components/send-message';
 import { SHOW_MESSAGE_THREAD, HIDE_MESSAGE_THREAD } from '../../actions/inbox-actions';
@@ -88,7 +87,7 @@ const Inbox = ({myState}) => {
     }
   }
 
-  
+
   return (
     <div className='user-container' style={styles.container}>
       <ul className='user-list' style={styles.userList}>

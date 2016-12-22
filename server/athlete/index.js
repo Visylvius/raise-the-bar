@@ -117,13 +117,15 @@ exports.getIndividualAthlete = function(req, res) {
 };
 
 exports.deleteAthlete = function(req, res) {
-  req.models.athlete.get(req.params.id, function(err, athlete) {
-    athlete.remove(function(err) {
+  console.log('req.params', req.params);
+  req.models.athlete.find({email: req.params.email}, (err, athlete) => {
+    console.log('athlete', athlete);
+    athlete[0].remove((err) => {
       if (err) {
         return res.status(500).json({err});
-      } else {
-        res.sendStatus(204);
       }
+      console.log('athlete was successfully deleted');
+      res.sendStatus(204);
     });
   });
 };
