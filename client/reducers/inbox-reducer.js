@@ -1,6 +1,20 @@
-import { GET_MESSAGES, SHOW_MESSAGE_THREAD, HIDE_MESSAGE_THREAD, SEND_MESSAGE } from '../actions/inbox-actions';
+import {
+  GET_MESSAGES,
+  SHOW_MESSAGE_THREAD,
+  HIDE_MESSAGE_THREAD,
+  SEND_MESSAGE,
+  SHOW_DELETE_MESSAGE_MODAL,
+  HIDE_DELETE_MESSAGE_MODAL
+} from '../actions/inbox-actions';
 
-const initialState = { messageId: null, messages: null, err: null, loading: false, modalShowing: false};
+const initialState = {
+  messageId: null,
+  messages: null,
+  err: null,
+  loading: false,
+  modalShowing: false,
+  deleteMessageModal: false
+};
 
 export const inboxReducer = (state=initialState, action) => {
   switch(action.type) {
@@ -16,6 +30,10 @@ export const inboxReducer = (state=initialState, action) => {
       return Object.assign({}, state, {messageId: action.messageId, modalShowing: true});
     case HIDE_MESSAGE_THREAD:
       return Object.assign({}, state, {modalShowing: false});
+    case SHOW_DELETE_MESSAGE_MODAL:
+      return Object.assign({}, state, {deleteMessageModal: true, messageId: action.messageId})
+    case HIDE_DELETE_MESSAGE_MODAL:
+      return Object.assign({}, state, {deleteMessageModal: false, messageId: null})
     default:
       return state;
   }

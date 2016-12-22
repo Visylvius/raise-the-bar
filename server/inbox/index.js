@@ -111,3 +111,19 @@ exports.getMessages = (req, res) => {
     });
   }
 };
+
+exports.deleteMessage = (req, res) => {
+  req.models.inbox.get(req.params.id, (error, message) => {
+    if (error) {
+      return res.status(500).json({error});
+    }
+    console.log('message was found', message);
+    message.remove((err) => {
+      if (err) {
+        return res.status(500).json({err});
+      }
+      console.log('message was successfully deleted');
+      res.status(204);
+    });
+  });
+};

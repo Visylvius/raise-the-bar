@@ -9,7 +9,13 @@ import ClearIcon from 'material-ui/svg-icons/content/clear'
 import Moment from 'moment';
 
 import SendMessage from '../inbox-components/send-message';
-import { SHOW_MESSAGE_THREAD, HIDE_MESSAGE_THREAD } from '../../actions/inbox-actions';
+import {
+  SHOW_MESSAGE_THREAD,
+  HIDE_MESSAGE_THREAD,
+  SHOW_DELETE_MESSAGE_MODAL,
+  HIDE_DELETE_MESSAGE_MODAL,
+  deleteMessage
+} from '../../actions/inbox-actions';
 import store from '../../reducers';
 
 import { connect } from 'react-redux';
@@ -88,18 +94,44 @@ const Inbox = ({myState}) => {
     }
   }
 
+  const showDeleteMessageModal = (messageId) => {
+    return (
+      <ModalContainer>
+        <ModalDialog>
+          Hello Friends!
+          <RaisedButton
+            onTouchTap={() => store.dispatch(deleteMessage(messageId))}
+          >
+            Proceed
+          </RaisedButton>
+          <RaisedButton
+            onTouchTap={() => store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL})}
+          >
+            Cancel
+          </RaisedButton>
+        </ModalDialog>
+      </ModalContainer>
+    )
+  }
+
 
   return (
     <div className='user-container' style={styles.container}>
       <ul className='user-list' style={styles.userList}>
         {/* {displayNewestMessagesInOrder()} */}
         {newestMessages.map((message) => {
+          console.log('message', message);
           return (
-            <li className='user' style={styles.user}>
+            <li
+              className='user'
+              style={styles.user}
+              key={message.id}
+            >
               <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/${message.userSendingMessageType}/${message.imgId}.jpg`}/></div>
               <div className='message-container' style={styles.messageContainer}>
                 <div
-                  style={{float: 'right'}}
+                  style={{float: 'right', cursor: 'pointer'}}
+                  onTouchTap={() => store.dispatch({type: SHOW_DELETE_MESSAGE_MODAL, messageId: message.id})}
                 >
                   <ClearIcon
                     style={{color: '#757575' }}
@@ -117,11 +149,11 @@ const Inbox = ({myState}) => {
                 </div>
               </div>
             </li>
-          )
+          );
         })}
       </ul>
-      {/* TODO Change the esc to be disabled, or onClose on the container dispatch the hide message thread */}
       { myState.modalShowing ? findMessageById(myState.messages, myState.messageId) : null }
+      { myState.deleteMessageModal ? showDeleteMessageModal(myState.messageId) : null }
     </div>
   );
 };

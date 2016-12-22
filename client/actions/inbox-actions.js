@@ -4,6 +4,8 @@ export const GET_MESSAGES = 'GET_MESSAGES';
 export const SEND_MESSAGE = 'SEND_MESSAGES';
 export const SHOW_MESSAGE_THREAD = 'SHOW_MESSAGE_THREAD';
 export const HIDE_MESSAGE_THREAD = 'HIDE_MESSAGE_THREAD';
+export const SHOW_DELETE_MESSAGE_MODAL = 'SHOW_DELETE_MESSAGE_MODAL';
+export const HIDE_DELETE_MESSAGE_MODAL = 'HIDE_DELETE_MESSAGE_MODAL';
 
 export const getMessages = (profile, userType) => {
   const { email } = profile;
@@ -27,6 +29,15 @@ export const sendMessage = (recipientType, recipientId, to, from, attributes, us
     .then(response => response.data)
   return {
     type: SEND_MESSAGE,
+    payload: request
+  };
+};
+
+export const deleteMessage = (messageId) => {
+  const request = axios.delete(`/api/inbox/${messageId}`)
+    .then(response => response.data)
+  return {
+    type: HIDE_DELETE_MESSAGE_MODAL,
     payload: request
   };
 };
