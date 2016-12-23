@@ -25,7 +25,7 @@ const Inbox = ({myState}) => {
   if (myState.messages === null) {
     return null;
   }
-  
+
   let newestMessages = myState.messages;
   if (myState.firstTimeRenderingInbox === true) {
     newestMessages = myState.messages.reverse();
@@ -97,22 +97,30 @@ const Inbox = ({myState}) => {
 
   const showDeleteMessageModal = (messageId, messages) =>
     <ModalContainer>
-      <ModalDialog>
-        Hello Friends!
-        <RaisedButton
-          onTouchTap={() => {
-            store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL, messages, messageId});
-            store.dispatch(deleteMessage(messageId));
-          }
-        }
+      <ModalDialog style={styles.modalContainer}>
+        <div
+          style={{textAlign: 'center'}}
         >
-          Proceed
-        </RaisedButton>
-        <RaisedButton
-          onTouchTap={() => store.dispatch({type: CANCEL_DELETE_MESSAGE_MODAL})}
-        >
-          Cancel
-        </RaisedButton>
+          <p>Are you sure you want to delete this message?</p>
+          <p>This can't be undone.</p>
+          <RaisedButton
+            onTouchTap={() => {
+                store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL, messages, messageId});
+                store.dispatch(deleteMessage(messageId));
+              }
+            }
+            style={{paddingLeft: '5px'}}
+          >
+            Proceed
+          </RaisedButton>
+          <RaisedButton
+            onTouchTap={() => store.dispatch({type: CANCEL_DELETE_MESSAGE_MODAL})}
+            style={{paddingLeft: '5px'}}
+          >
+            Cancel
+          </RaisedButton>
+        </div>
+
       </ModalDialog>
     </ModalContainer>;
 
