@@ -3,11 +3,10 @@ import {Card, CardActions, CardHeader, CardTitle, CardText, CardMedia} from 'mat
 import RaisedButton from 'material-ui/RaisedButton';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
-import ClearIcon from 'material-ui/svg-icons/content/clear'
+import ClearIcon from 'material-ui/svg-icons/content/clear';
 
 import { toggleGymToActive } from '../../actions/gyms-actions';
-import {Tab} from 'material-ui/Tabs';
-import store from '../../reducers/index'
+import store from '../../reducers/index';
 
 const DisplayProfileGyms = (props) => {
   const userProfile = JSON.parse(localStorage.getItem('profile'));
@@ -28,25 +27,26 @@ const DisplayProfileGyms = (props) => {
               {console.log('getGymPhoto', props.getGymPhotoUrl(result.imgId))}
                 <CardMedia
                   overlay={
-                    <div>
                       <CardTitle
                         title={result.name}
                         subtitle={result.address}
                       >
-                      <Badge
-                        className='thing'
-                        badgeContent={
-                          <IconButton
-                            tooltip="Delete this Gym"
-                            iconStyle={{color: '#757575' }}
-                          >
-                            <ClearIcon />
-                          </IconButton>
-                        }
-                        style={{float: 'right', marginTop: '-50px' }}
-                      />
+                      {props.userData.email === email && props.userType === type
+                        ? <Badge
+                            className='thing'
+                            badgeContent={
+                              <IconButton
+                                tooltip="Delete this Gym"
+                                iconStyle={{color: '#757575' }}
+                              >
+                                <ClearIcon />
+                              </IconButton>
+                            }
+                            style={{float: 'right', marginTop: '-50px' }}
+                          />
+                        : null
+                      }
                       </CardTitle>
-                    </div>
                   }
                 >
                 {/* {console.log('imgId', result.imgId)} */}
@@ -68,7 +68,7 @@ const DisplayProfileGyms = (props) => {
                   )}
                 </CardText>
                 <CardActions>
-                  {  props.userData.email === email && props.userType === type
+                  {props.userData.email === email && props.userType === type
                     ?
                     <RaisedButton
                       label='Currently at the gym'
@@ -76,8 +76,8 @@ const DisplayProfileGyms = (props) => {
                       primary={true}
                       className={`button-${index}`}
                       onTouchTap={() => {
-                        props.setGymToActive(result.placeId, JSON.parse(localStorage.getItem('profile')))
-                        store.dispatch({type: 'TOGGLE_ACTIVE_LOCAL', placeId: result.placeId })
+                        props.setGymToActive(result.placeId, JSON.parse(localStorage.getItem('profile')));
+                        store.dispatch({type: 'TOGGLE_ACTIVE_LOCAL', placeId: result.placeId });
                       }}
                     />
                     : null
@@ -95,7 +95,7 @@ const DisplayProfileGyms = (props) => {
                     : null }
                 </CardActions>
                 { console.log('result.startedWorkingOut', result.startedWorkingOut) }
-                { ((Date.now() / 1000) - result.startedWorkingOut) < (1*3600) ? console.log('user is at the gym', true) : console.log('user is not at the gym', false) }
+                { ((Date.now() / 1000) - result.startedWorkingOut) < (1 * 3600) ? console.log('user is at the gym', true) : console.log('user is not at the gym', false) }
               </Card>
             );
           })}
