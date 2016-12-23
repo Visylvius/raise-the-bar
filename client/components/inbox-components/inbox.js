@@ -14,6 +14,7 @@ import {
   HIDE_MESSAGE_THREAD,
   SHOW_DELETE_MESSAGE_MODAL,
   HIDE_DELETE_MESSAGE_MODAL,
+  CANCEL_DELETE_MESSAGE_MODAL,
   deleteMessage
 } from '../../actions/inbox-actions';
 import store from '../../reducers';
@@ -24,13 +25,13 @@ const Inbox = ({myState}) => {
   if (myState.messages === null) {
     return null;
   }
-
-  const sendUserMessage = (event) => {
-    event.preventDefault();
-    console.log('event', event);
+  
+  let newestMessages = myState.messages;
+  if (myState.firstTimeRenderingInbox === true) {
+    newestMessages = myState.messages.reverse();
+  } else if (myState.firstTimeRenderingInbox === false) {
+    newestMessages = myState.messages.reverse();
   }
-  const newestMessages = myState.messages.reverse();
-  console.log('myState', myState);
 
   const findMessageById = (messages, messageId) => {
     console.log('myState', myState);
@@ -89,40 +90,35 @@ const Inbox = ({myState}) => {
              </div>
            </ModalDialog>
          </ModalContainer>
-        )
+       );
       }
     }
-  }
+  };
 
-  const showDeleteMessageModal = (messageId, messages) => {
-    return (
-      <ModalContainer>
-        <ModalDialog>
-          Hello Friends!
-          <RaisedButton
-            onTouchTap={() => {
-              store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL, messages, messageId});
-              store.dispatch(deleteMessage(messageId));
-            }
+  const showDeleteMessageModal = (messageId, messages) =>
+    <ModalContainer>
+      <ModalDialog>
+        Hello Friends!
+        <RaisedButton
+          onTouchTap={() => {
+            store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL, messages, messageId});
+            store.dispatch(deleteMessage(messageId));
           }
-          >
-            Proceed
-          </RaisedButton>
-          <RaisedButton
-            onTouchTap={() => store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL})}
-          >
-            Cancel
-          </RaisedButton>
-        </ModalDialog>
-      </ModalContainer>
-    )
-  }
-
+        }
+        >
+          Proceed
+        </RaisedButton>
+        <RaisedButton
+          onTouchTap={() => store.dispatch({type: CANCEL_DELETE_MESSAGE_MODAL})}
+        >
+          Cancel
+        </RaisedButton>
+      </ModalDialog>
+    </ModalContainer>;
 
   return (
     <div className='user-container' style={styles.container}>
       <ul className='user-list' style={styles.userList}>
-        {/* {displayNewestMessagesInOrder()} */}
         {newestMessages.map((message) => {
           console.log('message', message);
           return (
