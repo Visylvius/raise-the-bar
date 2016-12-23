@@ -1,6 +1,9 @@
 import React from 'react';
 import {Card, CardActions, CardHeader, CardTitle, CardText, CardMedia} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import Badge from 'material-ui/Badge';
+import IconButton from 'material-ui/IconButton';
+import ClearIcon from 'material-ui/svg-icons/content/clear'
 
 import { toggleGymToActive } from '../../actions/gyms-actions';
 import {Tab} from 'material-ui/Tabs';
@@ -24,13 +27,34 @@ const DisplayProfileGyms = (props) => {
               <Card>
               {console.log('getGymPhoto', props.getGymPhotoUrl(result.imgId))}
                 <CardMedia
-                  overlay={<CardTitle title={result.name} subtitle={result.address} />}
+                  overlay={
+                    <div>
+                      <CardTitle
+                        title={result.name}
+                        subtitle={result.address}
+                      >
+                      <Badge
+                        className='thing'
+                        badgeContent={
+                          <IconButton
+                            tooltip="Delete this Gym"
+                            iconStyle={{color: '#757575' }}
+                          >
+                            <ClearIcon />
+                          </IconButton>
+                        }
+                        style={{float: 'right', marginTop: '-50px' }}
+                      />
+                      </CardTitle>
+                    </div>
+                  }
                 >
                 {/* {console.log('imgId', result.imgId)} */}
                 { result.imgId && result.imdId !== null ?
                   <img src={props.getGymPhotoUrl(result.imgId)} />
                   : <img src='http://placekitten.com/300/200' />
                 }
+
                 </CardMedia>
                 <CardHeader
                   title="Daily Hours"
@@ -45,7 +69,8 @@ const DisplayProfileGyms = (props) => {
                 </CardText>
                 <CardActions>
                   {  props.userData.email === email && props.userType === type
-                    ? <RaisedButton
+                    ?
+                    <RaisedButton
                       label='Currently at the gym'
                       key={result.id}
                       primary={true}
