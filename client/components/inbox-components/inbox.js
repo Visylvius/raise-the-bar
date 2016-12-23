@@ -95,34 +95,77 @@ const Inbox = ({myState}) => {
     }
   };
 
-  const showDeleteMessageModal = (messageId, messages) =>
-    <ModalContainer>
-      <ModalDialog style={styles.modalContainer}>
-        <div
-          style={{textAlign: 'center'}}
-        >
-          <p>Are you sure you want to delete this message?</p>
-          <p>This can't be undone.</p>
-          <RaisedButton
-            onTouchTap={() => {
-                store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL, messages, messageId});
-                store.dispatch(deleteMessage(messageId));
-              }
-            }
-            style={{paddingLeft: '5px'}}
-          >
-            Proceed
-          </RaisedButton>
-          <RaisedButton
-            onTouchTap={() => store.dispatch({type: CANCEL_DELETE_MESSAGE_MODAL})}
-            style={{paddingLeft: '5px'}}
-          >
-            Cancel
-          </RaisedButton>
-        </div>
+  const showDeleteMessageModal = (messageId, messages) => {
+    for (let i = 0; i < messages.length; i++) {
+      if (messages[i].id === messageId) {
+        return (
+          <ModalContainer>
+            <ModalDialog style={styles.modalContainer}>
+              <div
+                style={{textAlign: 'center'}}
+              >
+                <p style={{color: '#fff', fontSize: '18px'}}>
+                  Are you sure you want to delete this message?
+                </p>
+                  <div className='message-header' style={styles.messageHeader}>
+                    <div className='message-avatar' style={styles.messageAvatar}>
+                      <img
+                        className='message-header-avatar'
+                        src={`avatars/${messages[i].userSendingMessageType}/${messages[i].imgId}.jpg`}
+                        style={styles.avatarImage}
+                      />
+                    </div>
+                    <div
+                      className='message-header-text'
+                      style={{display: 'inline-block', verticalAlign: 'middle'}}
+                    >
+                      <p
+                        className='message-username'
+                        style={styles.messageUserName}
+                      >
+                        {messages[i].displayName}
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    className='message-body'
+                    style={styles.messageBody}
+                  >
+                    {messages[i].body}
+                  </div>
+                <p
+                  style={{
+                      color: '#fff',
+                      fontSize: '15px',
+                      marginTop: '60px'
+                  }}
+                >
+                This action can't be undone.
+                </p>
+                <RaisedButton
+                  onTouchTap={() => {
+                      store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL, messages, messageId});
+                      store.dispatch(deleteMessage(messageId));
+                    }
+                  }
+                  style={{paddingLeft: '5px'}}
+                >
+                  Proceed
+                </RaisedButton>
+                <RaisedButton
+                  onTouchTap={() => store.dispatch({type: CANCEL_DELETE_MESSAGE_MODAL})}
+                  style={{paddingLeft: '5px'}}
+                >
+                  Cancel
+                </RaisedButton>
+              </div>
 
-      </ModalDialog>
-    </ModalContainer>;
+            </ModalDialog>
+          </ModalContainer>
+        )
+      }
+    }
+  }
 
   return (
     <div className='user-container' style={styles.container}>
