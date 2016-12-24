@@ -198,9 +198,6 @@ exports.saveSpecificGym = function(req, res) {
             }
           });
         }
-
-
-
       });
       //if !athlete then return res.sendStatus(400) <== client problem
       // console.log('athlete', athlete);
@@ -259,6 +256,24 @@ exports.toggleGymToActive = (req, res) => {
             console.log('there is not a match');
           }
         });
+      });
+    });
+  }
+};
+
+exports.deleteGym = (req, res) => {
+  const userType = req.params.userType;
+  const email = req.params.email;
+  const id = req.params.id;
+  console.log('req.body', req.params);
+  if (userType === 'athlete') {
+    req.models.athlete.one({email}, (err, athlete) => {
+      athlete.removeGyms(id, (err) => {
+        if (err) {
+          return res.send(500).json({err});
+        }
+        console.log('gym was successfully deleted');
+        res.sendStatus(204);
       });
     });
   }

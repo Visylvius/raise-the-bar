@@ -5,7 +5,7 @@ import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
 
-import { toggleGymToActive } from '../../actions/gyms-actions';
+import { toggleGymToActive, deleteGym } from '../../actions/gyms-actions';
 import store from '../../reducers/index';
 
 const DisplayProfileGyms = (props) => {
@@ -21,6 +21,7 @@ const DisplayProfileGyms = (props) => {
       { props.gyms.loaded ?
         <div className='gym-card-container'>
           {props.gyms.userGyms.map((result, index) => {
+            console.log('result of map', result);
             const gymPhoto = props.getGymPhotoUrl(result.imgId);
             return (
               <Card>
@@ -34,6 +35,7 @@ const DisplayProfileGyms = (props) => {
                       {props.userData.email === email && props.userType === type
                         ? <Badge
                             className='thing'
+                            onTouchTap={() => store.dispatch(deleteGym(result.id, email, type)) }
                             badgeContent={
                               <IconButton
                                 tooltip="Delete this Gym"
@@ -52,21 +54,31 @@ const DisplayProfileGyms = (props) => {
                 {/* {console.log('imgId', result.imgId)} */}
                 { result.imgId && result.imdId !== null ?
                   <img src={props.getGymPhotoUrl(result.imgId)} />
-                  : <img src='http://placekitten.com/300/200' />
+                  : <img src='http://placekitten.com/g/300/200' />
                 }
 
                 </CardMedia>
-                <CardHeader
-                  title="Daily Hours"
-                  subtitle={result.phoneNumber}
-                  actAsExpander={true}
-                  showExpandableButton={true}
-                />
-                <CardText expandable={true}>
-                  {result.dailyHours.weekday_text.map((hours) =>
-                    <div className='daily-hours-container'>{hours}</div>
-                  )}
-                </CardText>
+                {result.dailyHours !== null
+                  ? <CardHeader
+                      title="Daily Hours"
+                      subtitle={result.phoneNumber}
+                      actAsExpander={true}
+                      showExpandableButton={true}
+                    />
+                  : <CardHeader
+                      title="Hours weren't avaliable"
+                      subtitle={result.phoneNumber}
+                    />
+                }
+
+                {result.dailyHours !== null
+                  ? <CardText expandable={true}>
+                      {result.dailyHours.weekday_text.map((hours) =>
+                        <div className='daily-hours-container'>{hours}</div>
+                      )}
+                    </CardText>
+                  : null
+                }
                 <CardActions>
                   {props.userData.email === email && props.userType === type
                     ?

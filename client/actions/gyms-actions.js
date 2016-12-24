@@ -5,6 +5,7 @@ export const FETCH_GYM = 'FETCH_GYM';
 export const SAVE_GYM = 'SAVE_GYM';
 export const TOGGLE_ACTIVE = 'TOGGLE_ACTIVE';
 export const HIDE_SNACKBAR = 'HIDE_SNACKBAR';
+export const DELETE_GYM = 'DELETE_GYM';
 
 export const fetchGyms = (address, distance) => {
   const axiosPromise = axios.post('/api/gym', {address, distance})
@@ -48,6 +49,12 @@ export const toggleGymToActive = (placeId, email) => {
   };
 };
 
-
-
+export const deleteGym = (placeId, email, userType) => {
+  const request = axios.delete(`/api/gym/${userType}/${email}/${placeId}`)
+    .then(response => response.data)
+  return {
+    type: DELETE_GYM,
+    payload: request
+  };
+};
 //change to post to get, url encode the parameters

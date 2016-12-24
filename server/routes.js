@@ -26,6 +26,7 @@ module.exports = new Router()
   .get('/gym/:placeId', gymHandler.getSpecificGym)
   .post('/gym/:placeId', gymHandler.saveSpecificGym)
   .put('/gym/toggleactive/:placeId', gymHandler.toggleGymToActive)
+  .delete('/gym/:userType/:email/:id', gymHandler.deleteGym)
   .get('/user/:email', userHandler.getUser);
 
 
