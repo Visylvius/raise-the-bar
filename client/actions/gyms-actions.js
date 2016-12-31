@@ -50,7 +50,17 @@ export const toggleGymToActive = (placeId, email) => {
 };
 
 export const deleteGym = (placeId, email, userType) => {
-  const request = axios.delete(`/api/gym/${userType}/${email}/${placeId}`)
+  console.log('gym Id in action', typeof placeId);
+  // .delete(`/api/gym/${userType}/${email}/${placeId}`)
+  const request = axios({
+    method: 'delete',
+    url: '/api/gym',
+    data: {
+      id: placeId,
+      userType,
+      email
+    }
+  })
     .then(response => response.data)
   return {
     type: DELETE_GYM,

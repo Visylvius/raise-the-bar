@@ -21,7 +21,7 @@ const DisplayProfileGyms = (props) => {
       { props.gyms.loaded ?
         <div className='gym-card-container'>
           {props.gyms.userGyms.map((result, index) => {
-            console.log('result of map', result);
+            console.log('result id', typeof result.id);
             const gymPhoto = props.getGymPhotoUrl(result.imgId);
             return (
               <Card>

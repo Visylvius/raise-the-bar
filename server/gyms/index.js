@@ -262,19 +262,55 @@ exports.toggleGymToActive = (req, res) => {
 };
 
 exports.deleteGym = (req, res) => {
-  const userType = req.params.userType;
-  const email = req.params.email;
-  const id = req.params.id;
-  console.log('req.body', req.params);
+  const userType = req.body.userType;
+  const email = req.body.email;
+  const id = req.body.id;
+  console.log('req.body', req.body);
   if (userType === 'athlete') {
     req.models.athlete.one({email}, (err, athlete) => {
-      athlete.removeGyms(id, (err) => {
+      console.log('athlete', athlete);
+      athlete.getGyms((err, gyms) => {
+        console.log('gyms', gyms[0].id, 'id', req.body.id);
         if (err) {
           return res.send(500).json({err});
         }
-        console.log('gym was successfully deleted');
-        res.sendStatus(204);
+        let gymExist = gyms.find((gym) =>
+          gym.id === id
+        );
+        if (gymExist) {
+          athlete.removeGyms([gymExist], (err) => {
+            if (err) {
+              return res.send(500).json({err});
+            }
+            return res.sendStatus(204);
+          });
+        }
+        // for (var i = 0; i <= gyms.length; i++) {
+        //   if (gyms[i].id === id) {
+        //     athlete.removeGyms(gyms[i].id, (err) => {
+        //       if (err) {
+        //         return res.send(500).json({err})
+        //       }
+        //       console.log('did it work?');
+        //     });
+        //     res.sendStatus(204);
+        //   }
+        // }
+        // athlete.removeGyms(id, (err) => {
+        //   if (err) {
+        //     return res.send(500).json({err});
+        //   }
+        //   console.log('gym was successfully deleted');
+        //   return res.sendStatus(204);
+        // });
       });
+      // athlete.removeGyms(id, (err) => {
+      //   if (err) {
+      //     return res.send(500).json({err});
+      //   }
+      //   console.log('gym was successfully deleted');
+      //   res.sendStatus(204);
+      // });
     });
   }
 };
