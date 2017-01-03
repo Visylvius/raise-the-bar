@@ -19,7 +19,7 @@ import { saveGymReducer } from './save-gym-reducer';
 import { toggleGymToActiveReducer } from './toggle-active';
 import { displayAthleteGymsReducer } from './athlete-gym-reducer';
 import { displayTrainerGymsReducer } from './trainer-gym-reducer';
-
+import { menuBarReducer } from './menu-bar-reducer';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise(), ReduxThunk, createLogger())(createStore);
 
@@ -38,7 +38,8 @@ const rootReducer = combineReducers({
   message: messageReducer,
   toggledGym: toggleGymToActiveReducer,
   crop: cropReducer,
-  user: userReducer
+  user: userReducer,
+  menu: menuBarReducer
 });
 
 export default createStoreWithMiddleware(rootReducer);

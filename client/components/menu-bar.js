@@ -14,7 +14,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { getUser } from '../actions/user-actions';
+import { getUser, CLOSE_MENU_BAR, OPEN_MENU_BAR } from '../actions/user-actions';
 import { getMessages } from '../actions/inbox-actions';
 
 import store from '../reducers';
@@ -41,7 +41,12 @@ class MenuBar extends React.Component {
   }
 
   toggleDrawer() {
-    this.setState({isShowingDrawer: !this.state.isShowingDrawer});
+    if (this.props.isShowingDrawer === false) {
+      store.dispatch({type: OPEN_MENU_BAR});
+    } else if (this.props.isShowingDrawer) {
+      store.dispatch({type: CLOSE_MENU_BAR});
+    }
+    // this.setState({isShowingDrawer: !this.state.isShowingDrawer});
   }
 
 
@@ -110,65 +115,33 @@ class MenuBar extends React.Component {
    }
 
    directToInbox() {
-     this.setState({isShowingDrawer: false});
+     store.dispatch({type: CLOSE_MENU_BAR});
      this.context.router.push(`/inbox`);
    }
 
    findAthletes() {
-     this.setState({isShowingDrawer: false});
+     store.dispatch({type: CLOSE_MENU_BAR});
      this.context.router.push(`/findathletes`);
    }
 
    findTrainers() {
-     this.setState({isShowingDrawer: false});
+     store.dispatch({type: CLOSE_MENU_BAR});
      this.context.router.push('/findtrainers');
    }
 
   render(){
     return (
     <div>
+    {console.log('props', this.props)}
       <AppBar
         title="Raise The Bar"
         style={{zIndex: 1}}
         iconElementLeft={
           <IconButton onTouchTap={() => this.toggleDrawer()}><MenuIcon/></IconButton>
         }
-        // onLeftIconButtonTouchTap={() => console.log('clicked')}
-        // children={
-        //   <Drawer
-        //     open={this.state.isShowingDrawer}
-        //     openSecondary={true}
-        //     className='Drawer'
-        //     style={{backgroundColor: 'blue'}}
-        //   >
-        //     <MenuItem
-        //       leftIcon={<GroupIcon />}
-        //       onTouchTap={() => { this.findAthletes() }}
-        //       style={{backgroundColor: 'blue'}}
-        //       className='Thing'
-        //     >
-        //       Find Athletes
-        //     </MenuItem>
-        //     <MenuItem>
-        //       Find Trainers
-        //     </MenuItem>
-        //     <MenuItem
-        //       onTouchTap={() => this.context.router.push(`/gymsearch`)}>Find Gyms</MenuItem>
-        //     <MenuItem
-        //       onTouchTap={() => this.userProfile() }
-        //     >
-        //       Profile
-        //     </MenuItem>
-        //     <MenuItem
-        //       onTouchTap={() => this.directToInbox()}
-        //     >
-        //       Inbox
-        //     </MenuItem>
-        //   </Drawer>
-        // }
       />
       <Drawer
-        open={this.state.isShowingDrawer}
+        open={this.props.isShowingDrawer}
         openSecondary={true}
         className='Drawer'
       >
@@ -212,7 +185,7 @@ class MenuBar extends React.Component {
       </Drawer>
         <div>
         {
-          this.state.isShowingModal &&
+          this.state.isShowingModal ?
           <ModalContainer onClose={this.handleClose.bind(this)}>
             <ModalDialog onClose={this.handleClose.bind(this)}>
               <p>Whoops! <br />It looks like you haven't create a profile with us yet</p>
@@ -221,6 +194,7 @@ class MenuBar extends React.Component {
               <button onClick={() => { this.createTrainer() }}>Create Trainer</button>
             </ModalDialog>
           </ModalContainer>
+          : null
         }
           {this.props.children}
         </div>
@@ -254,7 +228,8 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { user, error, loading } = state.user;
-  return { user, error, loading };
+  const { isShowingDrawer, isShowingModal } = state.menu;
+  return { user, error, loading, isShowingDrawer, isShowingModal };
 };
 
 const mapDispatchToProps = (dispatch) => {
