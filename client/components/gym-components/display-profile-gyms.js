@@ -1,11 +1,12 @@
 import React from 'react';
 import {Card, CardActions, CardHeader, CardTitle, CardText, CardMedia} from 'material-ui/Card';
+import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
 
-import { toggleGymToActive, deleteGym } from '../../actions/gyms-actions';
+import { toggleGymToActive, deleteGym, SHOW_DELETE_GYM_MODAL, HIDE_DELETE_GYM_MODAL } from '../../actions/gyms-actions';
 import store from '../../reducers/index';
 
 const DisplayProfileGyms = (props) => {
@@ -13,6 +14,29 @@ const DisplayProfileGyms = (props) => {
   const userType = JSON.parse(localStorage.getItem('type'));
   const { type } = userType;
   const { email } = userProfile;
+
+  const showDeleteGymModal = () => {
+    return (
+      <ModalContainer>
+        <ModalDialog>
+          <p>Are you sure you want to delete this gym?</p>
+          <p>This action cannot be undone.</p>
+          <RaisedButton
+            onTouchTap={() => {
+              console.log('props.gyms', props.gyms);
+              store.dispatch({type: HIDE_DELETE_GYM_MODAL, gymId: props.gyms.gymId, userGyms: props.gyms.userGyms});
+              store.dispatch(deleteGym(props.gyms.gymId, email, type));
+            }}
+          >
+          Confirm
+          </RaisedButton>
+          <RaisedButton>
+            Cancel
+          </RaisedButton>
+        </ModalDialog>
+      </ModalContainer>
+    )
+  }
   return (
     <div>
       {/*You don't have a gym yet, why not select one?*/}
@@ -34,8 +58,10 @@ const DisplayProfileGyms = (props) => {
                       >
                       {props.userData.email === email && props.userType === type
                         ? <Badge
-                            className='thing'
-                            onTouchTap={() => store.dispatch(deleteGym(result.id, email, type)) }
+                            className='delete-gym'
+                            onTouchTap={() =>
+                              store.dispatch({type: SHOW_DELETE_GYM_MODAL, gymId: result.id })
+                            }
                             badgeContent={
                               <IconButton
                                 tooltip="Delete this Gym"
@@ -113,6 +139,8 @@ const DisplayProfileGyms = (props) => {
           })}
         </div>
         : <div>Gyms are loading</div>}
+        {console.log('props', props)}
+        { props.gyms.deleteGymModal ? showDeleteGymModal() : null }
     </div>
   );
 };

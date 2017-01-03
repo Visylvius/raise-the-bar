@@ -6,6 +6,8 @@ export const SAVE_GYM = 'SAVE_GYM';
 export const TOGGLE_ACTIVE = 'TOGGLE_ACTIVE';
 export const HIDE_SNACKBAR = 'HIDE_SNACKBAR';
 export const DELETE_GYM = 'DELETE_GYM';
+export const SHOW_DELETE_GYM_MODAL = 'SHOW_DELETE_GYM_MODAL';
+export const HIDE_DELETE_GYM_MODAL = 'HIDE_DELETE_GYM_MODAL';
 
 export const fetchGyms = (address, distance) => {
   const axiosPromise = axios.post('/api/gym', {address, distance})
@@ -49,14 +51,13 @@ export const toggleGymToActive = (placeId, email) => {
   };
 };
 
-export const deleteGym = (placeId, email, userType) => {
-  console.log('gym Id in action', typeof placeId);
-  // .delete(`/api/gym/${userType}/${email}/${placeId}`)
+export const deleteGym = (gymId, email, userType) => {
+  console.log('gym Id in action', gymId);
   const request = axios({
     method: 'delete',
     url: '/api/gym',
     data: {
-      id: placeId,
+      id: gymId,
       userType,
       email
     }

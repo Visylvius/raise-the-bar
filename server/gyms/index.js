@@ -274,9 +274,11 @@ exports.deleteGym = (req, res) => {
         if (err) {
           return res.send(500).json({err});
         }
+        console.log('gyms', gyms);
         let gymExist = gyms.find((gym) =>
           gym.id === id
         );
+        console.log('gymExist', gymExist);
         if (gymExist) {
           athlete.removeGyms([gymExist], (err) => {
             if (err) {
