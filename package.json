@@ -62,7 +62,7 @@
     "node": "6.0.0"
   },
   "devDependencies": {
-    "aglio": "^2.2.1",
+    "aglio": "^2.2.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
