@@ -1,5 +1,6 @@
 import React from 'react';
 import Radium, { Style } from 'radium';
+import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 
 const baseStyles = {
@@ -24,8 +25,20 @@ const HomePage = () => {
       <div style={[baseStyles.boxOpacity, baseStyles.mainInput]}>
         <h3 type='text'>Raise The Bar</h3>
           <div style={baseStyles.buttons}>
-            <Link to='/findathletes'><button className='btn btn-primary'>Find Athletes</button></Link>
-            <Link to='/findtrainers'><button className='btn btn-primary'>Find Trainers</button></Link> 
+            <Link to='/findathletes'>
+              <RaisedButton
+                label='Find Athletes'
+                labelColor='#0A96F1'
+                style={{marginRight: '7px'}}
+              />
+            </Link>
+            <Link to='/findtrainers'>
+            <RaisedButton
+              label='Find Trainers'
+              labelColor='#0A96F1'
+              style={{marginRight: '7px'}}
+            />
+            </Link>
           </div>
       </div>
   );
