@@ -206,23 +206,31 @@ class MenuBar extends React.Component {
               style={styles.modalStyles}
               onClose={this.handleClose.bind(this)}
             >
-              <p>Whoops! <br />It looks like you haven't created a profile with us yet</p>
-              <p>Are you an Athlete, or a Trainer?</p>
+              <p
+                style={{color: '#fff'}}
+              >
+              Whoops!
+              <br />
+              It looks like you haven't created a profile with us yet
+              </p>
+              <p style={{color: '#fff'}}>
+              Are you an Athlete, or a Trainer?</p>
               <div style={{textAlign: 'center'}}>
                 <RaisedButton
                   onTouchTap={() => { this.createAthlete(); }}
                   style={{marginRight: '5px'}}
+                  label='Create Athlete'
+                  labelColor='white'
                   primary={true}
-                >
-                Create Athlete
-                </RaisedButton>
+                />
+
                 <RaisedButton
                   onClick={() => { this.createTrainer() }}
                   style={{marginRight: '5px'}}
+                  label='Create Trainer'
+                  labelColor='white'
                   primary={true}
-                >
-                Create Trainer
-                </RaisedButton>
+                />
               </div>
             </ModalDialog>
           </ModalContainer>
