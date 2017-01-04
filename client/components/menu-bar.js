@@ -106,9 +106,11 @@ class MenuBar extends React.Component {
       .then((user) => {
         if (user.value.type === 'athlete') {
           const { id } = user.value.athlete;
+          store.dispatch({type: CLOSE_MENU_BAR});
           this.context.router.push(`/athlete/${id}`);
         } else if (user.value.type === 'trainer') {
           const { id } = user.value.trainer;
+          store.dispatch({type: CLOSE_MENU_BAR});
           this.context.router.push(`/trainer/${id}`);
         }
       });
@@ -127,6 +129,11 @@ class MenuBar extends React.Component {
    findTrainers() {
      store.dispatch({type: CLOSE_MENU_BAR});
      this.context.router.push('/findtrainers');
+   }
+
+   findGyms() {
+     store.dispatch({type: CLOSE_MENU_BAR});
+     this.context.router.push('/gymsearch')
    }
 
   render(){
@@ -163,7 +170,7 @@ class MenuBar extends React.Component {
           Find Trainers
         </MenuItem>
         <MenuItem
-          onTouchTap={() => this.context.router.push('/gymsearch')}
+          onTouchTap={() => this.findGyms()}
           innerDivStyle={styles.menuItems}
         >
           Find Gyms
