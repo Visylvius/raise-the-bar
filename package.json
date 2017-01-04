@@ -58,6 +58,9 @@
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5"
   },
+  "engines": {
+    "node": "6.0.0"
+  },
   "devDependencies": {
     "aglio": "^2.2.1",
   },
