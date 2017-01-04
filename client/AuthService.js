@@ -103,14 +103,7 @@ class AuthService extends EventEmitter {
  }
 
   login() {
-    //emit the event here, and then do related functions
-
-    // Call the show method to display the widget.
-    return new Promise((resolve, reject) => {
-      this.lock.show({});
-
-    });
-    //callbackURL: 'http://localhost:4000/'
+    this.lock.show({});
   }
   loggedIn(){
     // Checks if there is a saved token and it's still valid

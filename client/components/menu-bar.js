@@ -4,6 +4,7 @@ import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import MenuItem from 'material-ui/MenuItem';
 import GroupIcon from 'material-ui/svg-icons/social/group';
@@ -14,7 +15,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { getUser, CLOSE_MENU_BAR, OPEN_MENU_BAR } from '../actions/user-actions';
+import {
+  getUser,
+  CLOSE_MENU_BAR,
+  OPEN_MENU_BAR,
+  OPEN_NEW_USER_MODAL,
+  CLOSE_NEW_USER_MODAL
+} from '../actions/user-actions';
 import { getMessages } from '../actions/inbox-actions';
 
 import store from '../reducers';
@@ -26,8 +33,9 @@ class MenuBar extends React.Component {
     super(props);
 
     this.state = { isShowingModal: false, isShowingDrawer: false };
-
+    console.log('auth', auth);
     auth.on('server-profile-non-existent', (serverProfile) => {
+      console.log('serverProfile', serverProfile);
       this.createUserProfile(serverProfile);
     });
   }
@@ -75,18 +83,18 @@ class MenuBar extends React.Component {
 
    createUserProfile(serverProfile) {
      if (serverProfile === null) {
-       this.setState({isShowingModal: true});
+       store.dispatch({type: OPEN_NEW_USER_MODAL});
      }
    }
 
    createAthlete() {
-     this.setState({isShowingModal: false});
+     store.dispatch({type: CLOSE_NEW_USER_MODAL});
      this.context.router.push(`/createathlete`);
    }
 
    createTrainer() {
-     this.setState({isShowingModal: false});
-     this.context.router.push(`/createtrainer`)
+     store.dispatch({type: CLOSE_NEW_USER_MODAL});
+     this.context.router.push(`/createtrainer`);
    }
    logout(){
      // destroys the session data
@@ -153,7 +161,7 @@ class MenuBar extends React.Component {
         className='Drawer'
       >
        <div
-        style={{backgroundColor: '<div id="303030"></div>', height: '100vh'}}
+        // style={{backgroundColor: '<div id="303030"></div>', height: '100vh'}}
         className='menu-item-wrapper'
        >
         <MenuItem
@@ -192,13 +200,30 @@ class MenuBar extends React.Component {
       </Drawer>
         <div>
         {
-          this.state.isShowingModal ?
+          this.props.isShowingModal ?
           <ModalContainer onClose={this.handleClose.bind(this)}>
-            <ModalDialog onClose={this.handleClose.bind(this)}>
-              <p>Whoops! <br />It looks like you haven't create a profile with us yet</p>
+            <ModalDialog
+              style={styles.modalStyles}
+              onClose={this.handleClose.bind(this)}
+            >
+              <p>Whoops! <br />It looks like you haven't created a profile with us yet</p>
               <p>Are you an Athlete, or a Trainer?</p>
-              <button onClick={() => { this.createAthlete() }}>Create Athlete</button>
-              <button onClick={() => { this.createTrainer() }}>Create Trainer</button>
+              <div style={{textAlign: 'center'}}>
+                <RaisedButton
+                  onTouchTap={() => { this.createAthlete(); }}
+                  style={{marginRight: '5px'}}
+                  primary={true}
+                >
+                Create Athlete
+                </RaisedButton>
+                <RaisedButton
+                  onClick={() => { this.createTrainer() }}
+                  style={{marginRight: '5px'}}
+                  primary={true}
+                >
+                Create Trainer
+                </RaisedButton>
+              </div>
             </ModalDialog>
           </ModalContainer>
           : null
@@ -230,6 +255,15 @@ const styles = {
     borderBottom: '2px solid #262626',
     backgroundColor: '#303030',
     color: '#EEEEEE'
+  },
+  modalStyles: {
+    maxWidth: '500px',
+    width: '100%',
+    height: '100%',
+    zIndex: 2,
+    overflow: 'hidden',
+    backgroundColor: '#303030',
+    top: '0px'
   }
 };
 
