@@ -4,46 +4,41 @@ var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'dist');
 var mainPath = path.resolve(__dirname, 'client', 'index.js');
 
-var config = {
+module.exports = {
 
   // We change to normal source mapping
-  devtool: 'source-map',
-  entry: mainPath,
+  devtool: 'inline-sourcemap',
+  entry: [
+    './client/index.js'
+  ],
   output: {
-    path: buildPath,
-    filename: 'bundle.js'
+    path: __dirname,
+    publicPath: '/',
+    filename: 'dist/bundle.js'
   },
   module: {
     loaders: [{
-      test: /\.js$/,
-      loaders: [{
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015']
-        }
-      },
-      {
-        test: /\.css$/, loader: ['style', 'css', 'sass']
-      // }
-      // {
-    //     test: /node_modules[\\\/]auth0-lock[\\\/].*\.js$/,
-    //     loaders: [
-    //       'transform-loader/cacheable?brfs',
-    //       'transform-loader/cacheable?packageify'
-    //     ]
-    //   }, {
-    //     test: /node_modules[\\\/]auth0-lock[\\\/].*\.ejs$/,
-    //     loader: 'transform-loader/cacheable?ejsify'
-    //   }, {
-    //     test: /\.json$/,
-    //     loader: 'json-loader'
-    }],
-      exclude: [nodeModulesPath]
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+      query: {
+        presets: ['react', 'es2015']
+      }
     },
     {
-      test: /\.css$/,
-      loader: ['style', 'css', 'sass']
+      test: /\.css$/, loader: ['style', 'css', 'sass']
+    // }
+    // {
+  //     test: /node_modules[\\\/]auth0-lock[\\\/].*\.js$/,
+  //     loaders: [
+  //       'transform-loader/cacheable?brfs',
+  //       'transform-loader/cacheable?packageify'
+  //     ]
+  //   }, {
+  //     test: /node_modules[\\\/]auth0-lock[\\\/].*\.ejs$/,
+  //     loader: 'transform-loader/cacheable?ejsify'
+  //   }, {
+  //     test: /\.json$/,
+  //     loader: 'json-loader'
     }]
   },
   plugins: [
@@ -56,5 +51,3 @@ var config = {
     extensions: ['', '.js', '.jsx']
   },
 };
-
-module.exports = config;
