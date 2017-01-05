@@ -34,6 +34,9 @@ class MenuBar extends React.Component {
     console.log('auth', auth);
     const userType = JSON.parse(localStorage.getItem('type'));
     console.log('userType', userType);
+    if (userType === null) {
+      this.createUserProfile(userType);
+    }
     auth.on('server-profile-non-existent', (serverProfile) => {
       console.log('serverProfile', serverProfile);
       this.createUserProfile(serverProfile);
