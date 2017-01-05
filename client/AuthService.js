@@ -131,4 +131,4 @@ class AuthService extends EventEmitter {
   }
 }
 
-export default new AuthService(process.env.__AUTH0_CLIENT_ID__, process.env.__AUTH0_DOMAIN__);
+export default new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
