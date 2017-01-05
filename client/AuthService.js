@@ -132,4 +132,4 @@ class AuthService extends EventEmitter {
   }
 }
 
-export default new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
+export default new AuthService('6wUuY4LmbwKS78euu1vHQ2mRi9N3nXXO', 'lorenbarrick.auth0.com');
