@@ -7,8 +7,6 @@ class AuthService extends EventEmitter {
   constructor(clientId, domain) {
     super();
     // Configure Auth0
-    //
-    console.log('process.env', process.env);
     // console.log('calling loggedIn', this.loggedIn());
     this.lock = new Auth0Lock(clientId, domain, {});
     console.log(this.lock, 'lock');
