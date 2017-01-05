@@ -41,7 +41,7 @@
     "react-modal-dialog": "^3.0.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.1",
-    "react-tap-event-plugin": "^2.0.0",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.5.2",
     "redux-form": "^5.2.5",
     "redux-logger": "^2.7.4",
