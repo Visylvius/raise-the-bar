@@ -68,7 +68,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cp client/index.html dist && webpack",
     "start": "node server/index.js",
-    "postinstall": "node deploy"
+    "postinstall": "node deploy webpack --watch"
   },
   "repository": {
     "type": "git",
