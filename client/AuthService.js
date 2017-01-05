@@ -3,6 +3,7 @@ import Auth0Lock from 'auth0-lock';
 import { isTokenExpired } from './jwtHelper'
 import axios from 'axios';
 
+
 class AuthService extends EventEmitter {
   constructor(clientId, domain) {
     super();
@@ -19,7 +20,8 @@ class AuthService extends EventEmitter {
     this.login = this.login.bind(this);
     // this.logout = this.logout.bind(this);
     this.lock.on('authorization_error', this._authorizationError.bind(this));
-
+    const auth0ClientId = process.env.__AUTH0_CLIENT_ID__;
+    const auth0Domain = process.env.__AUTH0_DOMAIN;
     // this.on('user-logged-in', this._checkUserProfile.bind(this));
 
 
@@ -131,4 +133,4 @@ class AuthService extends EventEmitter {
   }
 }
 
-export default new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
+export default new AuthService(auth0ClientId, auth0Domain);
