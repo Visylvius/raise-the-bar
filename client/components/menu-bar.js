@@ -31,9 +31,9 @@ import Modal from './modal';
 class MenuBar extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = { isShowingModal: false, isShowingDrawer: false };
     console.log('auth', auth);
+    const userType = JSON.parse(localStorage.getItem('type'));
+    console.log('userType', userType);
     auth.on('server-profile-non-existent', (serverProfile) => {
       console.log('serverProfile', serverProfile);
       this.createUserProfile(serverProfile);

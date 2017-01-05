@@ -10,7 +10,6 @@ class AuthService extends EventEmitter {
     // console.log('calling loggedIn', this.loggedIn());
     this.lock = new Auth0Lock(clientId, domain, {});
     console.log(this.lock, 'lock');
-    console.log('process.env', process.env);
     console.log('this in authservice', this);
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this));
@@ -81,7 +80,7 @@ class AuthService extends EventEmitter {
      axios.get(`/api/user/${email}`)
       .then((result) => {
         if (result.data.type === 'not found') {
-          console.log('not found');
+          console.log('user was not found');
           resolve(null);
         }
         console.log('user exists', result);
