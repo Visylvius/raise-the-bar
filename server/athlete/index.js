@@ -4,7 +4,10 @@ var lwip = promise.promisifyAll(require('lwip'));
 promise.promisifyAll(require('lwip/lib/Image').prototype);
 promise.promisifyAll(require('lwip/lib/Batch').prototype);
 
+const cloudinary = require('../cloudinary-helpers');
+const Datauri = require('datauri');
 
+const datauri = new Datauri();
 
 exports.getAthlete = function(req, res) {
   req.models.athlete.all(function(err, athlete) {
@@ -39,6 +42,7 @@ exports.postAthlete = function(req, res) {
       const avatar = req.body.avatar.split(',');
       const imgBuffer = Buffer.from(avatar[1], 'base64');
       const type = avatar[0].match('/jpeg|png|jpg/');
+      // console.log('imgBuffer', imgBuffer);
       const { x, y, width, height } = req.body.crop;
       if (!type) {
         res.status(400).json({err: 'please provide a valid image type'});
@@ -52,7 +56,14 @@ exports.postAthlete = function(req, res) {
 
           .then((img) => img.resizeAsync(300, 250))
           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-          .then((buffer) => fs.writeFileAsync(`../dist/avatars/athlete/${athlete.imgId}.jpg`, buffer))
+          .then((buffer) => {
+            // console.log('buffer in lwip', Array.isArray(buffer));
+            // console.log('athlete.imgId', athlete.imgId);
+            datauri.format('jpg', buffer);
+            // console.log('datauri', datauri.content);
+            cloudinary.uploadPhoto(datauri.content, athlete.imgId);
+            // fs.writeFileAsync(`../dist/avatars/athlete/${athlete.imgId}.jpg`, buffer);
+          })
           .then(() => res.json(athlete))
           .catch((err) => {
             console.log(err);
