@@ -60,7 +60,6 @@ exports.postAthlete = function(req, res) {
             // console.log('buffer in lwip', Array.isArray(buffer));
             // console.log('athlete.imgId', athlete.imgId);
             datauri.format('jpg', buffer);
-            // console.log('datauri', datauri.content);
             cloudinary.uploadPhoto(datauri.content, athlete.imgId);
             // fs.writeFileAsync(`../dist/avatars/athlete/${athlete.imgId}.jpg`, buffer);
           })

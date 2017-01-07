@@ -4,6 +4,11 @@ var lwip = promise.promisifyAll(require('lwip'));
 promise.promisifyAll(require('lwip/lib/Image').prototype);
 promise.promisifyAll(require('lwip/lib/Batch').prototype);
 
+const cloudinary = require('../cloudinary-helpers');
+const Datauri = require('datauri');
+
+const datauri = new Datauri();
+
 exports.getTrainer = function(req, res) {
   req.models.trainer.all(function(err, trainers) {
     if (err) {
@@ -94,7 +99,10 @@ exports.postTrainer = function(req, res) {
 
           .then((img) => img.resizeAsync(300, 250))
           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.imgId}.jpg`, buffer))
+          .then((buffer) => {
+            datauri.format('jpg', buffer);
+            cloudinary.uploadPhoto(datauri.content, trainer.imgId);
+          })
           .then(() => res.json(trainer))
           .catch((err) => {
             console.log(err);
