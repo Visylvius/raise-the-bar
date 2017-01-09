@@ -76,7 +76,7 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
     <div className='container-fluid'>
       <div className='image-container' style={baseStyles.profileImageContainer}>
         <div className='image' style={baseStyles.imageContent}>
-          <img src={`/avatars/trainer/${trainer.imgId}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
+          <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${trainer.imgId}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
           <p className='trainer-display-name' style={baseStyles.trainerDisplayName}>{trainer.displayName}</p>
           <p className='trainer-lifting-style' style={baseStyles.trainerLiftingStyle}>{trainer.location}</p>
         </div>

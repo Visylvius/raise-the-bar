@@ -28,7 +28,7 @@ const DisplayTrainers = (props) => {
             subtitle={<span>style <b>{trainer.location}</b></span>}
             actionIcon={<Link to={`trainer/${trainer.id}`}><IconButton><ForwardSymbol color="white" /></IconButton></Link>}
           >
-            <img src={`/avatars/trainer/${trainer.imgId}.jpg`} />
+            <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${trainer.imgId}.jpg`} />
           </GridTile>
         ))}
       </GridList>
