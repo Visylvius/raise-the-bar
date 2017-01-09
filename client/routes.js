@@ -40,12 +40,12 @@ const requireAuth = (nextState, replace) => {
     const firstIndex = hashString.indexOf(idString) + idString.length + 1;
     const lastIndex = hashString.indexOf('&token_type=');
     localStorage.setItem('id_token', hashString.substring(firstIndex, lastIndex));
-    // const loginPromise = new Promise((resolve, reject) => {
-    //   resolve(localStorage.getItem('profile'));
-    // });
-    // if (!loginPromise) {
-    //   console.log('waiting for the resolution');
-    // }
+    const loginPromise = new Promise((resolve, reject) => {
+      resolve(localStorage.getItem('profile'));
+    });
+    if (!loginPromise) {
+      console.log('waiting for the resolution');
+    }
     // auth._doAuthentication(hashString.substring(firstIndex, lastIndex));
     //return promise here
   }
