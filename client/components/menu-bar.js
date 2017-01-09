@@ -228,7 +228,7 @@ class MenuBar extends React.Component {
                 />
 
                 <RaisedButton
-                  onClick={() => { this.createTrainer() }}
+                  onTouchTap={() => { this.createTrainer() }}
                   style={{marginRight: '5px'}}
                   label='Create Trainer'
                   labelColor='white'
