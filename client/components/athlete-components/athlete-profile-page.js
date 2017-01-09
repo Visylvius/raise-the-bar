@@ -96,7 +96,7 @@ export const getGymPhotoUrl = (photoReference) =>
 
     <div className='image-container' style={baseStyles.profileImageContainer}>
       <div className='image' style={baseStyles.imageContent}>
-        <img src={`/avatars/athlete/${athlete.imgId}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
+        <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} className='user-avatar' style={baseStyles.profileImage}/>
         <p className='athlete-display-name' style={baseStyles.athleteDisplayName}>{athlete.displayName}</p>
         <p className='athlete-lifting-style' style={baseStyles.athleteLiftingStyle}>{athlete.liftingStyle}</p>
       </div>

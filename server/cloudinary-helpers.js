@@ -13,7 +13,12 @@ cloudinary.config({
 });
 
 exports.uploadPhoto = (imgBuffer, imgId) => {
-  cloudinary.v2.uploader.upload(imgBuffer, {publicId: imgId}, (result) => {
+  console.log('imgId', imgId);
+  cloudinary.v2.uploader.upload(imgBuffer, {public_id: imgId}, (result) => {
     console.log('result', result);
   });
 };
+
+// cloudinary.v2.uploader.upload(imgBuffer, {publicId: imgId}, (result) => {
+//   console.log('result', result);
+// });

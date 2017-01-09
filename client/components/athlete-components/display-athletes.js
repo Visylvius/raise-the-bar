@@ -40,7 +40,7 @@ const DisplayAthletes = ({athletes}) => {
             subtitle={<span>style <b>{athlete.liftingStyle}</b></span>}
             actionIcon={<Link to={`athlete/${athlete.id}`}><IconButton><ForwardSymbol color="white" /></IconButton></Link>}
           >
-            <img src={`/avatars/athlete/${athlete.imgId}.jpg`} />
+            <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} />
           </GridTile>
         ))}
       </GridList>
