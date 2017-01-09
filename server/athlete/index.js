@@ -192,7 +192,10 @@ exports.updateAthlete = function(req, res) {
 
                           .then((img) => img.resizeAsync(300, 250))
                           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-                          .then((buffer) => fs.writeFileAsync(`../dist/avatars/athlete/${athlete.imgId}.jpg`, buffer))
+                          .then((buffer) => {
+                            datauri.format('jpg', buffer);
+                            cloudinary.uploadPhoto(datauri.content, athlete.imgId);
+                          })
                           .then(() => res.json(athlete))
                           .catch((err) => {
                             console.log(err);
@@ -229,7 +232,10 @@ exports.updateAthlete = function(req, res) {
 
                       .then((img) => img.resizeAsync(300, 250))
                       .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-                      .then((buffer) => fs.writeFileAsync(`../dist/avatars/athlete/${athlete.imgId}.jpg`, buffer))
+                      .then((buffer) => {
+                        datauri.format('jpg', buffer);
+                        cloudinary.uploadPhoto(datauri.content, athlete.imgId);
+                      })
                       .then(() => res.json(athlete))
                       .catch((err) => {
                         console.log(err);

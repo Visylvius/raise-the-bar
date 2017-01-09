@@ -7,9 +7,9 @@ var cloudinary = require('cloudinary');
 // });
 
 cloudinary.config({
-  cloud_name: 
-  api_key: 
-  api_secret: 
+  cloud_name: 'raise-the-bar',
+  api_key: '542361533446431',
+  api_secret: '_h2HI5kaohXFtDILSX6HDTFFkvo'
 });
 
 exports.uploadPhoto = (imgBuffer, imgId) => {

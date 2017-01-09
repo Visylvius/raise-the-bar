@@ -192,7 +192,10 @@ exports.updateTrainer = function(req, res) {
 
                           .then((img) => img.resizeAsync(300, 250))
                           .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-                          .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.imgId}.jpg`, buffer))
+                          .then((buffer) => {
+                            datauri.format('jpg', buffer);
+                            cloudinary.uploadPhoto(datauri.content, trainer.imgId);
+                          })
                           .then(() => res.json(trainer))
                           .catch((err) => {
                             console.log(err);
@@ -228,7 +231,10 @@ exports.updateTrainer = function(req, res) {
 
                       .then((img) => img.resizeAsync(300, 250))
                       .then((img) => img.toBufferAsync('jpg', {quality: 90}))
-                      .then((buffer) => fs.writeFileAsync(`../dist/avatars/trainer/${trainer.imgId}.jpg`, buffer))
+                      .then((buffer) => {
+                        datauri.format('jpg', buffer);
+                        cloudinary.uploadPhoto(datauri.content, trainer.imgId);
+                      })
                       .then(() => res.json(trainer))
                       .catch((err) => {
                         console.log(err);
