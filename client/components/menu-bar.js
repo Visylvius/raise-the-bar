@@ -85,7 +85,7 @@ class MenuBar extends React.Component {
    }
 
    createUserProfile(serverProfile) {
-     if (serverProfile === null) {
+     if (serverProfile === 'not found') {
        store.dispatch({type: OPEN_NEW_USER_MODAL});
      }
    }

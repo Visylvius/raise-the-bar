@@ -8,7 +8,14 @@ class AuthService extends EventEmitter {
     super();
     // Configure Auth0
     // console.log('calling loggedIn', this.loggedIn());
-    this.lock = new Auth0Lock(clientId, domain, {});
+    const auth = {
+      redirectUrl: '',
+      // responseType: 'token',
+      // params: {
+      //   state: JSON.stringify({pathname: window.location.pathname})
+      // }
+    };
+    this.lock = new Auth0Lock(clientId, domain, {auth});
     console.log(this.lock, 'lock');
     console.log('this in authservice', this);
     // Add callback for lock `authenticated` event
@@ -50,12 +57,13 @@ class AuthService extends EventEmitter {
        this.setProfile(profile);
        this._retrieveUserProfile(profile)
         .then((serverProfile) => {
-          if (serverProfile) {
-            console.log('user profile exists');
-          } else {
-            //use this.emit to communicate to outside of the auth service
+          console.log('server profile', serverProfile);
+          if (serverProfile === 'not found') {
             console.log('emitting event', serverProfile);
             this.emit('server-profile-non-existent', serverProfile);
+          } else if (serverProfile) {
+            //use this.emit to communicate to outside of the auth service
+            console.log('user profile exists');
           }
         });
      }
@@ -81,7 +89,7 @@ class AuthService extends EventEmitter {
       .then((result) => {
         if (result.data.type === 'not found') {
           console.log('user was not found');
-          resolve(null);
+          resolve('not found');
         }
         console.log('user exists', result);
         if (result.data.type === 'athlete') {
