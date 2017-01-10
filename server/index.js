@@ -7,6 +7,7 @@ var fs = require('fs');
 var cloudinary = require('cloudinary');
 const path = require('path');
 
+const indexPath = path.dirname(__dirname)
 require('./config/middleware.js')(app, express);
 app.use('/api', routes);
 
@@ -22,7 +23,7 @@ var server = app.listen(port, function() {
 
 app.get('/*', function(req, res) {
   console.log('dirname', __dirname);
-  res.sendFile('../../dist/index.html');
+  res.sendFile(path.join(indexPath, 'dist/index.html'));
 });
 
 module.exports = app;
