@@ -5,6 +5,7 @@ var port = process.env.PORT || 4000;
 var routes = require('./routes');
 var fs = require('fs');
 var cloudinary = require('cloudinary');
+const path = require('path');
 
 require('./config/middleware.js')(app, express);
 app.use('/api', routes);
@@ -19,7 +20,8 @@ var server = app.listen(port, function() {
   console.log('server is listening on ' + port);
 });
 
-app.get('*', function(req, res) {
+app.get('/*', function(req, res) {
+  console.log('dirname', __dirname);
   res.send(fs.readFileSync('../dist/index.html', 'utf-8'));
 });
 
