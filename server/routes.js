@@ -8,6 +8,7 @@ var Router = require('express').Router;
 
 module.exports = new Router()
   .get('/athlete', athleteHandler.getAthlete)
+  .get('/findathletes', athleteHandler.getAthlete)
   .post('/athlete', athleteHandler.postAthlete)
   .get('/athlete/:id', athleteHandler.getIndividualAthlete)
   .get('/athlete/gyms/:email', athleteHandler.showAthleteGyms)
