@@ -8,8 +8,10 @@ class AuthService extends EventEmitter {
     super();
     // Configure Auth0
     // console.log('calling loggedIn', this.loggedIn());
+    const redirectUrl = window.location.origin + '/findathletes';
     const auth = {
-      redirectUrl: '',
+      redirectUrl,
+      responseType: 'token',
       // responseType: 'token',
       // params: {
       //   state: JSON.stringify({pathname: window.location.pathname})
