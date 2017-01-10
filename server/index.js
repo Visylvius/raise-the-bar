@@ -19,4 +19,8 @@ var server = app.listen(port, function() {
   console.log('server is listening on ' + port);
 });
 
+app.get('*', function(req, res) {
+  res.send(fs.readFileSync('../dist/index.html', 'utf-8'));
+});
+
 module.exports = app;
