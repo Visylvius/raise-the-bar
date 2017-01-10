@@ -22,7 +22,7 @@ var server = app.listen(port, function() {
 
 app.get('/*', function(req, res) {
   console.log('dirname', __dirname);
-  res.send(fs.readFileSync('../../client/dist/index.html', 'utf-8'));
+  res.sendFile('../../dist/index.html');
 });
 
 module.exports = app;
