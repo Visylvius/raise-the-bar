@@ -15,37 +15,31 @@ const DisplayAthletes = ({athletes}) => {
   }
 
   const styles = {
-    root: {
+    gridList: {
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'space-around',
     },
-    gridList: {
-      width: 900,
-      height: 800,
-      overflowY: 'auto',
-    },
   };
 
   return (
-    <div style={styles.root}>
-      <GridList
-        cellHeight={250}
-        style={styles.gridList}
-      >
-        {athletes.map((athlete) => (
-          <GridTile
-            key={athlete.id}
-            title={athlete.displayName}
-            subtitle={<span>style <b>{athlete.liftingStyle}</b></span>}
-            actionIcon={<Link to={`athlete/${athlete.id}`}><IconButton><ForwardSymbol color="white" /></IconButton></Link>}
-            style={{margin: 5}}
-          >
-            <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} />
-          </GridTile>
-        ))}
-      </GridList>
-    </div>
+    <GridList
+      cellHeight={250}
+      className='grid-list'
+      style={styles.gridList}
+    >
+      {athletes.map((athlete) => (
+        <GridTile
+          key={athlete.id}
+          title={athlete.displayName}
+          subtitle={<span>style <b>{athlete.liftingStyle}</b></span>}
+          actionIcon={<Link to={`athlete/${athlete.id}`}><IconButton><ForwardSymbol color="white" /></IconButton></Link>}
+          style={{margin: 5}}
+        >
+          <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} />
+        </GridTile>
+      ))}
+    </GridList>
   );
 };
 

@@ -16,7 +16,6 @@ const DisplayTrainers = (props) => {
   }
 
   return (
-    <div style={styles.root}>
       <GridList
         cellHeight={250}
         style={styles.gridList}
@@ -32,21 +31,15 @@ const DisplayTrainers = (props) => {
           </GridTile>
         ))}
       </GridList>
-    </div>
   );
 };
 
 
 const styles = {
-  root: {
+  gridList: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-  },
-  gridList: {
-    width: 500,
-    height: 450,
-    overflowY: 'auto',
   },
 };
 
