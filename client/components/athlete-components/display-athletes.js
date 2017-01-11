@@ -21,8 +21,8 @@ const DisplayAthletes = ({athletes}) => {
       justifyContent: 'space-around',
     },
     gridList: {
-      width: 500,
-      height: 450,
+      width: 900,
+      height: 800,
       overflowY: 'auto',
     },
   };
@@ -39,6 +39,7 @@ const DisplayAthletes = ({athletes}) => {
             title={athlete.displayName}
             subtitle={<span>style <b>{athlete.liftingStyle}</b></span>}
             actionIcon={<Link to={`athlete/${athlete.id}`}><IconButton><ForwardSymbol color="white" /></IconButton></Link>}
+            style={{margin: 5}}
           >
             <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} />
           </GridTile>

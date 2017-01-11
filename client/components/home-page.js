@@ -8,8 +8,13 @@ const baseStyles = {
     zIndex: 0,
     textAlign: 'center',
     color: '#FFF',
-    paddingTop: '290px',
-    paddingRight: '120px'
+    display: 'table',
+    width: '100%'
+  },
+  pageContent: {
+    display: 'table-cell',
+    textAlign: 'center',
+    verticalAlign: 'middle'
   },
   buttons: {
     textAlign: 'center',
@@ -22,24 +27,26 @@ const baseStyles = {
 };
 const HomePage = () => {
   return (
-      <div style={[baseStyles.boxOpacity, baseStyles.mainInput]}>
-        <h3 type='text'>Raise The Bar</h3>
-          <div style={baseStyles.buttons}>
-            <Link to='/findathletes'>
+      <div className='home-page-wrapper' style={[baseStyles.boxOpacity, baseStyles.mainInput]}>
+        <div className='home-page-content' style={baseStyles.pageContent}>
+          <h3 type='text'>Raise The Bar</h3>
+            <div style={baseStyles.buttons}>
+              <Link to='/findathletes'>
+                <RaisedButton
+                  label='Find Athletes'
+                  labelColor='#0A96F1'
+                  style={{marginRight: '7px'}}
+                />
+              </Link>
+              <Link to='/findtrainers'>
               <RaisedButton
-                label='Find Athletes'
+                label='Find Trainers'
                 labelColor='#0A96F1'
                 style={{marginRight: '7px'}}
               />
-            </Link>
-            <Link to='/findtrainers'>
-            <RaisedButton
-              label='Find Trainers'
-              labelColor='#0A96F1'
-              style={{marginRight: '7px'}}
-            />
-            </Link>
-          </div>
+              </Link>
+            </div>
+        </div>
       </div>
   );
 };
