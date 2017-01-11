@@ -32,6 +32,75 @@
      max-width: 100%;
      background-color: rgba(255, 0, 0, 0.5);
    }
+   @media only screen
+     and (min-device-width: 320px)
+     and (max-device-width: 568px)
+     and (-webkit-min-device-pixel-ratio: 2) {
+       body {
+         width: 100%;
+         margin: 0 auto;
+       }
+       *, *:before, *:after {
+         box-sizing: inherit;
+       }
+       body.homePage {
+         background-image: url('./images/homepage-1.jpeg');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: 50% 50%;
+         height: 100%;
+         max-width: 100%;
+         background-color: rgba(255, 0, 0, 0.5);
+       }
+   }
+
+   /* Portrait */
+   @media only screen
+     and (min-device-width: 320px)
+     and (max-device-width: 568px)
+     and (-webkit-min-device-pixel-ratio: 2)
+     and (orientation: portrait) {
+       body {
+         width: 100%;
+         margin: 0 auto;
+       }
+       *, *:before, *:after {
+         box-sizing: inherit;
+       }
+       body.homePage {
+         background-image: url('./images/homepage-1.jpeg');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: 50% 50%;
+         height: 100%;
+         max-width: 100%;
+         background-color: rgba(255, 0, 0, 0.5);
+       }
+   }
+
+   /* Landscape */
+   @media only screen
+     and (min-device-width: 320px)
+     and (max-device-width: 568px)
+     and (-webkit-min-device-pixel-ratio: 2)
+     and (orientation: landscape) {
+       body {
+         width: 100%;
+         margin: 0 auto;
+       }
+       *, *:before, *:after {
+         box-sizing: inherit;
+       }
+       body.homePage {
+         background-image: url('./images/homepage-1.jpeg');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: 50% 50%;
+         height: 100%;
+         max-width: 100%;
+         background-color: rgba(255, 0, 0, 0.5);
+       }
+   }
   </style>
   </head>
   <body>
