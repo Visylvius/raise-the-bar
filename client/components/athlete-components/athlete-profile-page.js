@@ -39,6 +39,7 @@ export const getGymPhotoUrl = (photoReference) =>
 
 
   const AthleteProfile = ({athlete, gyms, routeParams}, props) => {
+    console.log('athlete', athlete);
     if (athlete === null) {
       return null;
     }
