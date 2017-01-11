@@ -69,7 +69,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cp client/index.html dist && webpack --config webpack.production.config.js",
+    "build": "webpack --config webpack.production.config.js",
     "start": "node ./server/index.js",
     "postinstall": "npm run build"
   },
