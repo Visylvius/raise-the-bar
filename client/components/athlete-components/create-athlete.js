@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -19,10 +19,13 @@ const CreateAthlete = ({fields: {
   cardDescription,
   avatar,
   bio
-}, handleSubmit, makeAthlete, changeAvatar, cropImage, crop}, { router }) => {
+}, handleSubmit, makeAthlete, changeAvatar, cropImage, crop, router}, context) => {
   const onSubmit = (attributes) => {
     localStorage.setItem('type', JSON.stringify({type: 'athlete'}));
-    makeAthlete(attributes);
+    makeAthlete(attributes)
+      .then(() => {
+        context.router.push('/findathletes');
+      })
   };
   const onAvatarBlur = (event) => {
     changeAvatar('CreateAthlete', 'avatar', event.target.files);
@@ -34,7 +37,7 @@ const CreateAthlete = ({fields: {
   if (avatar.value) {
     cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={Object.assign({aspect: 1.2}, crop)}/>;
   }
-
+  console.log('router', context.router);
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='athleteForm'>
       {makeInput(displayName, 'textArea', 'Display Name')}
@@ -61,6 +64,10 @@ const CreateAthlete = ({fields: {
 const mapDispatchToProps = (dispatch) => bindActionCreators({makeAthlete, changeAvatar, cropImage}, dispatch);
 
 const mapStateToProps = (state) => { crop: state.crop };
+
+CreateAthlete.contextTypes = {
+  router: PropTypes.object
+};
 
 export default reduxForm({
   form: 'CreateAthlete',

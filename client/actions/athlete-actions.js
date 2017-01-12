@@ -19,12 +19,13 @@ export const makeAthlete = (attributes) => {
         length: 60,
         charset: 'hex'
       });
-    const request = axios.post('/api/athlete', Object.assign({email}, {imgId: userImgId}, attributes, {crop: getState().crop}))
-      .then(response => response.data);
-      return {
-        type: CREATE_ATHLETE,
-        payload: request
-      };
+    return axios.post('/api/athlete', Object.assign({email}, {imgId: userImgId}, attributes, {crop: getState().crop}))
+      .then(response => {
+        dispatch({
+          type: CREATE_ATHLETE,
+          payload: response.data
+        });  
+      });
   };
 };
 

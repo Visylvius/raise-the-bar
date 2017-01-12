@@ -54,6 +54,7 @@ const UpdateAthlete = ({fields: {
     cropElement = <ReactCrop src={avatar.value} onComplete={onAvatarComplete} crop={Object.assign({aspect: 1.2}, crop)}/>;
   }
   console.log(crop);
+  console.log('router', context.router);
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)} id='updateAthleteForm'>
       {makeInput(displayName, 'smallTextArea', 'Display Name')}
