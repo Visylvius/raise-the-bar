@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
@@ -17,10 +17,13 @@ const CreateTrainer = ({fields: {
   price,
   phoneNumber,
   avatar
-}, handleSubmit, makeTrainer, changeAvatar, cropImage, crop}, { router }) => {
+}, handleSubmit, makeTrainer, changeAvatar, cropImage, crop, router}, context) => {
   const onSubmit = (attributes) => {
     localStorage.setItem('type', JSON.stringify({type: 'trainer'}));
-    makeTrainer(attributes);
+    makeTrainer(attributes)
+      .then(() => {
+        context.router.push('/findtrainers');
+      })
   };
   const onAvatarBlur = (event) => {
     changeAvatar('CreateTrainer', 'avatar', event.target.files);
@@ -65,6 +68,10 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return { crop: state.crop};
+};
+
+CreateTrainer.contextTypes = {
+  router: PropTypes.object
 };
 
 export default reduxForm({

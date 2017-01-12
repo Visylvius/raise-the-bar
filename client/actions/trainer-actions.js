@@ -17,12 +17,13 @@ export const makeTrainer = (attributes) => {
         length: 60,
         charset: 'hex'
       });
-    const request = axios.post('/api/trainer', Object.assign({email}, {imgId: userImgId}, attributes, {crop: getState().crop}))
-      .then(response => response.data);
-    return {
-      type: CREATE_TRAINER,
-      payload: request
-    };
+    return axios.post('/api/trainer', Object.assign({email}, {imgId: userImgId}, attributes, {crop: getState().crop}))
+      .then(response => {
+        dispatch({
+          type: CREATE_TRAINER,
+          payload: response.data
+        });
+      });
   };
 };
 

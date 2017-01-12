@@ -253,7 +253,7 @@ exports.updateTrainer = function(req, res) {
 
 exports.showTrainerGyms = function(req, res) {
   const userId = req.params.id;
-  req.models.trainer.one({email: userId}, function(err, trainer) {
+  req.models.trainer.one({id: userId}, function(err, trainer) {
     if (err) {
       return res.sendStatus(500).json({err: err});
     } else {

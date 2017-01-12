@@ -9,6 +9,12 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+cloudinary.config({
+  cloud_name: 'raise-the-bar',
+  api_key: '542361533446431',
+  api_secret: '_h2HI5kaohXFtDILSX6HDTFFkvo'
+});
+
 exports.uploadPhoto = (imgBuffer, imgId) => {
   console.log('imgId', imgId);
   cloudinary.v2.uploader.upload(imgBuffer, {public_id: imgId}, (result) => {
