@@ -21,7 +21,7 @@ const GymList = ( { listOfGyms } ) => {
   console.log(listOfGyms);
 
   return (
-    <div style={styles.root}>
+    <div style={{marginTop: '35px'}}>
       <GridList
         cellHeight={300}
         style={styles.gridList}
@@ -40,22 +40,19 @@ const GymList = ( { listOfGyms } ) => {
         </GridTile>
         ))}
       </GridList>
-  </div>
+    </div>
   );
 };
 
 
 const styles = {
-  root: {
+  // root: {
+  //
+  // },
+  gridList: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-  },
-  gridList: {
-    width: 600,
-    height: 550,
-    overflowY: 'auto',
-    marginTop: '12px'
   },
 };
 

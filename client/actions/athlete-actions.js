@@ -116,9 +116,8 @@ export const updateAthlete = (attributes, id) => {
   };
 };
 
-export const displayAthleteGyms = (profile) => {
-  const { email } = profile;
-  const request = axios.get(`/api/athlete/gyms/${email}`)
+export const displayAthleteGyms = (id) => {
+  const request = axios.get(`/api/athlete/gyms/${id}`)
     .then((response) => response.data)
   return {
     type: DISPLAY_ATHLETE_GYMS,

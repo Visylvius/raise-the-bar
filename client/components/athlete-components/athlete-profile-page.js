@@ -89,7 +89,7 @@ export const getGymPhotoUrl = (photoReference) =>
   };
 
   const fetchUserGyms = () => {
-    store.dispatch(displayAthleteGyms(JSON.parse(localStorage.getItem('profile'))));
+    store.dispatch(displayAthleteGyms(routeParams.id));
   };
 
  return (

@@ -254,8 +254,8 @@ exports.updateAthlete = function(req, res) {
 
 
 exports.showAthleteGyms = function(req, res) {
-  const userEmail = req.params.email;
-  req.models.athlete.one({email: userEmail}, function(err, athlete) {
+  const userId = req.params.id
+  req.models.athlete.one({id: userId}, function(err, athlete) {
     if (err) {
       return res.sendStatus(500).json({err: err});
     } else {

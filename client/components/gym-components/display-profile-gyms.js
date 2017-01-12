@@ -42,7 +42,7 @@ const DisplayProfileGyms = (props) => {
       {/*You don't have a gym yet, why not select one?*/}
       {console.log('props', props)}
       {console.log('props.gyms', props.gyms)}
-      { props.gyms.loaded ?
+      { props.gyms.loaded && props.gyms.userGyms.length > 0 ?
         <div className='gym-card-container'>
           {props.gyms.userGyms.map((result, index) => {
             console.log('result id', typeof result.id);
@@ -138,7 +138,12 @@ const DisplayProfileGyms = (props) => {
             );
           })}
         </div>
-        : <div>Gyms are loading</div>}
+        :
+        <Card>
+          <CardHeader
+            title="This User Hasn't selected any gyms yet"
+          />
+        </Card>}
         {console.log('props', props)}
         { props.gyms.deleteGymModal ? showDeleteGymModal() : null }
     </div>
