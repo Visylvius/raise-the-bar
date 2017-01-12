@@ -25,7 +25,6 @@ import DisplayTrainer from './components/trainer-components/display-trainer';
 import UpdateTrainer from './components/trainer-components/update-trainer';
 import HomePage from './components/home-page';
 import MenuBar from './components/menu-bar';
-import stuff from './stuff';
 import MainLayout from './components/main-layout';
 import Inbox from './components/inbox-components/inbox';
 import SendMessage from './components/inbox-components/send-message';
@@ -107,7 +106,6 @@ export default (
       {/* <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} /> */}
       <Route component={MenuBar}>
         <Route path='createathlete' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateAthlete} />
-        <Route path='stuff' component={stuff} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />
         <Route path='athlete/gyms/:email' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthleteGyms(JSON.parse(localStorage.getItem('profile')))} component={DisplayUserGyms} />
