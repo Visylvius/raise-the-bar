@@ -70,9 +70,8 @@ export const updateTrainer = (attributes, id) => {
   };
 };
 
-export const displayTrainerGyms = (profile) => {
-  const { email } = profile;
-  const request = axios.get(`/api/trainer/gyms/${email}`)
+export const displayTrainerGyms = (id) => {
+  const request = axios.get(`/api/trainer/gyms/${id}`)
     .then((response) => response.data)
   return {
     type: DISPLAY_TRAINER_GYMS,

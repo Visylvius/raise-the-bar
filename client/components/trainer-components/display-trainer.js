@@ -43,7 +43,7 @@ const DisplayTrainer = ({trainer, gyms, routeParams}) => {
   console.log(trainer);
 
   const fetchUserGyms = () => {
-    store.dispatch(displayTrainerGyms(JSON.parse(localStorage.getItem('profile'))));
+    store.dispatch(displayTrainerGyms(routeParams.id));
   };
 
 
