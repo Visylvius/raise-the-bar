@@ -5,9 +5,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
-import BackIcon from 'material-ui/svg-icons/image/navigate-before';
 
-import { toggleGymToActive, deleteGym, SHOW_DELETE_GYM_MODAL, HIDE_DELETE_GYM_MODAL } from '../../actions/gyms-actions';
+
+import { toggleGymToActive, deleteGym, SHOW_DELETE_GYM_MODAL, HIDE_DELETE_GYM_MODAL, CLOSE_DELETE_GYM_MODAL } from '../../actions/gyms-actions';
 import store from '../../reducers/index';
 
 const DisplayProfileGyms = ({gyms, userData, userType, getGymPhotoUrl, isUserAtTheGym, setGymToActive, router}, context) => {
@@ -21,18 +21,28 @@ const DisplayProfileGyms = ({gyms, userData, userType, getGymPhotoUrl, isUserAtT
         <ModalDialog>
           <p>Are you sure you want to delete this gym?</p>
           <p>This action cannot be undone.</p>
-          <RaisedButton
-            onTouchTap={() => {
-              console.log('gyms', gyms);
-              store.dispatch({type: HIDE_DELETE_GYM_MODAL, gymId: gyms.gymId, userGyms: gyms.userGyms});
-              store.dispatch(deleteGym(gyms.gymId, email, type));
-            }}
-          >
-          Confirm
-          </RaisedButton>
-          <RaisedButton>
-            Cancel
-          </RaisedButton>
+          <div style={{textAlign: 'center'}}>
+            <RaisedButton
+              style={{margin: '5px'}}
+              primary={true}
+              onTouchTap={() => {
+                console.log('gyms', gyms);
+                store.dispatch({type: HIDE_DELETE_GYM_MODAL, gymId: gyms.gymId, userGyms: gyms.userGyms});
+                store.dispatch(deleteGym(gyms.gymId, email, type));
+              }}
+            >
+            Confirm
+            </RaisedButton>
+            <RaisedButton
+              style={{margin: '5px'}}
+              primary={true}
+              onTouchTap={() => {
+                store.dispatch({type: CLOSE_DELETE_GYM_MODAL})
+              }}
+            >
+              Cancel
+            </RaisedButton>
+          </div>
         </ModalDialog>
       </ModalContainer>
     )

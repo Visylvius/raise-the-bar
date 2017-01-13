@@ -8,6 +8,7 @@ export const HIDE_SNACKBAR = 'HIDE_SNACKBAR';
 export const DELETE_GYM = 'DELETE_GYM';
 export const SHOW_DELETE_GYM_MODAL = 'SHOW_DELETE_GYM_MODAL';
 export const HIDE_DELETE_GYM_MODAL = 'HIDE_DELETE_GYM_MODAL';
+export const CLOSE_DELETE_GYM_MODAL = 'CLOSE_DELETE_GYM_MODAL';
 
 export const fetchGyms = (address, distance) => {
   const axiosPromise = axios.post('/api/gym', {address, distance})

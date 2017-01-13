@@ -1,5 +1,5 @@
 import { DISPLAY_ATHLETE_GYMS } from '../actions/athlete-actions';
-import { DELETE_GYM, SHOW_DELETE_GYM_MODAL, HIDE_DELETE_GYM_MODAL } from '../actions/gyms-actions';
+import { DELETE_GYM, SHOW_DELETE_GYM_MODAL, HIDE_DELETE_GYM_MODAL, CLOSE_DELETE_GYM_MODAL } from '../actions/gyms-actions';
 
 const initialState = {
   userGyms: null,
@@ -29,6 +29,8 @@ export const displayAthleteGymsReducer = (state=initialState, action) => {
       return Object.assign({}, state, {deleteGymModal: true, gymId: action.gymId});
     case HIDE_DELETE_GYM_MODAL:
       return Object.assign({}, state, { userGyms: action.userGyms.filter((gym) => gym.id !== action.gymId) });
+    case CLOSE_DELETE_GYM_MODAL:
+      return Object.assign({}, state, {deleteGymModal: false});
     case `${DELETE_GYM}_PENDING`:
       return state;
     case `${DELETE_GYM}_FULFILLED`:

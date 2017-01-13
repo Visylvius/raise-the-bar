@@ -260,7 +260,7 @@ const baseStyles = {
   // },
   profileImage: {
     borderRadius: '5px',
-    height: '150px'
+    objectFit: 'fill'
   },
   imageContent: {
     display: 'table-cell',
@@ -287,8 +287,8 @@ const baseStyles = {
   imageContainer: {
     marginTop: '15px',
     marginLeft: '18px',
-    height: '150px',
-    width: '200px',
+    // height: '150px',
+    // width: '200px',
     borderRadius: '5px'
   },
   athleteName: {
