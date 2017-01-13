@@ -1,24 +1,27 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Badge from 'material-ui/Badge';
+import IconButton from 'material-ui/IconButton';
+import BackIcon from 'material-ui/svg-icons/image/navigate-before';
 
 import { saveGym, HIDE_SNACKBAR } from '../../actions/gyms-actions';
 import store from '../../reducers';
 
-const DisplayGym = (props) => {
-  if (props.gym === null) {
+const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
+  if (gym === null) {
     return null;
   }
-  console.log('props.gym', props);
-  const saveGym = () => {
+  // console.log('gym', props);
+  const saveUserGym = () => {
     const userProfile = JSON.parse(localStorage.getItem('profile'));
     const { email } = userProfile;
-      console.log('props.gym', props.gym.result);
-      props.saveGym(props.gym.result.place_id, email, props.gym.result);
-      console.log('props.savedGym', props.savedGym);
+      console.log('gym', gym.result);
+      saveGym(gym.result.place_id, email, gym.result);
+      console.log('savedGym', savedGym);
   };
   const getGymPhotoUrl = (photoReference) =>
      'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' +
@@ -27,34 +30,52 @@ const DisplayGym = (props) => {
 
   const hideSnackBar = () => store.dispatch({type: HIDE_SNACKBAR});
 
-  console.log('props.gym', props.gym);
-  console.log('props', props);
+  console.log('gym', gym);
+  // console.log('props', props);
+  console.log('router', context.router);
   return (
   <div>
     <Card>
+      <CardHeader
+        avatar={
+          <Badge
+            primary={true}
+            onTouchTap={() => context.router.goBack()}
+            badgeContent={
+              <IconButton
+                tooltip="Go Back"
+                className='back-button'
+
+              >
+                <BackIcon />
+              </IconButton>
+            }
+          />
+        }
+      />
       <CardMedia
-        overlay={<CardTitle title={props.gym.result.name} subtitle={props.gym.result.formatted_address} />}
+        overlay={<CardTitle title={gym.result.name} subtitle={gym.result.formatted_address} />}
       >
-      { props.gym.result.photos && props.gym.result.photos[0] ? <img src={getGymPhotoUrl(props.gym.result.photos[0].photo_reference)} />
+      { gym.result.photos && gym.result.photos[0] ? <img src={getGymPhotoUrl(gym.result.photos[0].photo_reference)} />
         : <img src='http://placekitten.com/300/200' />
       }
       </CardMedia>
-      {props.gym.result.opening_hours !== undefined
+      {gym.result.opening_hours !== undefined
         ? <CardHeader
             title="Daily Hours"
-            subtitle={<span>Phone Number <b>{props.gym.result.formatted_phone_number}</b></span>}
+            subtitle={<span>Phone Number <b>{gym.result.formatted_phone_number}</b></span>}
             actAsExpander={true}
             showExpandableButton={true}
         />
         : <CardHeader
-            subtitle={<span>Phone Number <b>{props.gym.result.formatted_phone_number}</b></span>}
+            subtitle={<span>Phone Number <b>{gym.result.formatted_phone_number}</b></span>}
         />
       }
 
-      {console.log('props line 48', props.gym)}
-      {props.gym.result.opening_hours !== undefined
+      {console.log('props line 48', gym)}
+      {gym.result.opening_hours !== undefined
         ? <CardText expandable={true}>
-          {props.gym.result.opening_hours.weekday_text.map((hours) => {
+          {gym.result.opening_hours.weekday_text.map((hours) => {
             return (
               <div
                 key={hours}
@@ -74,15 +95,15 @@ const DisplayGym = (props) => {
           style={{textAlign: 'center'}}
         >
           <RaisedButton
-            key={props.gym.result.place_id}
+            key={gym.result.place_id}
             label='Save this Gym'
             primary={true}
-            onTouchTap={() => saveGym()}
+            onTouchTap={() => saveUserGym()}
             >
           </RaisedButton>
-          { props.savedGym.snackBarShowing ?
+          { savedGym.snackBarShowing ?
             <Snackbar
-             open={props.savedGym.snackBarShowing}
+             open={savedGym.snackBarShowing}
              message="Gym was successfully saved"
              autoHideDuration={4000}
              style={{backgroundColor: '#262626', width: '40%', margin: 'auto'}}
@@ -92,7 +113,7 @@ const DisplayGym = (props) => {
             : null }
         </div>
       </CardActions>
-      { props.savedGym.snackBarShowing ? console.log('its true') : console.log('nothing happened')}
+      { savedGym.snackBarShowing ? console.log('its true') : console.log('nothing happened')}
     </Card>
   </div>
   );
@@ -106,6 +127,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({saveGym}, dispatch);
+};
+
+DisplayGym.contextTypes = {
+  router: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DisplayGym);

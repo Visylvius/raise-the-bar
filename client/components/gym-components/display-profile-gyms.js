@@ -1,20 +1,20 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Card, CardActions, CardHeader, CardTitle, CardText, CardMedia} from 'material-ui/Card';
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
+import BackIcon from 'material-ui/svg-icons/image/navigate-before';
 
 import { toggleGymToActive, deleteGym, SHOW_DELETE_GYM_MODAL, HIDE_DELETE_GYM_MODAL } from '../../actions/gyms-actions';
 import store from '../../reducers/index';
 
-const DisplayProfileGyms = (props) => {
+const DisplayProfileGyms = ({gyms, userData, userType, getGymPhotoUrl, isUserAtTheGym, setGymToActive, router}, context) => {
   const userProfile = JSON.parse(localStorage.getItem('profile'));
-  const userType = JSON.parse(localStorage.getItem('type'));
-  const { type } = userType;
+  const profileType = JSON.parse(localStorage.getItem('type'));
+  const { type } = profileType;
   const { email } = userProfile;
-
   const showDeleteGymModal = () => {
     return (
       <ModalContainer>
@@ -23,9 +23,9 @@ const DisplayProfileGyms = (props) => {
           <p>This action cannot be undone.</p>
           <RaisedButton
             onTouchTap={() => {
-              console.log('props.gyms', props.gyms);
-              store.dispatch({type: HIDE_DELETE_GYM_MODAL, gymId: props.gyms.gymId, userGyms: props.gyms.userGyms});
-              store.dispatch(deleteGym(props.gyms.gymId, email, type));
+              console.log('gyms', gyms);
+              store.dispatch({type: HIDE_DELETE_GYM_MODAL, gymId: gyms.gymId, userGyms: gyms.userGyms});
+              store.dispatch(deleteGym(gyms.gymId, email, type));
             }}
           >
           Confirm
@@ -37,26 +37,27 @@ const DisplayProfileGyms = (props) => {
       </ModalContainer>
     )
   }
+  console.log('router context', context.router);
   return (
     <div>
       {/*You don't have a gym yet, why not select one?*/}
-      {console.log('props', props)}
-      {console.log('props.gyms', props.gyms)}
-      { props.gyms.loaded && props.gyms.userGyms.length > 0 ?
+      {/* {console.log('props', props)} */}
+      {console.log('gyms', gyms)}
+      { gyms.loaded && gyms.userGyms.length > 0 ?
         <div className='gym-card-container'>
-          {props.gyms.userGyms.map((result, index) => {
+          {gyms.userGyms.map((result, index) => {
             console.log('result id', typeof result.id);
-            const gymPhoto = props.getGymPhotoUrl(result.imgId);
+            const gymPhoto = getGymPhotoUrl(result.imgId);
             return (
               <Card>
-              {console.log('getGymPhoto', props.getGymPhotoUrl(result.imgId))}
+              {console.log('getGymPhoto', getGymPhotoUrl(result.imgId))}
                 <CardMedia
                   overlay={
                       <CardTitle
                         title={result.name}
                         subtitle={result.address}
                       >
-                      {props.userData.email === email && props.userType === type
+                      {userData.email === email && userType === type
                         ? <Badge
                             className='delete-gym'
                             onTouchTap={() =>
@@ -79,7 +80,7 @@ const DisplayProfileGyms = (props) => {
                 >
                 {/* {console.log('imgId', result.imgId)} */}
                 { result.imgId && result.imdId !== null ?
-                  <img src={props.getGymPhotoUrl(result.imgId)} />
+                  <img src={getGymPhotoUrl(result.imgId)} />
                   : <img src='http://placekitten.com/g/300/200' />
                 }
 
@@ -106,7 +107,7 @@ const DisplayProfileGyms = (props) => {
                   : null
                 }
                 <CardActions>
-                  {props.userData.email === email && props.userType === type
+                  {userData.email === email && userType === type
                     ?
                     <RaisedButton
                       label='Currently at the gym'
@@ -114,13 +115,13 @@ const DisplayProfileGyms = (props) => {
                       primary={true}
                       className={`button-${index}`}
                       onTouchTap={() => {
-                        props.setGymToActive(result.placeId, JSON.parse(localStorage.getItem('profile')));
+                        setGymToActive(result.placeId, JSON.parse(localStorage.getItem('profile')));
                         store.dispatch({type: 'TOGGLE_ACTIVE_LOCAL', placeId: result.placeId });
                       }}
                     />
                     : null
                   }
-                  { props.isUserAtTheGym(result, props.gyms) ?
+                  { isUserAtTheGym(result, gyms) ?
                     <div
                       style={{
                           color: '#FF9800',
@@ -144,9 +145,14 @@ const DisplayProfileGyms = (props) => {
             title="This User Hasn't selected any gyms yet"
           />
         </Card>}
-        {console.log('props', props)}
-        { props.gyms.deleteGymModal ? showDeleteGymModal() : null }
+        {/* {console.log('props', props)} */}
+        { gyms.deleteGymModal ? showDeleteGymModal() : null }
     </div>
   );
 };
-  export default DisplayProfileGyms;
+
+DisplayProfileGyms.contextTypes = {
+  router: PropTypes.object
+};
+
+export default DisplayProfileGyms;

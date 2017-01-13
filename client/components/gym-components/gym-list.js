@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 
 
 
-const GymList = ( { listOfGyms } ) => {
+const GymList = ( { listOfGyms, router }, context ) => {
   if (listOfGyms === null) {
     return null;
   }
@@ -16,9 +16,6 @@ const GymList = ( { listOfGyms } ) => {
      'https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=' +
       encodeURIComponent(photoReference) +
       '&sensor=true&key=AIzaSyALGeTDHSBu-A1D8FltPiVBlgJZU7Cpmp0'
-
-
-  console.log(listOfGyms);
 
   return (
     <div style={{marginTop: '35px'}}>
