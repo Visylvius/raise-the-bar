@@ -83,7 +83,6 @@ class MenuBar extends React.Component {
            Login
          </MenuItem>
        )
-      //  return <a className='nav-link' href='#' onClick={auth.login.bind(auth)}>Login</a>;
      }
    }
 
@@ -154,18 +153,40 @@ class MenuBar extends React.Component {
     {console.log('props', this.props)}
       <AppBar
         title="Raise The Bar"
-        style={{zIndex: 1}}
+        titleStyle={{
+          fontSize: '60px',
+          textAlign: 'center',
+          marginTop: '35px'
+        }}
+        style={{
+          zIndex: 1,
+          height: '150px'
+        }}
         iconElementLeft={
           <IconButton
             tooltip='Back'
+            iconStyle={{height: '60px', width: '60px'}}
+            style={{height: '120px', width: '120px'}}
             onTouchTap={() => this.context.router.goBack()}
           >
             <BackIcon/>
           </IconButton>
         }
+        iconStyleLeft={{
+          height: '60px'
+        }}
         iconElementRight={
-          <IconButton onTouchTap={() => this.toggleDrawer()}><MenuIcon/></IconButton>
+          <IconButton
+            onTouchTap={() => this.toggleDrawer()}
+            iconStyle={{height: '60px', width: '60px'}}
+            style={{height: '120px', width: '120px'}}
+          >
+            <MenuIcon/>
+          </IconButton>
         }
+        iconStyleRight={{
+          height: '60px'
+        }}
       />
       <Drawer
         open={this.props.isShowingDrawer}
