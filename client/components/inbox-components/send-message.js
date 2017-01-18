@@ -10,7 +10,7 @@ import store from '../../reducers';
 
 const SendMessage = ({fields: {
   body
-}, handleSubmit, sendMessage, router, routeParams, recipientId, recipientType, profileLayout, inboxLayout, inbox}) => {
+}, handleSubmit, sendMessage, router, routeParams, recipientId, recipientType, profileLayout, inboxLayout, inbox, resetForm}) => {
   const onSubmit = (attributes) => {
       console.log('recipientId', recipientId);
       console.log('recipientType', recipientType);
@@ -20,6 +20,7 @@ const SendMessage = ({fields: {
       const { type } = userType;
       const timeSent = Date.now();
       const messageRecipient = `/api/${recipientType}/${recipientId}`;
+      resetForm();
       sendMessage(recipientType, recipientId, messageRecipient, email, attributes, type, timeSent);
     };
     console.log('profileLayout', profileLayout);
