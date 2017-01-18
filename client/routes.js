@@ -13,6 +13,7 @@ import GymSearchInputs from './components/gym-components/gym-search-bar';
 import DisplayGym from './components/gym-components/display-gym';
 import DisplayUserGyms from './components/gym-components/display-user-gyms';
 import Login from './components/login';
+import NavigationPage from './components/navigation-page';
 import AthleteSearch from './containers/AthleteSearch';
 import IndividualAthlete from './containers/IndividualAthlete';
 import CreateAthlete from './components/athlete-components/create-athlete';
@@ -105,6 +106,7 @@ export default (
       />
       {/* <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} /> */}
       <Route component={MenuBar}>
+        <Route path='navigation' component={NavigationPage}/>
         <Route path='createathlete' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
         <Route path='athlete/:id' onEnter={(nextState, replace) => requireAuth(nextState, replace) && fetchBoundAthlete(nextState.params.id)} component={AthleteProfile} />

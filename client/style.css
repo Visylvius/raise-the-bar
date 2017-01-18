@@ -1,0 +1,56 @@
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+[class*='col-'] {
+  float: left;
+}
+
+.grid:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.col-1-2 {
+  width: 50%;
+}
+
+/*Apply fixed padding to the right side of all columns except for the last one*/
+
+[class*='col-'] {
+  padding-right: 20px;
+}
+[class*='col-']:last-of-type {
+  padding-right: 0;
+}
+
+/*Add Outside Gutters */
+
+.grid-pad {
+  padding: 20px 0 20px 20px;
+}
+
+.grid-pad > [class*='col-']:last-of-type {
+  padding-right: 20px;
+}
+
+/*Color and style for modules*/
+
+.module {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/*Background Image*/
+.backgroundImg {
+  background-image: url('https://images.unsplash.com/photo-1474604798931-adf856e1d14b?dpr=2&auto=format&fit=crop&w=767&h=1363&q=80&cs=tinysrgb&crop=');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  height: 100%;
+  max-width: 100%;
+  background-color: rgba(255, 0, 0, 0.5);
+}

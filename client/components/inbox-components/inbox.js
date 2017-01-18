@@ -200,6 +200,7 @@ const Inbox = ({myState}) => {
                 </div>
               </div>
             </li>
+
           );
         })}
       </ul>
