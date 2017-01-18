@@ -34,6 +34,7 @@ class MenuBar extends React.Component {
   constructor(props) {
     super(props);
     console.log('auth', auth);
+    console.log('props in menu bar', props)
     const userType = JSON.parse(localStorage.getItem('type'));
     console.log('userType', userType);
     // if (userType === null) {
@@ -113,8 +114,6 @@ class MenuBar extends React.Component {
    userProfile() {
      const userProfile = JSON.parse(localStorage.getItem('profile'));
      const { email } = userProfile;
-     console.log();
-     console.log('props', this.props);
      this.props.getUser(email)
       .then((user) => {
         if (user.value.type === 'athlete') {
@@ -157,7 +156,10 @@ class MenuBar extends React.Component {
         title="Raise The Bar"
         style={{zIndex: 1}}
         iconElementLeft={
-          <IconButton tooltip='Back'>
+          <IconButton
+            tooltip='Back'
+            onTouchTap={() => this.context.router.goBack()}
+          >
             <BackIcon/>
           </IconButton>
         }

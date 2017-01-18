@@ -36,23 +36,6 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
   return (
   <div>
     <Card>
-      <CardHeader
-        avatar={
-          <Badge
-            primary={true}
-            onTouchTap={() => context.router.goBack()}
-            badgeContent={
-              <IconButton
-                tooltip="Go Back"
-                className='back-button'
-
-              >
-                <BackIcon />
-              </IconButton>
-            }
-          />
-        }
-      />
       <CardMedia
         overlay={<CardTitle title={gym.result.name} subtitle={gym.result.formatted_address} />}
       >
