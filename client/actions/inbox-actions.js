@@ -7,6 +7,8 @@ export const HIDE_MESSAGE_THREAD = 'HIDE_MESSAGE_THREAD';
 export const SHOW_DELETE_MESSAGE_MODAL = 'SHOW_DELETE_MESSAGE_MODAL';
 export const HIDE_DELETE_MESSAGE_MODAL = 'HIDE_DELETE_MESSAGE_MODAL';
 export const CANCEL_DELETE_MESSAGE_MODAL = 'CANCEL_DELETE_MESSAGE_MODAL';
+export const HIDE_SNACKBAR = 'HIDE_SNACKBAR';
+export const SHOW_SNACKBAR = 'SHOW_SNACKBAR';
 
 export const getMessages = (profile, userType) => {
   const { email } = profile;

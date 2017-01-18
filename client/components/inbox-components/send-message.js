@@ -3,8 +3,9 @@ import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import MessageIcon from 'material-ui/svg-icons/content/mail';
+import Snackbar from 'material-ui/Snackbar';
 
-import { sendMessage, HIDE_MESSAGE_THREAD } from '../../actions/inbox-actions';
+import { sendMessage, HIDE_MESSAGE_THREAD, HIDE_SNACKBAR, SHOW_SNACKBAR } from '../../actions/inbox-actions';
 import { makeInput, createValidate } from '../utils/form-utils';
 import store from '../../reducers';
 
@@ -21,17 +22,14 @@ const SendMessage = ({fields: {
       const timeSent = Date.now();
       const messageRecipient = `/api/${recipientType}/${recipientId}`;
       resetForm();
+      store.dispatch({type: SHOW_SNACKBAR})
       sendMessage(recipientType, recipientId, messageRecipient, email, attributes, type, timeSent);
     };
     console.log('profileLayout', profileLayout);
     console.log('inbox', inbox);
-  // const showCloseButton = () => {
-  //   if (inbox.messages !== null) {
-  //     return (
 
-  //     );
-  //   }
-  // };
+    const hideSnackBar = () => store.dispatch({type: HIDE_SNACKBAR});
+
   return (
     <form
       className='form'
@@ -68,6 +66,16 @@ const SendMessage = ({fields: {
                       : null
       }
       </div>
+      { inbox.snackBarShowing ?
+        <Snackbar
+         open={inbox.snackBarShowing}
+         message="Message was successfully sent"
+         autoHideDuration={1500}
+         style={{backgroundColor: '#262626', width: '40%', margin: 'auto'}}
+         bodyStyle={{backgroundColor: '#262626'}}
+         onRequestClose={() => hideSnackBar()}
+        />
+        : null }
     </form>
   );
 };

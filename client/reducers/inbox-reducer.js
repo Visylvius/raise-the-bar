@@ -5,7 +5,9 @@ import {
   SEND_MESSAGE,
   SHOW_DELETE_MESSAGE_MODAL,
   HIDE_DELETE_MESSAGE_MODAL,
-  CANCEL_DELETE_MESSAGE_MODAL
+  CANCEL_DELETE_MESSAGE_MODAL,
+  SHOW_SNACKBAR,
+  HIDE_SNACKBAR
 } from '../actions/inbox-actions';
 
 const initialState = {
@@ -16,6 +18,7 @@ const initialState = {
   modalShowing: false,
   deleteMessageModal: false,
   firstTimeRenderingInbox: true,
+  snackBarShowing: false
 };
 
 export const inboxReducer = (state=initialState, action) => {
@@ -58,6 +61,10 @@ export const inboxReducer = (state=initialState, action) => {
         messageId: null,
         firstTimeRenderingInbox: false
       });
+    case SHOW_SNACKBAR:
+      return Object.assign({}, state, {snackBarShowing: true});
+    case HIDE_SNACKBAR:
+      return Object.assign({}, state, {snackBarShowing: false});
     default:
       return state;
   }

@@ -88,7 +88,7 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
             <Snackbar
              open={savedGym.snackBarShowing}
              message="Gym was successfully saved"
-             autoHideDuration={4000}
+             autoHideDuration={1500}
              style={{backgroundColor: '#262626', width: '40%', margin: 'auto'}}
              bodyStyle={{backgroundColor: '#262626'}}
              onRequestClose={() => hideSnackBar()}
