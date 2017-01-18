@@ -23,6 +23,7 @@ const SendMessage = ({fields: {
       sendMessage(recipientType, recipientId, messageRecipient, email, attributes, type, timeSent);
     };
     console.log('profileLayout', profileLayout);
+    console.log('inbox', inbox);
   // const showCloseButton = () => {
   //   if (inbox.messages !== null) {
   //     return (

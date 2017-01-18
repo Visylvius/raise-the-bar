@@ -3,12 +3,14 @@ import auth from '../AuthService';
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
+import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import MenuItem from 'material-ui/MenuItem';
 import GroupIcon from 'material-ui/svg-icons/social/group';
 import UserProfileIcon from 'material-ui/svg-icons/action/account-circle';
+import BackIcon from 'material-ui/svg-icons/image/navigate-before';
 
 import { EventEmitter } from 'events';
 import { bindActionCreators } from 'redux';
@@ -155,12 +157,17 @@ class MenuBar extends React.Component {
         title="Raise The Bar"
         style={{zIndex: 1}}
         iconElementLeft={
+          <IconButton tooltip='Back'>
+            <BackIcon/>
+          </IconButton>
+        }
+        iconElementRight={
           <IconButton onTouchTap={() => this.toggleDrawer()}><MenuIcon/></IconButton>
         }
       />
       <Drawer
         open={this.props.isShowingDrawer}
-        openSecondary={true}
+        width={400}
         className='Drawer'
       >
        <div
