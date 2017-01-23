@@ -16,50 +16,48 @@ import {
   CLOSE_NEW_USER_MODAL
 } from '../actions/user-actions';
 
+const gridContent = document.querySelectorAll('.col');
+console.log('gridContent', gridContent);
 
 const NavigationPage = (props, context) => {
   const userButton = () => {
      if (localStorage.getItem('id_token')) {
        return (
          <div
-           className="col-1-2"
+           className="col"
            onTouchTap={() => logout()}
          >
            <div className="module">
-              <div className='navigation-content'>
-                <LogoutIcon
-                  style={{
-                      width: '250px',
-                      height: '250px',
-                      color: '#fff'
-                    }}
-                />
-                <p className='navigation-text'>
-                  Logout
-                </p>
-              </div>
+            <LogoutIcon
+              style={{
+                  width: '250px',
+                  height: '250px',
+                  color: '#fff'
+                }}
+            />
+            <p className='navigation-text'>
+              Logout
+            </p>
            </div>
          </div>
        )
      } else {
        return (
          <div
-           className="col-1-2"
+           className="col"
            onTouchTap={() => auth.login()}
          >
            <div className="module">
-              <div className='navigation-content'>
-                <LoginIcon
-                  style={{
-                      width: '250px',
-                      height: '250px',
-                      color: '#fff'
-                    }}
-                />
-                <p className='navigation-text'>
-                  Login
-                </p>
-              </div>
+            <LoginIcon
+              style={{
+                  width: '250px',
+                  height: '250px',
+                  color: '#fff'
+                }}
+            />
+            <p className='navigation-text'>
+              Login
+            </p>
            </div>
          </div>
        )
@@ -91,100 +89,95 @@ const NavigationPage = (props, context) => {
 
   return (
     <div className='backgroundImg'>
-      <div className="grid grid-pad">
-       <div className="col-1-2">
+      <div className="flex-grid">
+       <div
+         className="col"
+       >
          <div
            className="module"
            onTouchTap={() => context.router.push('/findathletes')}
          >
-            <div className='navigation-content'>
-              <PersonIcon
-                style={{
-                    width: '250px',
-                    height: '250px',
-                    color: '#fff'
-                  }}
-              />
-              <p className='navigation-text'>
-                Find Athletes
-              </p>
-            </div>
+          <PersonIcon
+            style={{
+                width: '250px',
+                height: '250px',
+                color: '#fff',
+              }}
+          />
+          <p className='navigation-text'>
+            Find Athletes
+          </p>
+
          </div>
        </div>
-       <div className="col-1-2">
+       <div
+         className="col"
+       >
          <div
            className="module"
            onTouchTap={() => context.router.push('/findtrainers')}
          >
-            <div className='navigation-content'>
-              <TrainerIcon
-                style={{
-                    width: '250px',
-                    height: '250px',
-                    color: '#fff'
-                  }}
-              />
-              <p className='navigation-text'>
-                Find Trainers
-              </p>
-            </div>
+          <TrainerIcon
+            style={{
+                width: '250px',
+                height: '250px',
+                color: '#fff'
+              }}
+          />
+          <p className='navigation-text'>
+            Find Trainers
+          </p>
          </div>
        </div>
-       <div className="col-1-2">
+       <div className="col">
          <div
            className="module"
            onTouchTap={() => context.router.push('/gymsearch')}
          >
-            <div className='navigation-content'>
-              <FitnessIcon
-                style={{
-                    width: '250px',
-                    height: '250px',
-                    color: '#fff'
-                  }}
-              />
-              <p className='navigation-text'>
-                Find Gyms
-              </p>
-            </div>
+          <FitnessIcon
+            style={{
+                width: '250px',
+                height: '250px',
+                color: '#fff'
+              }}
+          />
+          <p className='navigation-text'>
+            Find Gyms
+          </p>
          </div>
        </div>
-       <div className="col-1-2">
+       <div className="col">
          <div
            className="module"
            onTouchTap={() => userProfile()}
          >
-            <div className='navigation-content'>
-              <ProfileIcon
-                style={{
-                    width: '250px',
-                    height: '250px',
-                    color: '#fff'
-                  }}
-              />
-              <p className='navigation-text'>
-                Your Profile
-              </p>
-            </div>
+          <ProfileIcon
+            style={{
+                width: '250px',
+                height: '250px',
+                color: '#fff'
+              }}
+          />
+          <p className='navigation-text'>
+            Your Profile
+          </p>
          </div>
        </div>
-       <div className="col-1-2">
+       <div className="col">
          <div
            className="module"
            onTouchTap={() => context.router.push('/inbox')}
          >
-            <div className='navigation-content'>
-              <MessageIcon
-                style={{
-                    width: '250px',
-                    height: '250px',
-                    color: '#fff'
-                  }}
-              />
-              <p className='navigation-text'>
-                Inbox
-              </p>
-            </div>
+          <MessageIcon
+            style={{
+                width: '250px',
+                height: '250px',
+                color: '#fff'
+              }}
+          />
+          <p className='navigation-text'>
+            Inbox
+          </p>
          </div>
        </div>
        {userButton()}
