@@ -17,15 +17,37 @@ const DisplayTrainers = (props) => {
 
   return (
       <GridList
-        cellHeight={250}
-        style={styles.gridList}
+        className='flex-grid-profile'
+        cellHeight={496}
+        style={{margin: '2.5%'}}
       >
         {trainers.map((trainer) => (
           <GridTile
             key={trainer.id}
-            title={trainer.displayName}
-            subtitle={<span>style <b>{trainer.location}</b></span>}
-            actionIcon={<Link to={`trainer/${trainer.id}`}><IconButton><ForwardSymbol color="white" /></IconButton></Link>}
+            className='grid-list'
+            title={
+              <div className='grid-name'>
+                {trainer.displayName}
+              </div>
+
+            }
+            subtitle={
+              <span>
+                <b className='grid-description'>
+                  {trainer.location}
+                </b>
+              </span>
+            }
+            actionIcon={
+              <Link to={`trainer/${trainer.id}`}>
+                <IconButton
+                  iconStyle={{height: '50px', width: '50px'}}
+                  style={{height: '100px', width: '100px'}}
+                >
+                  <ForwardSymbol color="white" />
+                </IconButton>
+              </Link>
+            }
           >
             <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${trainer.imgId}.jpg`} />
           </GridTile>
