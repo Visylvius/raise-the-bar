@@ -6,7 +6,18 @@
 
 /*flex css*/
 .flex-grid {
-  display: flex;
+ display: flex;
+ flex-direction: row;
+ flex-wrap: wrap;
+ align-items: center;
+ justify-content: center;
+ margin: 2%;
+ margin-bottom: 10%;
+ height: 82%;
+}
+
+.flex-grid-profile {
+ display: flex;
  flex-direction: row;
  flex-wrap: wrap;
  align-items: center;
@@ -17,7 +28,7 @@
 }
 
 .col {
-  display: flex;
+ display: flex;
  align-items: center;
  justify-content: center;
  flex: 1;
@@ -25,6 +36,7 @@
  height: 450px;
  margin: 2%;
  background-color: rgba(45, 45, 45, 0.8);
+ cursor: pointer;
 }
 
 .module {
@@ -45,6 +57,10 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 0, 0, 0.5);
+}
+
+.grid-list > div {
+  height: 150px !important;
 }
 
 /*Media Queries*/

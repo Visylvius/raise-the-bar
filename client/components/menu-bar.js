@@ -46,23 +46,9 @@ class MenuBar extends React.Component {
     });
   }
 
-  handleClick() {
-    this.setState({isShowingModal: true});
+  directToNavigationPage() {
+    this.context.router.push('/navigation');
   }
-
-  handleClose() {
-    this.setState({isShowingModal: false});
-  }
-
-  toggleDrawer() {
-    if (this.props.isShowingDrawer === false) {
-      store.dispatch({type: OPEN_MENU_BAR});
-    } else if (this.props.isShowingDrawer) {
-      store.dispatch({type: CLOSE_MENU_BAR});
-    }
-    // this.setState({isShowingDrawer: !this.state.isShowingDrawer});
-  }
-
 
   userButton() {
      if (localStorage.getItem('id_token')) {
@@ -164,7 +150,7 @@ class MenuBar extends React.Component {
         }}
         iconElementLeft={
           <IconButton
-            tooltip='Back'
+            tooltip='Previous Page'
             iconStyle={{height: '60px', width: '60px'}}
             style={{height: '120px', width: '120px'}}
             onTouchTap={() => this.context.router.goBack()}
@@ -177,7 +163,8 @@ class MenuBar extends React.Component {
         }}
         iconElementRight={
           <IconButton
-            onTouchTap={() => this.toggleDrawer()}
+            tooltip='Navigation Page'
+            onTouchTap={() => this.directToNavigationPage()}
             iconStyle={{height: '60px', width: '60px'}}
             style={{height: '120px', width: '120px'}}
           >

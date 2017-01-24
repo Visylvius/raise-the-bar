@@ -28,7 +28,7 @@
     "jwt-decode": "^2.1.0",
     "lodash": "^4.17.2",
     "lwip": "0.0.9",
-    "material-ui": "^0.16.4",
+    "material-ui": "^0.16.7",
     "mocha": "^2.5.3",
     "moment": "^2.15.2",
     "morgan": "^1.7.0",

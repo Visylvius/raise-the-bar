@@ -24,17 +24,24 @@ const DisplayAthletes = ({athletes}) => {
 
   return (
     <GridList
-      cellHeight={250}
-      className='grid-list'
-      style={styles.gridList}
+      className='flex-grid-profile'
+      cellHeight={496}
+      style={{display: 'none'}}
+      style={{margin: '2.5%'}}
     >
       {athletes.map((athlete) => (
         <GridTile
           key={athlete.id}
+          className='grid-list'
           title={athlete.displayName}
-          subtitle={<span>style <b>{athlete.liftingStyle}</b></span>}
+          subtitle={
+            <span
+            >
+              <b>{athlete.liftingStyle}</b>
+            </span>
+          }
           actionIcon={<Link to={`athlete/${athlete.id}`}><IconButton><ForwardSymbol color="white" /></IconButton></Link>}
-          style={{margin: 5}}
+          // style={{margin: 5}}
         >
           <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} />
         </GridTile>
