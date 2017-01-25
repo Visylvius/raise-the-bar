@@ -56,7 +56,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 0, 0, 0.5);
 }
 
 .grid-list > div {
@@ -101,7 +100,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgba(255, 0, 0, 0.5);
     }
     .navigation-text {
       font-size: 50px;
@@ -125,7 +123,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgba(255, 0, 0, 0.5);
     }
     .flex-grid {
       display: flex;
@@ -170,7 +167,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgba(255, 0, 0, 0.5);
     }
     .flex-grid {
       display: flex;
