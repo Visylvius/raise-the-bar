@@ -27,6 +27,15 @@
  height: 82%;
 }
 
+.flex-profile-page {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 .col {
  display: flex;
  align-items: center;
@@ -69,6 +78,29 @@
 
 .grid-description {
   font-size: 30px;
+}
+
+.grid-box {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+.grid-content {
+  box-sizing: border-box;
+  padding: 2px;
+  width: 50%;
+  height: 500px;
+}
+
+.user-info {
+  position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 68px;
+    display: flex;
+    align-items: center;
 }
 
 

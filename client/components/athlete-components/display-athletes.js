@@ -23,49 +23,67 @@ const DisplayAthletes = ({athletes}) => {
   };
 
   return (
-    <GridList
-      className='flex-grid-profile'
-      cellHeight={496}
-      style={{margin: '2.5%'}}
-    >
-      {athletes.map((athlete) => (
-        <GridTile
-          key={athlete.id}
-          className='grid-list'
-          title={
-            <div
-              className='grid-name'
-            >
-              {athlete.displayName}
+    <div className='flex-profile-page'>
+      {athletes.map(athlete => {
+        return (
+          <Link to={`athlete/${athlete.id}`}>
+            <div classNameName="card" style={{width: '20rem'}}>
+              <img className="card-img-top" src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} alt="Card image cap" />
+              <div className="card-block">
+                <h4 className="card-title">{athlete.displayName}</h4>
+                <p className="card-text">{athlete.liftingStyle}</p>
+              </div>
             </div>
-          }
-          subtitle={
-            <span
-            >
-              <b
-                className='grid-description'
-              >
-                {athlete.liftingStyle}
-              </b>
-            </span>
-          }
-          actionIcon={
-            <Link to={`athlete/${athlete.id}`}>
-              <IconButton
-                iconStyle={{height: '50px', width: '50px'}}
-                style={{height: '100px', width: '100px'}}
-              >
-                <ForwardSymbol color="white" />
-              </IconButton>
-            </Link>
-          }
-          // style={{margin: 5}}
-        >
-          <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} />
-        </GridTile>
-      ))}
-    </GridList>
+          </Link>
+        );
+      })}
+    </div>
   );
+
+
+    // <GridList
+    //   classNameName='flex-grid-profile'
+    //   cellHeight={496}
+    //   style={{margin: '2.5%'}}
+    // >
+      // {athletes.map((athlete) => (
+    //     <GridTile
+    //       key={athlete.id}
+    //       classNameName='grid-list'
+    //       title={
+    //         <div
+    //           classNameName='grid-name'
+    //         >
+    //           {athlete.displayName}
+    //         </div>
+    //       }
+    //       subtitle={
+    //         <span
+    //         >
+    //           <b
+    //             classNameName='grid-description'
+    //           >
+    //             {athlete.liftingStyle}
+    //           </b>
+    //         </span>
+    //       }
+    //       actionIcon={
+    //         <Link to={`athlete/${athlete.id}`}>
+    //           <IconButton
+    //             iconStyle={{height: '50px', width: '50px'}}
+    //             style={{height: '100px', width: '100px'}}
+    //           >
+    //             <ForwardSymbol color="white" />
+    //           </IconButton>
+    //         </Link>
+    //       }
+    //       // style={{margin: 5}}
+    //     >
+    //       <img src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} />
+    //     </GridTile>
+    //   ))}
+    // </GridList>
+  // );
 };
 
 export default DisplayAthletes;
