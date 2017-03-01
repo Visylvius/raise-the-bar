@@ -7,6 +7,9 @@ import { bindActionCreators } from 'redux';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import BackIcon from 'material-ui/svg-icons/image/navigate-before';
+import PhoneIcon from 'material-ui/svg-icons/communication/call';
+import WorldIcon from 'material-ui/svg-icons/social/public';
+import StarIcon from 'material-ui/svg-icons/toggle/star';
 
 import { saveGym, HIDE_SNACKBAR } from '../../actions/gyms-actions';
 import store from '../../reducers';
@@ -15,6 +18,7 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
   if (gym === null) {
     return null;
   }
+  console.log('gym', gym);
   // console.log('gym', props);
   const saveUserGym = () => {
     const userProfile = JSON.parse(localStorage.getItem('profile'));
@@ -34,29 +38,73 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
   // console.log('props', props);
   console.log('router', context.router);
   return (
-  <div>
-    <Card>
-      <CardMedia
+  <div className='container-fluid'>
+    <div className='row'>
+      <div className='col-12'>
+        <div
+          className='image-container'
+          style={{width: '100%', marginTop: '1em'}}
+        >
+          { gym.result.photos && gym.result.photos[0]
+            ?
+            <img
+                className='gym-profile'
+                src={getGymPhotoUrl(gym.result.photos[0].photo_reference)}
+                style={{width: '100%', marginTop: '1em', height: '31em'}}
+              />
+            :
+            <img className='gym-profile' src='http://placekitten.com/300/200' />
+          }
+        </div>
+      </div>
+    </div>
+    <div className='row'>
+      <div className='col-12'>
+        <div className='gym-information-banner' style={{backgroundColor: '#43A047'}}>
+          <div className='gym-information-wrapper'>
+            <p className='gym-information-p top-p'>Thing</p>
+            <p className='gym-information-p middle-p'>Other Thing</p>
+            <p className='gym-information-p bottom-p'>More things</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className='row'>
+      <div className='col-4'>
+        <div className='button-action-wrapper'>
+          <div className='button-action'>
+            <IconButton
+              // style={{backgroundColor: '#43A047'}}
+            >
+              <PhoneIcon
+                color='#43A047'
+              />
+            </IconButton>
+            <p>CALL</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {/* <Card> */}
+      {/* <CardMedia
         overlay={<CardTitle title={gym.result.name} subtitle={gym.result.formatted_address} />}
-      >
-      { gym.result.photos && gym.result.photos[0] ? <img src={getGymPhotoUrl(gym.result.photos[0].photo_reference)} />
-        : <img src='http://placekitten.com/300/200' />
-      }
-      </CardMedia>
+      > */}
+
+      {/* </CardMedia> */}
       {gym.result.opening_hours !== undefined
-        ? <CardHeader
-            title="Daily Hours"
-            subtitle={<span>Phone Number <b>{gym.result.formatted_phone_number}</b></span>}
-            actAsExpander={true}
-            showExpandableButton={true}
-        />
-        : <CardHeader
-            subtitle={<span>Phone Number <b>{gym.result.formatted_phone_number}</b></span>}
-        />
+        // ? <CardHeader
+        //     title="Daily Hours"
+        //     subtitle={<span>Phone Number <b>{gym.result.formatted_phone_number}</b></span>}
+        //     actAsExpander={true}
+        //     showExpandableButton={true}
+        // />
+        // : <CardHeader
+        //     subtitle={<span>Phone Number <b>{gym.result.formatted_phone_number}</b></span>}
+        // />
       }
 
       {console.log('props line 48', gym)}
-      {gym.result.opening_hours !== undefined
+      {/* {gym.result.opening_hours !== undefined
         ? <CardText expandable={true}>
           {gym.result.opening_hours.weekday_text.map((hours) => {
             return (
@@ -70,13 +118,13 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
           })}
           </CardText>
         : null
-      }
+      } */}
 
-      <CardActions>
-        <div
+      {/* <CardActions> */}
+        {/* <div
           className='button-wrapper'
           style={{textAlign: 'center'}}
-        >
+        > */}
           <RaisedButton
             key={gym.result.place_id}
             label='Save this Gym'
@@ -94,10 +142,10 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
              onRequestClose={() => hideSnackBar()}
             />
             : null }
-        </div>
-      </CardActions>
+        {/* </div> */}
+      {/* </CardActions> */}
       { savedGym.snackBarShowing ? console.log('its true') : console.log('nothing happened')}
-    </Card>
+    {/* </Card> */}
   </div>
   );
 };

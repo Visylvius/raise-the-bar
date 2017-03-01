@@ -61,7 +61,7 @@ exports.getSpecificGym = function(req, res) {
 
       }
       // console.log(gym);
-      res.send(200, gym);
+      res.status(200).send(gym);
     });
 };
 

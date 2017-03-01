@@ -27,11 +27,13 @@ const DisplayAthletes = ({athletes}) => {
       {athletes.map(athlete => {
         return (
           <Link to={`athlete/${athlete.id}`}>
-            <div classNameName="card" style={{width: '20rem'}}>
-              <img className="card-img-top" src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} alt="Card image cap" />
-              <div className="card-block">
-                <h4 className="card-title">{athlete.displayName}</h4>
-                <p className="card-text">{athlete.liftingStyle}</p>
+            <div className='flex-profile'>
+              <div className="card profile-content">
+                <img className="card-img-top" src={`http://res.cloudinary.com/raise-the-bar/image/upload/${athlete.imgId}.jpg`} alt="Card image cap" />
+                <div className="card-block">
+                  <h4 className="card-title">{athlete.displayName}</h4>
+                  <p className="card-text">{athlete.liftingStyle}</p>
+                </div>
               </div>
             </div>
           </Link>

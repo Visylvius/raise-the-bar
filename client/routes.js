@@ -137,13 +137,13 @@ export default (
         <Route path='/createtrainer' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateTrainer} />
         <Route path='inbox' onEnter={(nextState, replace) => {
             requireAuth(nextState, replace) && fetchBoundMessages(JSON.parse(localStorage.getItem('profile')), JSON.parse(localStorage.getItem('type')))
-        }} component={Inbox}></Route>
+        }} component={Inbox} />
         <Route path='inbox/:type/:id' onEnter={(nextState, replace) => { requireAuth(nextState, replace)}} component={SendMessage}></Route>
         <Route path='/gymsearch' component={GymSearch} />
         <Route path='/gym/:placeId' component={DisplayGym} onEnter={(nextState, replace) => {
           requireAuth(nextState, replace) && fetchBoundGym(nextState.params.placeId)
-        }}/>
-        <Route path='/settings' onEnter={(nextState, replace) => {requireAuth(nextState, replace)}} component={UserSettings}></Route>
+        }} />
+        <Route path='/settings' onEnter={(nextState, replace) => {requireAuth(nextState, replace)}} component={UserSettings} />
       </Route>
     </Route>
   </Router>

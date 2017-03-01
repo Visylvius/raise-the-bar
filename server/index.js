@@ -21,7 +21,7 @@ var server = app.listen(port, function() {
   console.log('server is listening on ' + port);
 });
 
-app.get('/*', function(req, res) {
+app.get('/*', (req, res) => {
   console.log('dirname', __dirname);
   res.sendFile(path.join(indexPath, 'dist/index.html'));
 });
