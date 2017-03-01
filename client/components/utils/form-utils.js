@@ -44,7 +44,7 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
     control = <TextField
                 floatingLabelText={label}
                 multiLine={true}
-                fullWidth={true}
+                // fullWidth={true}
                 rows={2}
                 {...field}
                 textareaStyle={{color: '#fff'}}
