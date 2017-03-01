@@ -221,10 +221,10 @@ class MenuBar extends React.Component {
         <div>
         {
           this.props.isShowingModal ?
-          <ModalContainer onClose={this.handleClose.bind(this)}>
+          <ModalContainer onClose={() => store.dispatch({type: CLOSE_NEW_USER_MODAL})}>
             <ModalDialog
               style={styles.modalStyles}
-              onClose={this.handleClose.bind(this)}
+              onClose={() => {store.dispatch({type: CLOSE_NEW_USER_MODAL})}}
             >
               <p
                 style={{color: '#fff'}}
@@ -256,6 +256,7 @@ class MenuBar extends React.Component {
           </ModalContainer>
           : null
         }
+        {console.log('props', this.props)}
           {this.props.children}
         </div>
       </div>
