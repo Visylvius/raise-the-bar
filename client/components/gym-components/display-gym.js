@@ -10,6 +10,7 @@ import BackIcon from 'material-ui/svg-icons/image/navigate-before';
 import PhoneIcon from 'material-ui/svg-icons/communication/call';
 import WorldIcon from 'material-ui/svg-icons/social/public';
 import StarIcon from 'material-ui/svg-icons/toggle/star';
+import AddIcon from 'material-ui/svg-icons/av/playlist-add';
 
 import { saveGym, HIDE_SNACKBAR } from '../../actions/gyms-actions';
 import store from '../../reducers';
@@ -33,6 +34,14 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
       '&sensor=true&key=AIzaSyALGeTDHSBu-A1D8FltPiVBlgJZU7Cpmp0';
 
   const hideSnackBar = () => store.dispatch({type: HIDE_SNACKBAR});
+
+  const createStarIcons = (rating) => {
+    const iconArray = [];
+    for (let i = 0; i < Math.floor(rating); i++) {
+      iconArray.push(i);
+    }
+    return iconArray;
+  };
 
   console.log('gym', gym);
   // console.log('props', props);
@@ -63,8 +72,32 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
         <div className='gym-information-banner' style={{backgroundColor: '#43A047'}}>
           <div className='gym-information-wrapper'>
             <p className='gym-information-p top-p'>{gym.result.name}</p>
-            <p className='gym-information-p middle-p'>{gym.result.formatted_phone_number}</p>
-            <p className='gym-information-p bottom-p'>{gym.result.formatted_address}</p>
+            <p className='gym-information-p middle-p'>
+            {gym.result.rating !== 0
+              ?
+              <div className='rating-wrapper'>
+                <div
+                  className='rating-number'
+                  style={{marginRight: '10px', display: 'inline-block', fontSize: '24px'}}
+                >
+                  {gym.result.rating}
+                </div>
+                {createStarIcons(gym.result.rating).map((iconArray, index) => {
+                  return (
+                    <div
+                      style={{display: 'inline-block'}}
+                      className='star-icon'
+                      key={index}
+                    >
+                      <StarIcon />
+                    </div>
+                  );
+                })}
+              </div>
+              : null
+            }
+            </p>
+            <p className='gym-information-p bottom-p'>{gym.result.formatted_phone_number}</p>
           </div>
         </div>
       </div>
@@ -109,7 +142,7 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
               key={gym.result.place_id}
               onTouchTap={() => saveUserGym()}
             >
-              <StarIcon
+              <AddIcon
                 color='#43A047'
               />
             </IconButton>
