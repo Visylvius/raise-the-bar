@@ -62,9 +62,9 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
       <div className='col-12'>
         <div className='gym-information-banner' style={{backgroundColor: '#43A047'}}>
           <div className='gym-information-wrapper'>
-            <p className='gym-information-p top-p'>Thing</p>
-            <p className='gym-information-p middle-p'>Other Thing</p>
-            <p className='gym-information-p bottom-p'>More things</p>
+            <p className='gym-information-p top-p'>{gym.result.name}</p>
+            <p className='gym-information-p middle-p'>{gym.result.formatted_phone_number}</p>
+            <p className='gym-information-p bottom-p'>{gym.result.formatted_address}</p>
           </div>
         </div>
       </div>
@@ -74,13 +74,46 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
         <div className='button-action-wrapper'>
           <div className='button-action'>
             <IconButton
-              // style={{backgroundColor: '#43A047'}}
+              iconStyle={{ width: '120px', height: '120px'}}
+              style={{width: '240px', padding: '10px'}}
             >
               <PhoneIcon
                 color='#43A047'
               />
             </IconButton>
-            <p>CALL</p>
+            <p className='action-text'>CALL</p>
+          </div>
+        </div>
+      </div>
+      <div className='col-4'>
+        <div className='button-action-wrapper'>
+          <div className='button-action'>
+            <IconButton
+              iconStyle={{ width: '120px', height: '120px'}}
+              style={{width: '240px', padding: '10px'}}
+            >
+              <WorldIcon
+                color='#43A047'
+              />
+            </IconButton>
+            <p className='action-text'>WEBSITE</p>
+          </div>
+        </div>
+      </div>
+      <div className='col-4'>
+        <div className='button-action-wrapper'>
+          <div className='button-action'>
+            <IconButton
+              iconStyle={{ width: '120px', height: '120px'}}
+              style={{width: '240px', padding: '10px'}}
+              key={gym.result.place_id}
+              onTouchTap={() => saveUserGym()}
+            >
+              <StarIcon
+                color='#43A047'
+              />
+            </IconButton>
+            <p className='action-text'>SAVE THE GYM</p>
           </div>
         </div>
       </div>
@@ -125,13 +158,6 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
           className='button-wrapper'
           style={{textAlign: 'center'}}
         > */}
-          <RaisedButton
-            key={gym.result.place_id}
-            label='Save this Gym'
-            primary={true}
-            onTouchTap={() => saveUserGym()}
-            >
-          </RaisedButton>
           { savedGym.snackBarShowing ?
             <Snackbar
              open={savedGym.snackBarShowing}

@@ -47,8 +47,10 @@ export const makeInput = (field, inputType, label, options, inputAttributes) => 
                 // fullWidth={true}
                 rows={2}
                 {...field}
-                textareaStyle={{color: '#fff'}}
-                floatingLabelStyle={{color: '#fff'}}
+                style={{padding: '4px'}}
+                inputStyle={{left: '20px', padding: '20px'}}
+                textareaStyle={{color: '#fff', padding: '20px'}}
+                floatingLabelStyle={{color: '#fff', left: '20px'}}
                 floatingLabelFocusStyle={{color: '#43A047'}}
                 className='text-field'
                 underlineShow
