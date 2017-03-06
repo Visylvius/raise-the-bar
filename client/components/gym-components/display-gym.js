@@ -11,6 +11,9 @@ import PhoneIcon from 'material-ui/svg-icons/communication/call';
 import WorldIcon from 'material-ui/svg-icons/social/public';
 import StarIcon from 'material-ui/svg-icons/toggle/star';
 import AddIcon from 'material-ui/svg-icons/av/playlist-add';
+import PlaceIcon from 'material-ui/svg-icons/maps/place';
+import TimeIcon from 'material-ui/svg-icons/device/access-time';
+
 
 import { saveGym, HIDE_SNACKBAR } from '../../actions/gyms-actions';
 import store from '../../reducers';
@@ -102,52 +105,66 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
         </div>
       </div>
     </div>
-    <div className='row'>
-      <div className='col-4'>
-        <div className='button-action-wrapper'>
-          <div className='button-action'>
-            <IconButton
-              iconStyle={{ width: '120px', height: '120px'}}
-              style={{width: '240px', padding: '10px'}}
-            >
-              <PhoneIcon
-                color='#43A047'
-              />
-            </IconButton>
-            <p className='action-text'>CALL</p>
+    <div className='action-wrapper'>
+      <div className='row'>
+        <div className='col-4'>
+          <div className='button-action-wrapper'>
+            <div className='button-action'>
+              <IconButton
+                iconStyle={{ width: '120px', height: '120px'}}
+                style={{width: '240px', padding: '10px'}}
+              >
+                <PhoneIcon
+                  color='#43A047'
+                />
+              </IconButton>
+              <p className='action-text'>CALL</p>
+            </div>
+          </div>
+        </div>
+        <div className='col-4'>
+          <div className='button-action-wrapper'>
+            <div className='button-action'>
+              <IconButton
+                iconStyle={{ width: '120px', height: '120px'}}
+                style={{width: '240px', padding: '10px'}}
+              >
+                <WorldIcon
+                  color='#43A047'
+                />
+              </IconButton>
+              <p className='action-text'>WEBSITE</p>
+            </div>
+          </div>
+        </div>
+        <div className='col-4'>
+          <div className='button-action-wrapper'>
+            <div className='button-action'>
+              <IconButton
+                iconStyle={{ width: '120px', height: '120px'}}
+                style={{width: '240px', padding: '10px'}}
+                key={gym.result.place_id}
+                onTouchTap={() => saveUserGym()}
+              >
+                <AddIcon
+                  color='#43A047'
+                />
+              </IconButton>
+              <p className='action-text'>SAVE THE GYM</p>
+            </div>
           </div>
         </div>
       </div>
-      <div className='col-4'>
-        <div className='button-action-wrapper'>
-          <div className='button-action'>
-            <IconButton
-              iconStyle={{ width: '120px', height: '120px'}}
-              style={{width: '240px', padding: '10px'}}
-            >
-              <WorldIcon
-                color='#43A047'
-              />
-            </IconButton>
-            <p className='action-text'>WEBSITE</p>
-          </div>
-        </div>
-      </div>
-      <div className='col-4'>
-        <div className='button-action-wrapper'>
-          <div className='button-action'>
-            <IconButton
-              iconStyle={{ width: '120px', height: '120px'}}
-              style={{width: '240px', padding: '10px'}}
-              key={gym.result.place_id}
-              onTouchTap={() => saveUserGym()}
-            >
-              <AddIcon
-                color='#43A047'
-              />
-            </IconButton>
-            <p className='action-text'>SAVE THE GYM</p>
-          </div>
+    </div>
+    <div className='location-wrapper'>
+      <div className='row'>
+        <div className='col-12'>
+            <div className='gym-core-info-icon'>
+              <div className='fa fa-map-marker action-marker' />
+            </div>
+            <div className='gym-core-info-text'>
+              <p className='info-text'>{gym.result.formatted_address}</p>
+            </div>
         </div>
       </div>
     </div>

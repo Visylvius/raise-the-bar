@@ -138,6 +138,42 @@
   vertical-align: middle;
 }
 
+.action-marker {
+  display: block !important;
+  height: 50%;
+  font-size: 50px !important;
+  margin: 40px;
+  border: 1px solid red;
+}
+
+.gym-core-info-text {
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.gym-core-info-icon {
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.action-wrapper {
+  border-bottom: 2px solid #F3F3F3;
+}
+
+.gym-core-info-wrapper {
+  display: inline-block;
+}
+
+.location-wrapper {
+  display: table;
+  width: 100%;
+}
+
+.info-text {
+  vertical-align: middle;
+}
 
 /*Grid elements CSS*/
 .grid-list > div {
@@ -212,6 +248,9 @@
       font-size: 50px;
       color: #fff;
     }
+    .action-wrapper {
+      border-bottom: 2px solid #F3F3F3;
+    }
 }
 
 /* Portrait */
@@ -256,6 +295,9 @@
       margin: 0 1%;
       background-color: rgba(45, 45, 45, 0.8);
     }
+    .action-wrapper {
+      border-bottom: 2px solid #F3F3F3;
+    }
 }
 
 /* Landscape */
@@ -299,5 +341,8 @@
       height: 450px;
       margin: 0 1%;
       background-color: rgba(45, 45, 45, 0.8);
+    }
+    .action-wrapper {
+      border-bottom: 2px solid #F3F3F3;
     }
 }
