@@ -156,15 +156,36 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
         </div>
       </div>
     </div>
-    <div className='location-wrapper'>
+    <div className='info-wrapper'>
       <div className='row'>
-        <div className='col-12'>
-            <div className='gym-core-info-icon'>
-              <div className='fa fa-map-marker action-marker' />
-            </div>
-            <div className='gym-core-info-text'>
-              <p className='info-text'>{gym.result.formatted_address}</p>
-            </div>
+        <div className='col-2'>
+          <div className='gym-core-info-icon'>
+            <div className='fa fa-map-marker action-marker'></div>
+          </div>
+        </div>
+        <div className='col-10'>
+          <div className='gym-core-info-text'>
+            <p className='info-text'>{gym.result.formatted_address}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className='info-wrapper'>
+      <div className='row'>
+        <div className='col-2'>
+          <div className='gym-core-info-icon'>
+            <div className='fa fa-clock-o action-marker'></div>
+          </div>
+        </div>
+        <div className='col-10'>
+          <div className='gym-core-info-text'>
+            <p className='info-text'>
+              {gym.result.opening_hours.open_now
+                ? <p className='info-text'>Open Now</p> 
+                : <p className='info-text'>Closed</p>
+              }
+            </p>
+          </div>
         </div>
       </div>
     </div>

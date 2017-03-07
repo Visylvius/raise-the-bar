@@ -139,11 +139,14 @@
 }
 
 .action-marker {
-  display: block !important;
   height: 50%;
   font-size: 50px !important;
-  margin: 40px;
-  border: 1px solid red;
+  color: #43A047;
+}
+
+.info-text {
+  vertical-align: middle;
+  font-size: 21px;
 }
 
 .gym-core-info-text {
@@ -169,10 +172,6 @@
 .location-wrapper {
   display: table;
   width: 100%;
-}
-
-.info-text {
-  vertical-align: middle;
 }
 
 /*Grid elements CSS*/
@@ -209,6 +208,10 @@
     height: 68px;
     display: flex;
     align-items: center;
+}
+
+.info-wrapper {
+  margin: 4em;
 }
 
 
