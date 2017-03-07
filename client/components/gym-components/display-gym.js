@@ -48,6 +48,8 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
   };
 
   const gymNumber = gym.result.formatted_phone_number;
+  const newNumber = gymNumber.replace(/[()\s*{-]/g, '');
+  console.log('newNumber', newNumber);
   console.log('gym', gym);
   // console.log('props', props);
   console.log('router', context.router);
@@ -102,7 +104,12 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
               : null
             }
             </p>
-            <p className='gym-information-p bottom-p'>{gym.result.formatted_phone_number}</p>
+            <a
+              href={`tel:${newNumber}`}
+              className='action-link'
+            >
+              <p className='gym-information-p bottom-p'>{gym.result.formatted_phone_number}</p>
+            </a>
           </div>
         </div>
       </div>
@@ -110,6 +117,10 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
     <div className='action-wrapper'>
       <div className='row'>
         <div className='col-4'>
+         <a
+           href={`tel:${newNumber}`}
+           className='action-link'
+         >
           <div className='button-action-wrapper'>
             <div className='button-action'>
               <IconButton
@@ -123,6 +134,7 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
               <p className='action-text'>CALL</p>
             </div>
           </div>
+         </a>
         </div>
         <div className='col-4'>
           <div className='button-action-wrapper'>
@@ -191,24 +203,29 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
         </div>
       </div>
     </div>
-    <div className='info-wrapper'>
-      <div className='row'>
-        <div className='col-2'>
-          <div className='gym-core-info-icon'>
-            <div className='fa fa-phone action-marker'></div>
+    <a
+      href={`tel:${newNumber}`}
+      className='action-link'
+    >
+      <div className='info-wrapper'>
+        <div className='row'>
+          <div className='col-2'>
+            <div className='gym-core-info-icon'>
+              <div className='fa fa-phone action-marker'></div>
+            </div>
           </div>
-        </div>
-        <div className='col-10'>
-          <div className='gym-core-info-text'>
-            <p className='info-text'>{gym.result.formatted_phone_number}</p>
+          <div className='col-10'>
+            <div className='gym-core-info-text'>
+              <p className='info-text'>{gym.result.formatted_phone_number}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
     <a
       href={gym.result.website}
       target="_blank"
-      className='website-link'
+      className='action-link'
     >
       <div className='info-wrapper'>
         <div className='row'>

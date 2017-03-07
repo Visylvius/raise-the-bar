@@ -85,6 +85,14 @@
 
 /*gym css*/
 
+.col-4 a {
+  text-decoration: none;
+}
+
+.gym-information-wrapper a {
+  text-decoration: none;
+}
+
 .image-container {
   margin-top: 1em;
   width: 100%;
@@ -101,6 +109,7 @@
 .gym-information-p {
   color: #fff;
   padding-left: 1em;
+  text-decoration: none;
 }
 
 .top-p {
@@ -125,6 +134,7 @@
 .action-text {
   color: #43A047;
   font-size: 1em;
+  text-decoration: none;
 }
 
 .button-action-wrapper {
@@ -174,9 +184,15 @@
   width: 100%;
 }
 
-.website-link {
+.action-link {
   color: #000;
+  text-decoration: none;
 }
+
+.action-link :hover {
+  text-decoration: none;
+}
+
 
 /*Grid elements CSS*/
 .grid-list > div {
