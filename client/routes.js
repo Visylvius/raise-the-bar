@@ -94,11 +94,6 @@ const fetchBoundAthleteGyms = function() {
 export default (
   <Router history={browserHistory} createElement={function(Component, props) { props.auth = auth; return <Component {...props} /> }}>
     <Route path='/' component={MainLayout}>
-      <IndexRoute
-        component={HomePage}
-        onEnter={() => document.querySelector('body').className = 'homePage'}
-        onLeave={() => document.querySelector('body.homePage').className = ''}
-      />
       <Route path='login'
         component={Login}
         onEnter={() => document.querySelector('body').className = 'homePage'}
@@ -106,6 +101,11 @@ export default (
       />
       {/* <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} /> */}
       <Route component={MenuBar}>
+        <IndexRoute
+          component={NavigationPage}
+          // onEnter={() => document.querySelector('body').className = 'homePage'}
+          // onLeave={() => document.querySelector('body.homePage').className = ''}
+        />
         <Route path='navigation' component={NavigationPage}/>
         <Route path='createathlete' onEnter={(nextState, replace) => requireAuth(nextState, replace)} component={CreateAthlete} />
         <Route path='findathletes' onEnter={fetchBoundAthletes} component={AthleteSearch} />
