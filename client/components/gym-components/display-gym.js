@@ -137,6 +137,12 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
          </a>
         </div>
         <div className='col-4'>
+         <a
+           href={gym.result.website}
+           target="_blank"
+           rel='noopener noreferrer'
+           className='action-link'
+         >
           <div className='button-action-wrapper'>
             <div className='button-action'>
               <IconButton
@@ -150,6 +156,7 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
               <p className='action-text'>WEBSITE</p>
             </div>
           </div>
+         </a>
         </div>
         <div className='col-4'>
           <div className='button-action-wrapper'>
