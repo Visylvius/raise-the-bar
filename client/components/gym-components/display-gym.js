@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import { Link } from 'react-router';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
@@ -46,6 +47,7 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
     return iconArray;
   };
 
+  const gymNumber = gym.result.formatted_phone_number;
   console.log('gym', gym);
   // console.log('props', props);
   console.log('router', context.router);
@@ -181,7 +183,7 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
           <div className='gym-core-info-text'>
             <p className='info-text'>
               {gym.result.opening_hours.open_now
-                ? <p className='info-text'>Open Now</p> 
+                ? <p className='info-text'>Open Now</p>
                 : <p className='info-text'>Closed</p>
               }
             </p>
@@ -189,6 +191,40 @@ const DisplayGym = ({router, gym, savedGym, saveGym}, context) => {
         </div>
       </div>
     </div>
+    <div className='info-wrapper'>
+      <div className='row'>
+        <div className='col-2'>
+          <div className='gym-core-info-icon'>
+            <div className='fa fa-phone action-marker'></div>
+          </div>
+        </div>
+        <div className='col-10'>
+          <div className='gym-core-info-text'>
+            <p className='info-text'>{gym.result.formatted_phone_number}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a
+      href={gym.result.website}
+      target="_blank"
+      className='website-link'
+    >
+      <div className='info-wrapper'>
+        <div className='row'>
+          <div className='col-2'>
+            <div className='gym-core-info-icon'>
+              <div className='fa fa-globe action-marker'></div>
+            </div>
+          </div>
+          <div className='col-10'>
+            <div className='gym-core-info-text'>
+              <p className='info-text'>{gym.result.website}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
     {/* <Card> */}
       {/* <CardMedia
         overlay={<CardTitle title={gym.result.name} subtitle={gym.result.formatted_address} />}
