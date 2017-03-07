@@ -46,7 +46,7 @@ const Inbox = ({myState}) => {
                <div className='message-avatar' style={styles.messageAvatar}>
                  <img
                    className='message-header-avatar'
-                   src={`avatars/${messages[i].userSendingMessageType}/${messages[i].imgId}.jpg`}
+                   src={`http://res.cloudinary.com/raise-the-bar/image/upload/${messages[i].imgId}.jpg`}
                    style={styles.avatarImage}
                  />
                </div>
@@ -111,7 +111,7 @@ const Inbox = ({myState}) => {
                     <div className='message-avatar' style={styles.messageAvatar}>
                       <img
                         className='message-header-avatar'
-                        src={`avatars/${messages[i].userSendingMessageType}/${messages[i].imgId}.jpg`}
+                        src={`http://res.cloudinary.com/raise-the-bar/image/upload/${messages[i].imgId}.jpg`}
                         style={styles.avatarImage}
                       />
                     </div>
@@ -178,7 +178,7 @@ const Inbox = ({myState}) => {
               style={styles.user}
               key={message.id}
             >
-              <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`avatars/${message.userSendingMessageType}/${message.imgId}.jpg`}/></div>
+              <div className='avatar' style={styles.avatarContainer}><img style={styles.avatar} className='user-photo' src={`http://res.cloudinary.com/raise-the-bar/image/upload/${message.imgId}.jpg`}/></div>
               <div className='message-container' style={styles.messageContainer}>
                 <div
                   style={{float: 'right', cursor: 'pointer'}}
@@ -269,7 +269,7 @@ const styles = {
   avatarContainer: {
     height: '100%',
     display: 'inline-block',
-    width: '30%',
+    width: '23%',
     verticalAlign: 'top'
   },
   messageContainer: {
