@@ -143,18 +143,23 @@ const Inbox = ({myState}) => {
                 This action can't be undone.
                 </p>
                 <RaisedButton
+                  primary={true}
+                  labelColor='white'
                   onTouchTap={() => {
                       store.dispatch({type: HIDE_DELETE_MESSAGE_MODAL, messages, messageId});
                       store.dispatch(deleteMessage(messageId));
                     }
                   }
                   style={{paddingLeft: '5px'}}
+                  buttonStyle={{color: '#fff'}}
                 >
                   Proceed
                 </RaisedButton>
                 <RaisedButton
+                  primary={true}
                   onTouchTap={() => store.dispatch({type: CANCEL_DELETE_MESSAGE_MODAL})}
                   style={{paddingLeft: '5px'}}
+                  buttonStyle={{color: '#fff'}}
                 >
                   Cancel
                 </RaisedButton>
